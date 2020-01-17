@@ -4,8 +4,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Queue", "Queue\Queue.csproj", "{42E49F78-D977-475A-9B46-61F13385DA50}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23013BFC-021E-426A-8A92-8C1C34836974} = {23013BFC-021E-426A-8A92-8C1C34836974}
+	EndProjectSection
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QueueInstaller", "QueueInstaller\QueueInstaller.vdproj", "{F633CA56-35DD-4B82-8DEF-9F1AE0B8B9DF}"
+	ProjectSection(ProjectDependencies) = postProject
+		{23013BFC-021E-426A-8A92-8C1C34836974} = {23013BFC-021E-426A-8A92-8C1C34836974}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIBUtil", "..\..\LIBUtil\LIBUtil\LIBUtil\LIBUtil.csproj", "{23013BFC-021E-426A-8A92-8C1C34836974}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +27,10 @@ Global
 		{42E49F78-D977-475A-9B46-61F13385DA50}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F633CA56-35DD-4B82-8DEF-9F1AE0B8B9DF}.Debug|Any CPU.ActiveCfg = Debug
 		{F633CA56-35DD-4B82-8DEF-9F1AE0B8B9DF}.Release|Any CPU.ActiveCfg = Release
+		{23013BFC-021E-426A-8A92-8C1C34836974}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23013BFC-021E-426A-8A92-8C1C34836974}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23013BFC-021E-426A-8A92-8C1C34836974}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23013BFC-021E-426A-8A92-8C1C34836974}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
