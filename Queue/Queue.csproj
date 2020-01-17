@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{42E49F78-D977-475A-9B46-61F13385DA50}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Queue</RootNamespace>
+    <AssemblyName>Queue</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\Logo\Q.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Helper.cs" />
+    <Compile Include="Classes\CounterAddress.cs" />
+    <Compile Include="Classes\Queues.cs" />
+    <Compile Include="Classes\QueueCategory.cs" />
+    <Compile Include="Classes\Settings.cs" />
+    <Compile Include="Main_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Main_Form.Designer.cs">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MasterData_v1_CounterAddresses_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterData_v1_CounterAddresses_Form.Designer.cs">
+      <DependentUpon>MasterData_v1_CounterAddresses_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MasterData_v1_QueueCategories_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MasterData_v1_QueueCategories_Form.Designer.cs">
+      <DependentUpon>MasterData_v1_QueueCategories_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Queue_Display_Master_v1_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue_Display_Master_v1_Form.Designer.cs">
+      <DependentUpon>Queue_Display_Master_v1_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Queue_Caller_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue_Caller_Form.Designer.cs">
+      <DependentUpon>Queue_Caller_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Queue_Display_v1_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue_Display_v1_Form.Designer.cs">
+      <DependentUpon>Queue_Display_v1_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Queue_Display_v2_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue_Display_v2_Form.Designer.cs">
+      <DependentUpon>Queue_Display_v2_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Queue_Request_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Queue_Request_Form.Designer.cs">
+      <DependentUpon>Queue_Request_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Settings_Form.Designer.cs">
+      <DependentUpon>Settings_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Clock.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\Clock.Designer.cs">
+      <DependentUpon>Clock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CounterCallStatus_v2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CounterCallStatus_v2.Designer.cs">
+      <DependentUpon>CounterCallStatus_v2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\CounterCallStatus.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\CounterCallStatus.Designer.cs">
+      <DependentUpon>CounterCallStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RollingText.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UserControls\RollingText.Designer.cs">
+      <DependentUpon>RollingText.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Main_Form.resx">
+      <DependentUpon>Main_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterData_v1_CounterAddresses_Form.resx">
+      <DependentUpon>MasterData_v1_CounterAddresses_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MasterData_v1_QueueCategories_Form.resx">
+      <DependentUpon>MasterData_v1_QueueCategories_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queue_Display_Master_v1_Form.resx">
+      <DependentUpon>Queue_Display_Master_v1_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queue_Caller_Form.resx">
+      <DependentUpon>Queue_Caller_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queue_Display_v1_Form.resx">
+      <DependentUpon>Queue_Display_v1_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queue_Display_v2_Form.resx">
+      <DependentUpon>Queue_Display_v2_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Queue_Request_Form.resx">
+      <DependentUpon>Queue_Request_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Settings_Form.resx">
+      <DependentUpon>Settings_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\Clock.resx">
+      <DependentUpon>Clock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\CounterCallStatus_v2.resx">
+      <DependentUpon>CounterCallStatus_v2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\CounterCallStatus.resx">
+      <DependentUpon>CounterCallStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UserControls\RollingText.resx">
+      <DependentUpon>RollingText.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Documentation\Documentation.txt" />
+    <Content Include="Images\Logo\Q_128.png" />
+    <Content Include="Images\Logo\Q_16.png" />
+    <Content Include="Images\Logo\Q_256.png" />
+    <Content Include="Images\Logo\Q_32.png" />
+    <Content Include="Images\Logo\Q_48.png" />
+    <Content Include="Images\Logo\Q_64.png" />
+    <Content Include="Images\Logo\Q_72.png" />
+    <Content Include="Images\Logo\Q_96.png" />
+    <None Include="Resources\lock.png" />
+    <None Include="Resources\unlock.png" />
+    <Content Include="Sounds\Notification.mp3" />
+    <Content Include="Sounds\Notification.wav" />
+    <EmbeddedResource Include="Images\Logo\Q.ico" />
+    <None Include="Resources\gear-black.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

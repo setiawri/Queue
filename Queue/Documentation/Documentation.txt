@@ -1,0 +1,87 @@
+﻿
+DELETE Queues
+GO
+
+ALTER TABLE Queues ADD CounterAddresses_Id uniqueidentifier
+GO
+
+ALTER PROCEDURE [dbo].[Queues_call]
+
+	@Id uniqueidentifier,
+	@CounterAddresses_Id uniqueidentifier
+
+AS
+
+BEGIN
+
+	UPDATE Queues SET
+		CallTimestamp = CURRENT_TIMESTAMP,
+		CounterAddresses_Id = @CounterAddresses_Id
+	WHERE Id = @Id
+
+END
+GO
+
+ALTER PROCEDURE [dbo].[Queues_callNext]
+
+	@QueueCategories_Id uniqueidentifier,
+	@CounterAddresses_Id uniqueidentifier,
+	@Queues_No varchar(MAX) = NULL OUTPUT
+
+AS
+
+BEGIN
+
+	DECLARE @NextId uniqueidentifier
+	SELECT TOP 1 @NextId = Queues.Id
+	FROM Queues
+	WHERE Queues.QueueCategories_Id = @QueueCategories_Id AND Queues.CallTimestamp IS NULL
+	ORDER BY No ASC
+	
+	IF @NextId IS NOT NULL
+	BEGIN
+		EXECUTE Queues_call @NextId, @CounterAddresses_Id
+
+		SELECT @Queues_No = CONVERT(varchar, QueueCategories.Code) + CONVERT(varchar, Queues.No)
+		FROM Queues 
+			LEFT OUTER JOIN QueueCategories ON QueueCategories.Id = Queues.QueueCategories_Id 
+		WHERE Queues.Id = @NextId
+	END
+
+END
+GO
+
+ALTER TABLE Queues DROP COLUMN Destination
+GO
+
+ALTER PROCEDURE [dbo].[Queues_get]
+
+	@Id uniqueidentifier = NULL,
+	@QueueCategories_Id uniqueidentifier = NULL,
+	@FILTER_CalledOnly bit = 0,
+	@FILTER_TopCount int = NULL
+	
+AS
+
+BEGIN
+
+	-- provide top count
+	DECLARE @TopCount int
+	IF @FILTER_TopCount IS NULL
+		SELECT @TopCount = Count(Id) FROM Queues
+	ELSE
+		SET @TopCount = @FILTER_TopCount
+
+	SELECT TOP(@TopCount) Queues.*,
+		CONVERT(varchar, QueueCategories.Code) + CONVERT(varchar, Queues.No) AS CallNo,
+		CounterAddresses.Name AS CounterAddresses_Name
+	FROM Queues 
+		LEFT OUTER JOIN QueueCategories ON QueueCategories.Id = Queues.QueueCategories_Id
+		LEFT OUTER JOIN CounterAddresses ON CounterAddresses.Id = Queues.CounterAddresses_Id
+	WHERE 1=1
+		AND (@FILTER_CalledOnly = 0 OR CallTimestamp IS NOT NULL)
+	ORDER BY Queues.CallTimestamp DESC
+
+END
+GO
+
