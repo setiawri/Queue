@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using LIBUtil;
@@ -40,7 +33,7 @@ namespace Queue
         {
             InitializeComponent();
 
-            setupControls();
+            //setupControls();
         }
 
         #endregion CONSTRUCTOR METHODS
@@ -65,31 +58,14 @@ namespace Queue
 
             if (!DBConnection.hasDBConnection)
             {
-                gbRollingText.Enabled = false;
-                btnCounterAddresses.Enabled = false;
-                btnResetQueues.Enabled = false;
-                btnUpdateCategories.Enabled = false;
-                gbRefreshInterval.Enabled = false;
-                gbPrinterSettings.Enabled = false;
-                gbHeaderText.Enabled = false;
-                gbAdsFolder.Enabled = false;
-                gbInterval.Enabled = false;
-                gbSpeed.Enabled = false;
-
                 //Util.displayMessageBoxError("Koneksi ke database tidak berhasil. Silahkan coba lagi atau perbaiki informasi koneksi.");
+
+                Util.enableControls(false, tpSounds, tpGeneral, tpMasterData, tpPrinter);
+                tcSettings.SelectedTab = tpDatabase;
             }
             else
             {
-                gbRollingText.Enabled = true;
-                btnCounterAddresses.Enabled = true;
-                btnResetQueues.Enabled = true;
-                btnUpdateCategories.Enabled = true;
-                gbRefreshInterval.Enabled = true;
-                gbPrinterSettings.Enabled = true;
-                gbHeaderText.Enabled = true;
-                gbAdsFolder.Enabled = true;
-                gbInterval.Enabled = true;
-                gbSpeed.Enabled = true;
+                Util.enableControls(true, tpSounds, tpGeneral, tpMasterData, tpPrinter);
             }
         }
 
@@ -108,7 +84,13 @@ namespace Queue
                 txtAdsFolder.Text = Settings.AdFolder;
 
                 gridPrintLayout.DataSource = PrintLayout.get(null);
-                txtPrintAreaWidth.Text = Settings.PrintAreaWidth.ToString();
+                in_PrintAreaWidth.Value = Settings.PrintAreaWidth;
+                in_PrintQty.Value = Settings.PrintQty;
+
+                txtSoundFolder.Text = Settings.SoundFolder;
+                txtTransitionSoundFilepath.Text = Settings.TransitionSoundFile;
+                chkCounter.Checked = Settings.PlayCounter;
+                chkNotificationSound.Checked = Settings.PlayNotificationSound;
             }
         }
 
@@ -213,11 +195,10 @@ namespace Queue
 
         private void btnSavePrinterSettings_Click(object sender, EventArgs e)
         {
-            Util.sanitize(txtPrintAreaWidth);
-
             if(isInputValid())
             {
-                Settings.PrintAreaWidth = Convert.ToInt32(txtPrintAreaWidth.Text);
+                Settings.PrintAreaWidth = in_PrintAreaWidth.ValueInt;
+                Settings.PrintQty = in_PrintQty.ValueInt;
 
                 using (System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(DBConnection.ConnectionString))
                 {
@@ -239,10 +220,6 @@ namespace Queue
 
         private bool isInputValid()
         {
-
-            if (string.IsNullOrEmpty(txtPrintAreaWidth.Text) || !Util.isNumeric(txtPrintAreaWidth.Text))
-                return Util.inputError<TextBox>(txtPrintAreaWidth, "Invalid Lebar Kertas");
-           
             return true;
         }
 
@@ -333,6 +310,41 @@ namespace Queue
         {
             Settings.HeaderText = txtHeaderText.Text;
             Util.displayMessageBoxSuccess("Saved");
+        }
+
+        private void Settings_Form_Shown(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtSoundFolder_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new FolderBrowserDialog())
+            {
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                    txtSoundFolder.Text = Settings.SoundFolder = dialog.SelectedPath;
+            }
+        }
+
+        private void txtFilepathForTransitionSound_Click(object sender, EventArgs e)
+        {
+            using (var dialog = new OpenFileDialog())
+            {
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.FileName))
+                    txtTransitionSoundFilepath.Text = Settings.TransitionSoundFile = dialog.FileName;
+            }
+        }
+
+        private void ChkNotificationSound_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.PlayNotificationSound = chkNotificationSound.Checked;
+        }
+
+        private void ChkCounter_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.PlayCounter = chkCounter.Checked;
         }
 
         #endregion EVENT HANDLERS

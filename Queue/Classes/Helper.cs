@@ -49,7 +49,7 @@ namespace Queue
 
         public static string printReceipt(string callNo)
         {
-            LIBUtil.Desktop.Classes.ReceiptPrinter.print(Settings.PrintAreaWidth, callNo);
+            LIBUtil.Desktop.Classes.ReceiptPrinter.print(Settings.PrintAreaWidth, callNo, Settings.PrintQty);
             return callNo;
         }
         

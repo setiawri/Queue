@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 using LIBUtil;
 
@@ -24,6 +22,10 @@ namespace Queue
         //ADS
         private string[] _adsFolder = null;
         private int currentAdIndex = -1;
+
+        //Call Queue
+        private static string _CALL_QueueNumber;
+        private static string _CALL_CounterName;
 
         #endregion SETTINGS
         /*******************************************************************************************************/
@@ -126,15 +128,65 @@ namespace Queue
                 //if (dgv.Rows.Count > 1)
                 //    dgv.Rows[1].DefaultCellStyle.ForeColor = dgv.DefaultCellStyle.ForeColor;
 
-                newCalledId = (Guid)datatable.Rows[0][Queues.COL_DB_Id];
+                DataRow row = datatable.Rows[0];
+                newCalledId = (Guid)row[Queues.COL_DB_Id];
                 if (_lastCalledId != newCalledId)
                 {
-                    _lastCalledId = newCalledId;
-                    Settings.notificationSound.Play();
-
                     showLargeCallDisplay(datatable.Rows[0]);
+
+                    _lastCalledId = newCalledId;
+                    _CALL_QueueNumber = row[Queues.COL_CallNo].ToString();
+                    _CALL_CounterName = row[Queues.COL_CounterAddresses_Name].ToString();
+                    bgwCaller.RunWorkerAsync();
                 }
             }
+        }
+        
+        private void playCallSound(string queueNumber, string counterName)
+        {
+            if (queueNumber == "")
+                return;
+
+            //generate sound list
+            List<SoundPlayer> soundList = new List<SoundPlayer>();
+            bool cancelPlaySound = false;
+            string filepath = "";
+
+            if (Settings.PlayNotificationSound)
+                soundList.Add(Settings.notificationSound);
+
+            foreach (char letter in queueNumber.ToCharArray())
+            {
+                filepath = string.Format(@"{0}\{1}.wav", Settings.SoundFolder, letter);
+                if (!cancelPlaySound && File.Exists(filepath))
+                    soundList.Add(new SoundPlayer(filepath));
+                else
+                    cancelPlaySound = true;
+            }
+
+            if (Settings.PlayCounter && !cancelPlaySound && File.Exists(Settings.TransitionSoundFile))
+            {
+                if (!File.Exists(Settings.TransitionSoundFile))
+                    cancelPlaySound = true;
+                else
+                {
+                    soundList.Add(new SoundPlayer(Settings.TransitionSoundFile));
+
+                    //add counter sound
+                    filepath = string.Format(@"{0}\{1}.wav", Settings.SoundFolder, counterName);
+                    if (!File.Exists(filepath))
+                        cancelPlaySound = true;
+                    else
+                        soundList.Add(new SoundPlayer(string.Format(@"{0}\{1}.wav", Settings.SoundFolder, counterName)));
+                }
+            }
+
+            //Play sound
+            if (cancelPlaySound)
+                Settings.notificationSound.PlaySync();
+            else
+                foreach (SoundPlayer sound in soundList)
+                    sound.PlaySync();
         }
 
         private bool isAdFolderExists()
@@ -220,9 +272,6 @@ namespace Queue
         {
             setupControls();
             populateData();
-            timerRefreshInterval.Start();
-            rollingText1.Start(Settings.RollingText, Settings.RollingTextSpeed, Settings.ROLLINGTEXTTIMERINTERVAL);
-            clock1.Start(30000, ContentAlignment.MiddleRight, "{0:dddd, dd/MM/yy HH:mm}");
         }
 
         private void timerAds_Tick(object sender, EventArgs e)
@@ -233,6 +282,19 @@ namespace Queue
         private void timerRefreshInterval_Tick(object sender, EventArgs e)
         {
             populateDgvQueue();
+        }
+
+        private void Form_Shown(object sender, EventArgs e)
+        {
+            timerRefreshInterval.Start();
+            rollingText1.Start(Settings.RollingText, Settings.RollingTextSpeed, Settings.ROLLINGTEXTTIMERINTERVAL);
+            clock1.Start(30000, ContentAlignment.MiddleRight, "{0:dddd, dd/MM/yy HH:mm}");
+        }
+
+        private void BgwCaller_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            playCallSound(_CALL_QueueNumber, _CALL_CounterName);
+            _CALL_CounterName = _CALL_QueueNumber = "";
         }
 
         #endregion EVENT HANDLERS

@@ -38,15 +38,12 @@
             this.lblRefreshInterval = new System.Windows.Forms.Label();
             this.btnDecreaseRefreshInterval = new System.Windows.Forms.Button();
             this.btnIncreaseRefreshInterval = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnSaveDatabaseInfo = new System.Windows.Forms.Button();
-            this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
             this.gbPrinterSettings = new System.Windows.Forms.GroupBox();
+            this.in_PrintAreaWidth = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
+            this.in_PrintQty = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddPrintLine = new System.Windows.Forms.Button();
-            this.label2 = new System.Windows.Forms.Label();
-            this.txtPrintAreaWidth = new System.Windows.Forms.TextBox();
             this.btnTestPrinter = new System.Windows.Forms.Button();
             this.gridPrintLayout = new System.Windows.Forms.DataGridView();
             this.col_gridPrintLayout_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,8 +71,22 @@
             this.gbHeaderText = new System.Windows.Forms.GroupBox();
             this.btnSaveHeaderText = new System.Windows.Forms.Button();
             this.txtHeaderText = new System.Windows.Forms.TextBox();
+            this.tcSettings = new System.Windows.Forms.TabControl();
+            this.tpGeneral = new System.Windows.Forms.TabPage();
+            this.tpMasterData = new System.Windows.Forms.TabPage();
+            this.tpPrinter = new System.Windows.Forms.TabPage();
+            this.tpSounds = new System.Windows.Forms.TabPage();
+            this.tpDatabase = new System.Windows.Forms.TabPage();
+            this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.chkNotificationSound = new System.Windows.Forms.CheckBox();
+            this.chkCounter = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.txtSoundFolder = new System.Windows.Forms.TextBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtTransitionSoundFilepath = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.gbRefreshInterval.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.gbPrinterSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).BeginInit();
             this.gbRollingText.SuspendLayout();
@@ -83,12 +94,20 @@
             this.gbAdsFolder.SuspendLayout();
             this.gbInterval.SuspendLayout();
             this.gbHeaderText.SuspendLayout();
+            this.tcSettings.SuspendLayout();
+            this.tpGeneral.SuspendLayout();
+            this.tpMasterData.SuspendLayout();
+            this.tpPrinter.SuspendLayout();
+            this.tpSounds.SuspendLayout();
+            this.tpDatabase.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnResetQueues
             // 
             this.btnResetQueues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetQueues.Location = new System.Drawing.Point(12, 135);
+            this.btnResetQueues.Location = new System.Drawing.Point(6, 130);
             this.btnResetQueues.Name = "btnResetQueues";
             this.btnResetQueues.Size = new System.Drawing.Size(157, 56);
             this.btnResetQueues.TabIndex = 0;
@@ -99,7 +118,7 @@
             // btnUpdateCategories
             // 
             this.btnUpdateCategories.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateCategories.Location = new System.Drawing.Point(12, 275);
+            this.btnUpdateCategories.Location = new System.Drawing.Point(6, 68);
             this.btnUpdateCategories.Name = "btnUpdateCategories";
             this.btnUpdateCategories.Size = new System.Drawing.Size(157, 56);
             this.btnUpdateCategories.TabIndex = 2;
@@ -110,7 +129,7 @@
             // btnCounterAddresses
             // 
             this.btnCounterAddresses.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCounterAddresses.Location = new System.Drawing.Point(12, 205);
+            this.btnCounterAddresses.Location = new System.Drawing.Point(6, 6);
             this.btnCounterAddresses.Name = "btnCounterAddresses";
             this.btnCounterAddresses.Size = new System.Drawing.Size(157, 56);
             this.btnCounterAddresses.TabIndex = 1;
@@ -123,17 +142,18 @@
             this.gbRefreshInterval.Controls.Add(this.lblRefreshInterval);
             this.gbRefreshInterval.Controls.Add(this.btnDecreaseRefreshInterval);
             this.gbRefreshInterval.Controls.Add(this.btnIncreaseRefreshInterval);
-            this.gbRefreshInterval.Location = new System.Drawing.Point(183, 134);
+            this.gbRefreshInterval.Location = new System.Drawing.Point(8, 136);
             this.gbRefreshInterval.Name = "gbRefreshInterval";
-            this.gbRefreshInterval.Size = new System.Drawing.Size(173, 56);
+            this.gbRefreshInterval.Size = new System.Drawing.Size(141, 56);
             this.gbRefreshInterval.TabIndex = 5;
             this.gbRefreshInterval.TabStop = false;
-            this.gbRefreshInterval.Text = "Refresh interval (detik)";
+            this.gbRefreshInterval.Text = "Data Refresh Interval (s)";
             // 
             // lblRefreshInterval
             // 
+            this.lblRefreshInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lblRefreshInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRefreshInterval.Location = new System.Drawing.Point(72, 21);
+            this.lblRefreshInterval.Location = new System.Drawing.Point(56, 21);
             this.lblRefreshInterval.Name = "lblRefreshInterval";
             this.lblRefreshInterval.Size = new System.Drawing.Size(30, 25);
             this.lblRefreshInterval.TabIndex = 20;
@@ -142,8 +162,9 @@
             // 
             // btnDecreaseRefreshInterval
             // 
+            this.btnDecreaseRefreshInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnDecreaseRefreshInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDecreaseRefreshInterval.Location = new System.Drawing.Point(46, 21);
+            this.btnDecreaseRefreshInterval.Location = new System.Drawing.Point(30, 21);
             this.btnDecreaseRefreshInterval.Name = "btnDecreaseRefreshInterval";
             this.btnDecreaseRefreshInterval.Size = new System.Drawing.Size(25, 25);
             this.btnDecreaseRefreshInterval.TabIndex = 22;
@@ -153,8 +174,9 @@
             // 
             // btnIncreaseRefreshInterval
             // 
+            this.btnIncreaseRefreshInterval.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.btnIncreaseRefreshInterval.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIncreaseRefreshInterval.Location = new System.Drawing.Point(101, 21);
+            this.btnIncreaseRefreshInterval.Location = new System.Drawing.Point(85, 21);
             this.btnIncreaseRefreshInterval.Name = "btnIncreaseRefreshInterval";
             this.btnIncreaseRefreshInterval.Size = new System.Drawing.Size(25, 25);
             this.btnIncreaseRefreshInterval.TabIndex = 21;
@@ -162,22 +184,10 @@
             this.btnIncreaseRefreshInterval.UseVisualStyleBackColor = true;
             this.btnIncreaseRefreshInterval.Click += new System.EventHandler(this.btnIncreaseRefreshInterval_Click);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnSaveDatabaseInfo);
-            this.groupBox1.Controls.Add(this.itxt_DatabaseName);
-            this.groupBox1.Controls.Add(this.itxt_ServerName);
-            this.groupBox1.Location = new System.Drawing.Point(183, 196);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(173, 135);
-            this.groupBox1.TabIndex = 6;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Database";
-            // 
             // btnSaveDatabaseInfo
             // 
             this.btnSaveDatabaseInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveDatabaseInfo.Location = new System.Drawing.Point(54, 101);
+            this.btnSaveDatabaseInfo.Location = new System.Drawing.Point(58, 102);
             this.btnSaveDatabaseInfo.Name = "btnSaveDatabaseInfo";
             this.btnSaveDatabaseInfo.Size = new System.Drawing.Size(64, 26);
             this.btnSaveDatabaseInfo.TabIndex = 5;
@@ -185,58 +195,92 @@
             this.btnSaveDatabaseInfo.UseVisualStyleBackColor = true;
             this.btnSaveDatabaseInfo.Click += new System.EventHandler(this.btnSaveDatabaseInfo_Click);
             // 
-            // itxt_DatabaseName
-            // 
-            this.itxt_DatabaseName.IsBrowseMode = false;
-            this.itxt_DatabaseName.LabelText = "Database Name";
-            this.itxt_DatabaseName.Location = new System.Drawing.Point(11, 60);
-            this.itxt_DatabaseName.MaxLength = 32767;
-            this.itxt_DatabaseName.MultiLine = false;
-            this.itxt_DatabaseName.Name = "itxt_DatabaseName";
-            this.itxt_DatabaseName.PasswordChar = '\0';
-            this.itxt_DatabaseName.RowCount = 1;
-            this.itxt_DatabaseName.ShowDeleteButton = false;
-            this.itxt_DatabaseName.ShowFilter = false;
-            this.itxt_DatabaseName.ShowTextboxOnly = false;
-            this.itxt_DatabaseName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_DatabaseName.TabIndex = 1;
-            this.itxt_DatabaseName.ValueText = "";
-            // 
-            // itxt_ServerName
-            // 
-            this.itxt_ServerName.IsBrowseMode = false;
-            this.itxt_ServerName.LabelText = "Server Name";
-            this.itxt_ServerName.Location = new System.Drawing.Point(11, 19);
-            this.itxt_ServerName.MaxLength = 32767;
-            this.itxt_ServerName.MultiLine = false;
-            this.itxt_ServerName.Name = "itxt_ServerName";
-            this.itxt_ServerName.PasswordChar = '\0';
-            this.itxt_ServerName.RowCount = 1;
-            this.itxt_ServerName.ShowDeleteButton = false;
-            this.itxt_ServerName.ShowFilter = false;
-            this.itxt_ServerName.ShowTextboxOnly = false;
-            this.itxt_ServerName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_ServerName.TabIndex = 0;
-            this.itxt_ServerName.ValueText = "";
-            // 
             // gbPrinterSettings
             // 
             this.gbPrinterSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.gbPrinterSettings.Controls.Add(this.in_PrintAreaWidth);
+            this.gbPrinterSettings.Controls.Add(this.in_PrintQty);
             this.gbPrinterSettings.Controls.Add(this.label4);
             this.gbPrinterSettings.Controls.Add(this.btnAddPrintLine);
-            this.gbPrinterSettings.Controls.Add(this.label2);
-            this.gbPrinterSettings.Controls.Add(this.txtPrintAreaWidth);
             this.gbPrinterSettings.Controls.Add(this.btnTestPrinter);
             this.gbPrinterSettings.Controls.Add(this.gridPrintLayout);
             this.gbPrinterSettings.Controls.Add(this.btnSavePrinterSettings);
-            this.gbPrinterSettings.Location = new System.Drawing.Point(12, 336);
+            this.gbPrinterSettings.Location = new System.Drawing.Point(3, 3);
             this.gbPrinterSettings.Name = "gbPrinterSettings";
-            this.gbPrinterSettings.Size = new System.Drawing.Size(344, 190);
+            this.gbPrinterSettings.Size = new System.Drawing.Size(348, 241);
             this.gbPrinterSettings.TabIndex = 7;
             this.gbPrinterSettings.TabStop = false;
             this.gbPrinterSettings.Text = "Printer Settings";
+            // 
+            // in_PrintAreaWidth
+            // 
+            this.in_PrintAreaWidth.Checked = false;
+            this.in_PrintAreaWidth.DecimalPlaces = 0;
+            this.in_PrintAreaWidth.HideUpDown = false;
+            this.in_PrintAreaWidth.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.LabelText = "Lebar kertas";
+            this.in_PrintAreaWidth.Location = new System.Drawing.Point(156, 194);
+            this.in_PrintAreaWidth.MaximumValue = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.Name = "in_PrintAreaWidth";
+            this.in_PrintAreaWidth.ShowAllowDecimalCheckbox = false;
+            this.in_PrintAreaWidth.ShowCheckbox = false;
+            this.in_PrintAreaWidth.ShowTextboxOnly = false;
+            this.in_PrintAreaWidth.Size = new System.Drawing.Size(78, 41);
+            this.in_PrintAreaWidth.TabIndex = 14;
+            this.in_PrintAreaWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // in_PrintQty
+            // 
+            this.in_PrintQty.Checked = false;
+            this.in_PrintQty.DecimalPlaces = 0;
+            this.in_PrintQty.HideUpDown = false;
+            this.in_PrintQty.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.LabelText = "Qty print";
+            this.in_PrintQty.Location = new System.Drawing.Point(78, 194);
+            this.in_PrintQty.MaximumValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.in_PrintQty.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.Name = "in_PrintQty";
+            this.in_PrintQty.ShowAllowDecimalCheckbox = false;
+            this.in_PrintQty.ShowCheckbox = false;
+            this.in_PrintQty.ShowTextboxOnly = false;
+            this.in_PrintQty.Size = new System.Drawing.Size(72, 41);
+            this.in_PrintQty.TabIndex = 13;
+            this.in_PrintQty.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label4
             // 
@@ -252,39 +296,20 @@
             // btnAddPrintLine
             // 
             this.btnAddPrintLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddPrintLine.Location = new System.Drawing.Point(6, 161);
+            this.btnAddPrintLine.Location = new System.Drawing.Point(6, 194);
             this.btnAddPrintLine.Name = "btnAddPrintLine";
-            this.btnAddPrintLine.Size = new System.Drawing.Size(66, 23);
+            this.btnAddPrintLine.Size = new System.Drawing.Size(66, 41);
             this.btnAddPrintLine.TabIndex = 9;
             this.btnAddPrintLine.Text = "ADD LINE";
             this.btnAddPrintLine.UseVisualStyleBackColor = true;
             this.btnAddPrintLine.Click += new System.EventHandler(this.btnAddPrintLine_Click);
             // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(79, 166);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(62, 13);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "lebar kertas";
-            // 
-            // txtPrintAreaWidth
-            // 
-            this.txtPrintAreaWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPrintAreaWidth.Location = new System.Drawing.Point(141, 163);
-            this.txtPrintAreaWidth.Name = "txtPrintAreaWidth";
-            this.txtPrintAreaWidth.Size = new System.Drawing.Size(45, 20);
-            this.txtPrintAreaWidth.TabIndex = 8;
-            // 
             // btnTestPrinter
             // 
             this.btnTestPrinter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestPrinter.Location = new System.Drawing.Point(255, 161);
+            this.btnTestPrinter.Location = new System.Drawing.Point(236, 194);
             this.btnTestPrinter.Name = "btnTestPrinter";
-            this.btnTestPrinter.Size = new System.Drawing.Size(83, 23);
+            this.btnTestPrinter.Size = new System.Drawing.Size(106, 41);
             this.btnTestPrinter.TabIndex = 2;
             this.btnTestPrinter.Text = "TEST PRINT";
             this.btnTestPrinter.UseVisualStyleBackColor = true;
@@ -314,7 +339,7 @@
             this.gridPrintLayout.Name = "gridPrintLayout";
             this.gridPrintLayout.RowHeadersVisible = false;
             this.gridPrintLayout.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrintLayout.Size = new System.Drawing.Size(332, 123);
+            this.gridPrintLayout.Size = new System.Drawing.Size(336, 157);
             this.gridPrintLayout.TabIndex = 1;
             this.gridPrintLayout.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridPrintLayout_CellContentClick);
             this.gridPrintLayout.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrintLayout_CellMouseDown);
@@ -397,9 +422,9 @@
             // btnSavePrinterSettings
             // 
             this.btnSavePrinterSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSavePrinterSettings.Location = new System.Drawing.Point(192, 161);
+            this.btnSavePrinterSettings.Location = new System.Drawing.Point(163, 194);
             this.btnSavePrinterSettings.Name = "btnSavePrinterSettings";
-            this.btnSavePrinterSettings.Size = new System.Drawing.Size(57, 23);
+            this.btnSavePrinterSettings.Size = new System.Drawing.Size(67, 41);
             this.btnSavePrinterSettings.TabIndex = 0;
             this.btnSavePrinterSettings.Text = "SAVE";
             this.btnSavePrinterSettings.UseVisualStyleBackColor = true;
@@ -416,18 +441,21 @@
             // 
             // txtRollingText
             // 
+            this.txtRollingText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtRollingText.Location = new System.Drawing.Point(2, 15);
             this.txtRollingText.Name = "txtRollingText";
-            this.txtRollingText.Size = new System.Drawing.Size(220, 20);
+            this.txtRollingText.Size = new System.Drawing.Size(211, 20);
             this.txtRollingText.TabIndex = 14;
             this.txtRollingText.MouseLeave += new System.EventHandler(this.txtRollingText_MouseLeave);
             this.txtRollingText.MouseHover += new System.EventHandler(this.txtRollingText_MouseHover);
             // 
             // btnSaveRollingText
             // 
-            this.btnSaveRollingText.Location = new System.Drawing.Point(223, 15);
+            this.btnSaveRollingText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnSaveRollingText.Location = new System.Drawing.Point(213, 14);
             this.btnSaveRollingText.Name = "btnSaveRollingText";
-            this.btnSaveRollingText.Size = new System.Drawing.Size(43, 20);
+            this.btnSaveRollingText.Size = new System.Drawing.Size(49, 22);
             this.btnSaveRollingText.TabIndex = 15;
             this.btnSaveRollingText.Text = "SAVE";
             this.btnSaveRollingText.UseVisualStyleBackColor = true;
@@ -435,11 +463,13 @@
             // 
             // gbRollingText
             // 
+            this.gbRollingText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbRollingText.Controls.Add(this.btnSaveRollingText);
             this.gbRollingText.Controls.Add(this.txtRollingText);
-            this.gbRollingText.Location = new System.Drawing.Point(12, 48);
+            this.gbRollingText.Location = new System.Drawing.Point(6, 49);
             this.gbRollingText.Name = "gbRollingText";
-            this.gbRollingText.Size = new System.Drawing.Size(268, 40);
+            this.gbRollingText.Size = new System.Drawing.Size(264, 40);
             this.gbRollingText.TabIndex = 13;
             this.gbRollingText.TabStop = false;
             this.gbRollingText.Text = "Rolling Text";
@@ -468,10 +498,11 @@
             // 
             // gbSpeed
             // 
+            this.gbSpeed.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbSpeed.Controls.Add(this.lblRollingTextSpeed);
             this.gbSpeed.Controls.Add(this.btnRollingTextSpeedDown);
             this.gbSpeed.Controls.Add(this.btnRollingTextSpeedUp);
-            this.gbSpeed.Location = new System.Drawing.Point(286, 48);
+            this.gbSpeed.Location = new System.Drawing.Point(276, 49);
             this.gbSpeed.Name = "gbSpeed";
             this.gbSpeed.Size = new System.Drawing.Size(70, 40);
             this.gbSpeed.TabIndex = 14;
@@ -480,10 +511,12 @@
             // 
             // gbAdsFolder
             // 
+            this.gbAdsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbAdsFolder.Controls.Add(this.txtAdsFolder);
-            this.gbAdsFolder.Location = new System.Drawing.Point(14, 89);
+            this.gbAdsFolder.Location = new System.Drawing.Point(6, 90);
             this.gbAdsFolder.Name = "gbAdsFolder";
-            this.gbAdsFolder.Size = new System.Drawing.Size(266, 40);
+            this.gbAdsFolder.Size = new System.Drawing.Size(264, 40);
             this.gbAdsFolder.TabIndex = 15;
             this.gbAdsFolder.TabStop = false;
             this.gbAdsFolder.Text = "Ad Folder";
@@ -492,18 +525,19 @@
             // 
             this.txtAdsFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtAdsFolder.Location = new System.Drawing.Point(0, 15);
+            this.txtAdsFolder.Location = new System.Drawing.Point(2, 15);
             this.txtAdsFolder.Name = "txtAdsFolder";
-            this.txtAdsFolder.Size = new System.Drawing.Size(264, 20);
+            this.txtAdsFolder.Size = new System.Drawing.Size(260, 20);
             this.txtAdsFolder.TabIndex = 14;
             this.txtAdsFolder.Click += new System.EventHandler(this.txtAdsFolder_Click);
             // 
             // gbInterval
             // 
+            this.gbInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.gbInterval.Controls.Add(this.lblAdInterval);
             this.gbInterval.Controls.Add(this.btnAdIntervalSpeedDown);
             this.gbInterval.Controls.Add(this.btnAdIntervalSpeedUp);
-            this.gbInterval.Location = new System.Drawing.Point(286, 89);
+            this.gbInterval.Location = new System.Drawing.Point(276, 90);
             this.gbInterval.Name = "gbInterval";
             this.gbInterval.Size = new System.Drawing.Size(70, 40);
             this.gbInterval.TabIndex = 20;
@@ -543,11 +577,13 @@
             // 
             // gbHeaderText
             // 
+            this.gbHeaderText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.gbHeaderText.Controls.Add(this.btnSaveHeaderText);
             this.gbHeaderText.Controls.Add(this.txtHeaderText);
-            this.gbHeaderText.Location = new System.Drawing.Point(12, 5);
+            this.gbHeaderText.Location = new System.Drawing.Point(6, 6);
             this.gbHeaderText.Name = "gbHeaderText";
-            this.gbHeaderText.Size = new System.Drawing.Size(344, 40);
+            this.gbHeaderText.Size = new System.Drawing.Size(340, 40);
             this.gbHeaderText.TabIndex = 16;
             this.gbHeaderText.TabStop = false;
             this.gbHeaderText.Text = "Header Text";
@@ -555,7 +591,7 @@
             // btnSaveHeaderText
             // 
             this.btnSaveHeaderText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSaveHeaderText.Location = new System.Drawing.Point(299, 15);
+            this.btnSaveHeaderText.Location = new System.Drawing.Point(295, 15);
             this.btnSaveHeaderText.Name = "btnSaveHeaderText";
             this.btnSaveHeaderText.Size = new System.Drawing.Size(43, 20);
             this.btnSaveHeaderText.TabIndex = 15;
@@ -569,32 +605,212 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtHeaderText.Location = new System.Drawing.Point(2, 15);
             this.txtHeaderText.Name = "txtHeaderText";
-            this.txtHeaderText.Size = new System.Drawing.Size(296, 20);
+            this.txtHeaderText.Size = new System.Drawing.Size(292, 20);
             this.txtHeaderText.TabIndex = 14;
+            // 
+            // tcSettings
+            // 
+            this.tcSettings.Controls.Add(this.tpGeneral);
+            this.tcSettings.Controls.Add(this.tpMasterData);
+            this.tcSettings.Controls.Add(this.tpPrinter);
+            this.tcSettings.Controls.Add(this.tpSounds);
+            this.tcSettings.Controls.Add(this.tpDatabase);
+            this.tcSettings.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tcSettings.Location = new System.Drawing.Point(0, 0);
+            this.tcSettings.Name = "tcSettings";
+            this.tcSettings.SelectedIndex = 0;
+            this.tcSettings.Size = new System.Drawing.Size(362, 273);
+            this.tcSettings.TabIndex = 21;
+            // 
+            // tpGeneral
+            // 
+            this.tpGeneral.Controls.Add(this.gbHeaderText);
+            this.tpGeneral.Controls.Add(this.gbRollingText);
+            this.tpGeneral.Controls.Add(this.gbInterval);
+            this.tpGeneral.Controls.Add(this.gbRefreshInterval);
+            this.tpGeneral.Controls.Add(this.gbSpeed);
+            this.tpGeneral.Controls.Add(this.gbAdsFolder);
+            this.tpGeneral.Location = new System.Drawing.Point(4, 22);
+            this.tpGeneral.Name = "tpGeneral";
+            this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
+            this.tpGeneral.Size = new System.Drawing.Size(354, 247);
+            this.tpGeneral.TabIndex = 0;
+            this.tpGeneral.Text = "General";
+            this.tpGeneral.UseVisualStyleBackColor = true;
+            // 
+            // tpMasterData
+            // 
+            this.tpMasterData.Controls.Add(this.btnCounterAddresses);
+            this.tpMasterData.Controls.Add(this.btnUpdateCategories);
+            this.tpMasterData.Controls.Add(this.btnResetQueues);
+            this.tpMasterData.Location = new System.Drawing.Point(4, 22);
+            this.tpMasterData.Name = "tpMasterData";
+            this.tpMasterData.Padding = new System.Windows.Forms.Padding(3);
+            this.tpMasterData.Size = new System.Drawing.Size(354, 247);
+            this.tpMasterData.TabIndex = 1;
+            this.tpMasterData.Text = "Master Data";
+            this.tpMasterData.UseVisualStyleBackColor = true;
+            // 
+            // tpPrinter
+            // 
+            this.tpPrinter.Controls.Add(this.gbPrinterSettings);
+            this.tpPrinter.Location = new System.Drawing.Point(4, 22);
+            this.tpPrinter.Name = "tpPrinter";
+            this.tpPrinter.Size = new System.Drawing.Size(354, 247);
+            this.tpPrinter.TabIndex = 3;
+            this.tpPrinter.Text = "Printer";
+            this.tpPrinter.UseVisualStyleBackColor = true;
+            // 
+            // tpSounds
+            // 
+            this.tpSounds.Controls.Add(this.groupBox2);
+            this.tpSounds.Controls.Add(this.chkNotificationSound);
+            this.tpSounds.Controls.Add(this.chkCounter);
+            this.tpSounds.Controls.Add(this.groupBox1);
+            this.tpSounds.Location = new System.Drawing.Point(4, 22);
+            this.tpSounds.Name = "tpSounds";
+            this.tpSounds.Size = new System.Drawing.Size(354, 247);
+            this.tpSounds.TabIndex = 4;
+            this.tpSounds.Text = "Sounds";
+            this.tpSounds.UseVisualStyleBackColor = true;
+            // 
+            // tpDatabase
+            // 
+            this.tpDatabase.Controls.Add(this.btnSaveDatabaseInfo);
+            this.tpDatabase.Controls.Add(this.itxt_ServerName);
+            this.tpDatabase.Controls.Add(this.itxt_DatabaseName);
+            this.tpDatabase.Location = new System.Drawing.Point(4, 22);
+            this.tpDatabase.Name = "tpDatabase";
+            this.tpDatabase.Size = new System.Drawing.Size(354, 247);
+            this.tpDatabase.TabIndex = 2;
+            this.tpDatabase.Text = "Database";
+            this.tpDatabase.UseVisualStyleBackColor = true;
+            // 
+            // itxt_ServerName
+            // 
+            this.itxt_ServerName.IsBrowseMode = false;
+            this.itxt_ServerName.LabelText = "Server Name";
+            this.itxt_ServerName.Location = new System.Drawing.Point(15, 20);
+            this.itxt_ServerName.MaxLength = 32767;
+            this.itxt_ServerName.MultiLine = false;
+            this.itxt_ServerName.Name = "itxt_ServerName";
+            this.itxt_ServerName.PasswordChar = '\0';
+            this.itxt_ServerName.RowCount = 1;
+            this.itxt_ServerName.ShowDeleteButton = false;
+            this.itxt_ServerName.ShowFilter = false;
+            this.itxt_ServerName.ShowTextboxOnly = false;
+            this.itxt_ServerName.Size = new System.Drawing.Size(151, 37);
+            this.itxt_ServerName.TabIndex = 0;
+            this.itxt_ServerName.ValueText = "";
+            // 
+            // itxt_DatabaseName
+            // 
+            this.itxt_DatabaseName.IsBrowseMode = false;
+            this.itxt_DatabaseName.LabelText = "Database Name";
+            this.itxt_DatabaseName.Location = new System.Drawing.Point(15, 61);
+            this.itxt_DatabaseName.MaxLength = 32767;
+            this.itxt_DatabaseName.MultiLine = false;
+            this.itxt_DatabaseName.Name = "itxt_DatabaseName";
+            this.itxt_DatabaseName.PasswordChar = '\0';
+            this.itxt_DatabaseName.RowCount = 1;
+            this.itxt_DatabaseName.ShowDeleteButton = false;
+            this.itxt_DatabaseName.ShowFilter = false;
+            this.itxt_DatabaseName.ShowTextboxOnly = false;
+            this.itxt_DatabaseName.Size = new System.Drawing.Size(151, 37);
+            this.itxt_DatabaseName.TabIndex = 1;
+            this.itxt_DatabaseName.ValueText = "";
+            // 
+            // chkNotificationSound
+            // 
+            this.chkNotificationSound.AutoSize = true;
+            this.chkNotificationSound.Location = new System.Drawing.Point(22, 22);
+            this.chkNotificationSound.Name = "chkNotificationSound";
+            this.chkNotificationSound.Size = new System.Drawing.Size(113, 17);
+            this.chkNotificationSound.TabIndex = 0;
+            this.chkNotificationSound.Text = "Notification Sound";
+            this.chkNotificationSound.UseVisualStyleBackColor = true;
+            this.chkNotificationSound.CheckedChanged += new System.EventHandler(this.ChkNotificationSound_CheckedChanged);
+            // 
+            // chkCounter
+            // 
+            this.chkCounter.AutoSize = true;
+            this.chkCounter.Location = new System.Drawing.Point(22, 45);
+            this.chkCounter.Name = "chkCounter";
+            this.chkCounter.Size = new System.Drawing.Size(63, 17);
+            this.chkCounter.TabIndex = 4;
+            this.chkCounter.Text = "Counter";
+            this.chkCounter.UseVisualStyleBackColor = true;
+            this.chkCounter.CheckedChanged += new System.EventHandler(this.ChkCounter_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Controls.Add(this.txtSoundFolder);
+            this.groupBox1.Location = new System.Drawing.Point(22, 68);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 3, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(310, 68);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sound Folder";
+            // 
+            // txtSoundFolder
+            // 
+            this.txtSoundFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSoundFolder.Location = new System.Drawing.Point(5, 15);
+            this.txtSoundFolder.Name = "txtSoundFolder";
+            this.txtSoundFolder.Size = new System.Drawing.Size(300, 20);
+            this.txtSoundFolder.TabIndex = 14;
+            this.txtSoundFolder.Click += new System.EventHandler(this.txtSoundFolder_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.txtTransitionSoundFilepath);
+            this.groupBox2.Location = new System.Drawing.Point(22, 142);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 3, 6, 6);
+            this.groupBox2.Size = new System.Drawing.Size(310, 40);
+            this.groupBox2.TabIndex = 17;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Sound file untuk transisi ke counter";
+            // 
+            // txtTransitionSoundFilepath
+            // 
+            this.txtTransitionSoundFilepath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtTransitionSoundFilepath.Location = new System.Drawing.Point(5, 15);
+            this.txtTransitionSoundFilepath.Name = "txtTransitionSoundFilepath";
+            this.txtTransitionSoundFilepath.Size = new System.Drawing.Size(300, 20);
+            this.txtTransitionSoundFilepath.TabIndex = 14;
+            this.txtTransitionSoundFilepath.Click += new System.EventHandler(this.txtFilepathForTransitionSound_Click);
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(2, 38);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(303, 33);
+            this.label1.TabIndex = 15;
+            this.label1.Text = "Penamaan file sesuai suara. Contoh: 1.wav, 2.wav, A.wav, B.wav, Counter 1.wav, Ka" +
+    "sir.wav, etc.";
             // 
             // Settings_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(372, 536);
-            this.Controls.Add(this.gbHeaderText);
-            this.Controls.Add(this.gbInterval);
-            this.Controls.Add(this.gbAdsFolder);
-            this.Controls.Add(this.gbSpeed);
-            this.Controls.Add(this.gbRollingText);
-            this.Controls.Add(this.gbPrinterSettings);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.gbRefreshInterval);
-            this.Controls.Add(this.btnCounterAddresses);
-            this.Controls.Add(this.btnUpdateCategories);
-            this.Controls.Add(this.btnResetQueues);
+            this.ClientSize = new System.Drawing.Size(362, 273);
+            this.Controls.Add(this.tcSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Form_Load);
+            this.Shown += new System.EventHandler(this.Settings_Form_Shown);
             this.gbRefreshInterval.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
             this.gbPrinterSettings.ResumeLayout(false);
             this.gbPrinterSettings.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).EndInit();
@@ -606,6 +822,17 @@
             this.gbInterval.ResumeLayout(false);
             this.gbHeaderText.ResumeLayout(false);
             this.gbHeaderText.PerformLayout();
+            this.tcSettings.ResumeLayout(false);
+            this.tpGeneral.ResumeLayout(false);
+            this.tpMasterData.ResumeLayout(false);
+            this.tpPrinter.ResumeLayout(false);
+            this.tpSounds.ResumeLayout(false);
+            this.tpSounds.PerformLayout();
+            this.tpDatabase.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -616,7 +843,6 @@
         private System.Windows.Forms.Button btnUpdateCategories;
         private System.Windows.Forms.Button btnCounterAddresses;
         private System.Windows.Forms.GroupBox gbRefreshInterval;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Button btnSaveDatabaseInfo;
         private LIBUtil.Desktop.UserControls.InputControl_Textbox itxt_DatabaseName;
         private LIBUtil.Desktop.UserControls.InputControl_Textbox itxt_ServerName;
@@ -624,8 +850,6 @@
         private System.Windows.Forms.Button btnTestPrinter;
         private System.Windows.Forms.DataGridView gridPrintLayout;
         private System.Windows.Forms.Button btnSavePrinterSettings;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.TextBox txtPrintAreaWidth;
         private System.Windows.Forms.Button btnAddPrintLine;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label lblRollingTextSpeed;
@@ -655,5 +879,20 @@
         private System.Windows.Forms.GroupBox gbHeaderText;
         private System.Windows.Forms.Button btnSaveHeaderText;
         private System.Windows.Forms.TextBox txtHeaderText;
+        private System.Windows.Forms.TabControl tcSettings;
+        private System.Windows.Forms.TabPage tpGeneral;
+        private System.Windows.Forms.TabPage tpMasterData;
+        private System.Windows.Forms.TabPage tpPrinter;
+        private System.Windows.Forms.TabPage tpDatabase;
+        private LIBUtil.Desktop.UserControls.InputControl_Numeric in_PrintAreaWidth;
+        private LIBUtil.Desktop.UserControls.InputControl_Numeric in_PrintQty;
+        private System.Windows.Forms.TabPage tpSounds;
+        private System.Windows.Forms.CheckBox chkNotificationSound;
+        private System.Windows.Forms.CheckBox chkCounter;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtSoundFolder;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TextBox txtTransitionSoundFilepath;
+        private System.Windows.Forms.Label label1;
     }
 }

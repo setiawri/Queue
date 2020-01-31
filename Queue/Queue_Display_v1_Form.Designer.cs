@@ -47,6 +47,7 @@
             this.clock1 = new Queue.UserControls.Clock();
             this.timerAds = new System.Windows.Forms.Timer(this.components);
             this.timerRefreshInterval = new System.Windows.Forms.Timer(this.components);
+            this.bgwCaller = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.Panel2.SuspendLayout();
@@ -111,7 +112,7 @@
             // 
             this.scContentLeft.Panel2.Controls.Add(this.rollingText1);
             this.scContentLeft.Size = new System.Drawing.Size(503, 369);
-            this.scContentLeft.SplitterDistance = 327;
+            this.scContentLeft.SplitterDistance = 333;
             this.scContentLeft.SplitterWidth = 1;
             this.scContentLeft.TabIndex = 0;
             // 
@@ -124,7 +125,7 @@
             this.pnlDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDisplay.Location = new System.Drawing.Point(0, 0);
             this.pnlDisplay.Name = "pnlDisplay";
-            this.pnlDisplay.Size = new System.Drawing.Size(503, 327);
+            this.pnlDisplay.Size = new System.Drawing.Size(503, 333);
             this.pnlDisplay.TabIndex = 4;
             // 
             // lblCallingNo
@@ -144,7 +145,7 @@
             this.lblCallingCounter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblCallingCounter.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCallingCounter.ForeColor = System.Drawing.Color.Crimson;
-            this.lblCallingCounter.Location = new System.Drawing.Point(0, 187);
+            this.lblCallingCounter.Location = new System.Drawing.Point(0, 193);
             this.lblCallingCounter.Name = "lblCallingCounter";
             this.lblCallingCounter.Size = new System.Drawing.Size(503, 140);
             this.lblCallingCounter.TabIndex = 6;
@@ -158,7 +159,7 @@
             this.lblSilahkanKeCounter.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lblSilahkanKeCounter.Location = new System.Drawing.Point(0, 0);
             this.lblSilahkanKeCounter.Name = "lblSilahkanKeCounter";
-            this.lblSilahkanKeCounter.Size = new System.Drawing.Size(503, 327);
+            this.lblSilahkanKeCounter.Size = new System.Drawing.Size(503, 333);
             this.lblSilahkanKeCounter.TabIndex = 5;
             this.lblSilahkanKeCounter.Text = "SILAHKAN KE";
             this.lblSilahkanKeCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -169,7 +170,7 @@
             this.rollingText1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rollingText1.Location = new System.Drawing.Point(0, 0);
             this.rollingText1.Name = "rollingText1";
-            this.rollingText1.Size = new System.Drawing.Size(503, 41);
+            this.rollingText1.Size = new System.Drawing.Size(503, 35);
             this.rollingText1.TabIndex = 0;
             // 
             // scContentRight
@@ -189,7 +190,7 @@
             // 
             this.scContentRight.Panel2.Controls.Add(this.clock1);
             this.scContentRight.Size = new System.Drawing.Size(346, 369);
-            this.scContentRight.SplitterDistance = 327;
+            this.scContentRight.SplitterDistance = 333;
             this.scContentRight.SplitterWidth = 1;
             this.scContentRight.TabIndex = 1;
             // 
@@ -236,7 +237,7 @@
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv.RowHeadersVisible = false;
-            this.dgv.Size = new System.Drawing.Size(346, 327);
+            this.dgv.Size = new System.Drawing.Size(346, 333);
             this.dgv.TabIndex = 2;
             // 
             // col_dgv_Id
@@ -268,7 +269,7 @@
             this.clock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clock1.Location = new System.Drawing.Point(0, 0);
             this.clock1.Name = "clock1";
-            this.clock1.Size = new System.Drawing.Size(346, 41);
+            this.clock1.Size = new System.Drawing.Size(346, 35);
             this.clock1.TabIndex = 0;
             // 
             // timerAds
@@ -279,6 +280,10 @@
             // 
             this.timerRefreshInterval.Tick += new System.EventHandler(this.timerRefreshInterval_Tick);
             // 
+            // bgwCaller
+            // 
+            this.bgwCaller.DoWork += new System.ComponentModel.DoWorkEventHandler(this.BgwCaller_DoWork);
+            // 
             // Queue_Display_v1_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,6 +292,7 @@
             this.Name = "Queue_Display_v1_Form";
             this.Text = "Queue_Display_v1_Form";
             this.Load += new System.EventHandler(this.Form_Load);
+            this.Shown += new System.EventHandler(this.Form_Shown);
             this.scContainer.Panel1.ResumeLayout(false);
             this.scContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
@@ -330,5 +336,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_NoAntrian;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_CounterAddresses_Name;
         private System.Windows.Forms.Timer timerRefreshInterval;
+        private System.ComponentModel.BackgroundWorker bgwCaller;
     }
 }

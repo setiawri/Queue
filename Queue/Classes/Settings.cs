@@ -24,6 +24,11 @@ namespace Queue
         private static Guid GUID_ShowAdAsDefault = new Guid("589B1BE4-71D5-4581-A403-38267D6DCBE6");
         private static Guid GUID_AdInterval = new Guid("FE22F341-3184-4B72-A104-06116B6CC9F5");
 
+        private static Guid GUID_SoundFolder = new Guid("CE745060-2503-4733-94D8-FB1F8D710B78");
+        private static Guid GUID_TransitionSoundFile = new Guid("B85BA6CD-120D-491F-AF39-E36B4D07CF57");
+        private static Guid GUID_CallFormat_PlayNotificationSound = new Guid("CB500BA5-7FA6-4864-90EC-DC3EA5CF9A4E");
+        private static Guid GUID_CallFormat_PlayCounter = new Guid("8B2F3B4E-0E1B-4985-BC17-E90948C4860D");
+
         private const int DEFAULTREFRESHINTERVAL = 5000;
         private static Guid GUID_RefreshInterval = new Guid("91AB58DF-B603-4CEC-B110-3DA284F11754");
 
@@ -38,6 +43,9 @@ namespace Queue
 
         private const int DEFAULTPRINTAREAWIDTH = 300;
         private static Guid GUID_PrintAreaWidth = new Guid("081E5A09-1967-44cb-AA29-0D0E0D828F33");
+
+        private const int DEFAULTPRINTQTY = 1;
+        private static Guid GUID_PrintQty = new Guid("98C99B92-AEF3-436E-9948-43D3F48FC4C7");
 
         private static Guid GUID_HeaderText = new Guid("93A34F27-052C-4DB0-A4BA-42108572BB5C");
 
@@ -60,42 +68,70 @@ namespace Queue
         public static int DisplayFormMode
         {
             get { return getIntValue(GUID_DisplayFormMode, DEFAULTDISPLAYFORMMODE); }
-            set { update(GUID_DisplayFormMode, value, null); }
+            set { update(GUID_DisplayFormMode, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static int AdInterval
         {
             get { return getIntValue(GUID_AdInterval, DEFAULTADINTERVAL); }
-            set { update(GUID_AdInterval, value, null); }
+            set { update(GUID_AdInterval, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static bool ShowAdAsDefault
         {
             get { return Convert.ToBoolean(getIntValue(GUID_ShowAdAsDefault, 0)); }
-            set { update(GUID_ShowAdAsDefault, Convert.ToInt32(value), null); }
+            set { update(GUID_ShowAdAsDefault, Convert.ToInt32(value), null, null); }
         }
 
         /// <summary><para></para></summary>
         public static string AdFolder
         {
             get { return getStringValue(GUID_AdFolder); }
-            set { update(GUID_AdFolder, null, value); }
+            set { update(GUID_AdFolder, null, value, null); }
+        }
+
+        /// <summary><para></para></summary>
+        public static string SoundFolder
+        {
+            get { return getStringValue(GUID_SoundFolder); }
+            set { update(GUID_SoundFolder, null, value, null); }
+        }
+
+        /// <summary><para></para></summary>
+        public static string TransitionSoundFile
+        {
+            get { return getStringValue(GUID_TransitionSoundFile); }
+            set { update(GUID_TransitionSoundFile, null, value, null); }
+        }
+
+        /// <summary><para></para></summary>
+        public static bool PlayNotificationSound
+        {
+            get { return getBoolValue(GUID_CallFormat_PlayNotificationSound); }
+            set { update(GUID_CallFormat_PlayNotificationSound, null, null, value); }
+        }
+
+        /// <summary><para></para></summary>
+        public static bool PlayCounter
+        {
+            get { return getBoolValue(GUID_CallFormat_PlayCounter); }
+            set { update(GUID_CallFormat_PlayCounter, null, null, value); }
         }
 
         /// <summary><para></para></summary>
         public static int RefreshInterval
         {
             get { return getIntValue(GUID_RefreshInterval, DEFAULTREFRESHINTERVAL); }
-            set { update(GUID_RefreshInterval, value, null); }
+            set { update(GUID_RefreshInterval, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static int RequestGridWidth
         {
             get { return getIntValue(GUID_RequestGridWidth, DEFAULTREQUESTGRIDWIDTH); }
-            set { update(GUID_RequestGridWidth, value, null); }
+            set { update(GUID_RequestGridWidth, value, null, null); }
         }
 
         /// <summary><para></para></summary>
@@ -107,42 +143,49 @@ namespace Queue
                     size = DisplayFontSize = 1;
                 return size;
             }
-            set { update(GUID_DisplayFontSize, value, null); }
+            set { update(GUID_DisplayFontSize, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static int DisplayGridWidth
         {
             get { return getIntValue(GUID_DisplayGridWidth, DEFAULTDISPLAYGRIDWIDTH); }
-            set { update(GUID_DisplayGridWidth, value, null); }
+            set { update(GUID_DisplayGridWidth, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static int PrintAreaWidth
         {
             get { return getIntValue(GUID_PrintAreaWidth, DEFAULTPRINTAREAWIDTH); }
-            set { update(GUID_PrintAreaWidth, value, null); }
+            set { update(GUID_PrintAreaWidth, value, null, null); }
+        }
+
+        /// <summary><para></para></summary>
+        public static int PrintQty
+        {
+            get { return getIntValue(GUID_PrintQty, DEFAULTPRINTQTY); }
+            set { update(GUID_PrintQty, value, null, null); }
         }
 
         /// <summary><para></para></summary>
         public static string HeaderText
         {
             get { return getStringValue(GUID_HeaderText); }
-            set { update(GUID_HeaderText, null, value); }
+            set { update(GUID_HeaderText, null, value, null); }
         }
 
         /// <summary><para></para></summary>
         public static string RollingText
         {
             get { return getStringValue(GUID_RollingText); }
-            set { update(GUID_RollingText, null, value); }
+            set { update(GUID_RollingText, null, value, null); }
         }
 
         /// <summary><para></para></summary>
         public static int RollingTextSpeed
         {
             get { return getIntValue(GUID_RollingTextSpeed, DEFAULTROLLINGTEXTSPEED); }
-            set { update(GUID_RollingTextSpeed, value, null); }
+            set { update(GUID_RollingTextSpeed, value, null, null); }
         }
 
         private static int getIntValue(Guid GUID, int defaultValue)
@@ -161,6 +204,14 @@ namespace Queue
                 return "";
             else
                 return row[COL_DB_Value_String].ToString();
+        }
+
+        private static bool getBoolValue(Guid GUID)
+        {
+            if (getIntValue(GUID, 0) == 0)
+                return false;
+            else
+                return true;
         }
 
         #endregion PUBLIC VARIABLES
@@ -196,8 +247,11 @@ namespace Queue
             return Util.getFirstRow(datatable);
         }
 
-        public static void update(Guid id, int? intValue, string stringValue)
+        public static void update(Guid id, int? intValue, string stringValue, bool? boolValue)
         {
+            if (boolValue != null)
+                intValue = Util.convertToInt((bool)boolValue);
+
             //Settings objOld = new Settings(id);
             //string log = "";
             //if (intValue != null)
