@@ -18,13 +18,13 @@ namespace Queue
             Application.SetCompatibleTextRenderingDefault(false);
             
             LIBUtil.DBConnection.initialize(Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
-            //runApplication();
-            LIBUtil.Util.ensureSingleInstance(runApplication);
+            runApplication();
+            //LIBUtil.Util.ensureSingleInstance(runApplication);
         }
         
         static void runApplication()
         {
-            if (!LIBUtil.Util.isDBConnectionAvailable(Properties.Resources.Q, true, true))
+            if (!LIBUtil.License.hasValidLicense || !LIBUtil.Util.isDBConnectionAvailable(Properties.Resources.Q, true, true))
                 Helper.formToOpen = new Settings_Form();
             else
             {

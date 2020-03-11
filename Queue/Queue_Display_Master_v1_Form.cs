@@ -92,7 +92,7 @@ namespace Queue
             Settings.DisplayFormMode = mode;
             Helper.setNewForm(this, Helper.selectedDisplayForm());
         }
-        
+
         #endregion METHODS
         /*******************************************************************************************************/
         #region EVENT HANDLERS
@@ -102,6 +102,7 @@ namespace Queue
             setupControls();
             pnlHeader.Focus();
             clickSettings();
+            //Queues.clearQueueIfStartOfDay();
 
             //rollingText1.Start(Settings.RollingText, Settings.RollingTextSpeed, Settings.ROLLINGTEXTTIMERINTERVAL);
         }

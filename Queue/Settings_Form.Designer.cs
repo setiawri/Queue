@@ -30,8 +30,8 @@
         {
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Settings_Form));
-            this.btnResetQueues = new System.Windows.Forms.Button();
             this.btnUpdateCategories = new System.Windows.Forms.Button();
             this.btnCounterAddresses = new System.Windows.Forms.Button();
             this.gbRefreshInterval = new System.Windows.Forms.GroupBox();
@@ -40,8 +40,6 @@
             this.btnIncreaseRefreshInterval = new System.Windows.Forms.Button();
             this.btnSaveDatabaseInfo = new System.Windows.Forms.Button();
             this.gbPrinterSettings = new System.Windows.Forms.GroupBox();
-            this.in_PrintAreaWidth = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
-            this.in_PrintQty = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddPrintLine = new System.Windows.Forms.Button();
             this.btnTestPrinter = new System.Windows.Forms.Button();
@@ -74,18 +72,29 @@
             this.tcSettings = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
             this.tpMasterData = new System.Windows.Forms.TabPage();
+            this.btnHistory = new System.Windows.Forms.Button();
             this.tpPrinter = new System.Windows.Forms.TabPage();
             this.tpSounds = new System.Windows.Forms.TabPage();
-            this.tpDatabase = new System.Windows.Forms.TabPage();
-            this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.txtTransitionSoundFilepath = new System.Windows.Forms.TextBox();
             this.chkNotificationSound = new System.Windows.Forms.CheckBox();
             this.chkCounter = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.dgvSoundFiles = new System.Windows.Forms.DataGridView();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnLoadSoundFiles = new System.Windows.Forms.Button();
             this.txtSoundFolder = new System.Windows.Forms.TextBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.txtTransitionSoundFilepath = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.tpDatabase = new System.Windows.Forms.TabPage();
+            this.pnlDatabaseConnection = new System.Windows.Forms.Panel();
+            this.btnSaveLicense = new System.Windows.Forms.Button();
+            this.in_PrintAreaWidth = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
+            this.in_PrintQty = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
+            this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.itxt_License = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.col_dgvSoundFiles_Filename = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.col_dgvSoundFiles_Filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbRefreshInterval.SuspendLayout();
             this.gbPrinterSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).BeginInit();
@@ -99,28 +108,20 @@
             this.tpMasterData.SuspendLayout();
             this.tpPrinter.SuspendLayout();
             this.tpSounds.SuspendLayout();
-            this.tpDatabase.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSoundFiles)).BeginInit();
+            this.panel1.SuspendLayout();
+            this.tpDatabase.SuspendLayout();
+            this.pnlDatabaseConnection.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // btnResetQueues
-            // 
-            this.btnResetQueues.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnResetQueues.Location = new System.Drawing.Point(6, 130);
-            this.btnResetQueues.Name = "btnResetQueues";
-            this.btnResetQueues.Size = new System.Drawing.Size(157, 56);
-            this.btnResetQueues.TabIndex = 0;
-            this.btnResetQueues.Text = "RESET ANTRIAN";
-            this.btnResetQueues.UseVisualStyleBackColor = true;
-            this.btnResetQueues.Click += new System.EventHandler(this.btnResetQueues_Click);
             // 
             // btnUpdateCategories
             // 
             this.btnUpdateCategories.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateCategories.Location = new System.Drawing.Point(6, 68);
+            this.btnUpdateCategories.Location = new System.Drawing.Point(178, 6);
             this.btnUpdateCategories.Name = "btnUpdateCategories";
-            this.btnUpdateCategories.Size = new System.Drawing.Size(157, 56);
+            this.btnUpdateCategories.Size = new System.Drawing.Size(170, 56);
             this.btnUpdateCategories.TabIndex = 2;
             this.btnUpdateCategories.Text = "CATEGORIES";
             this.btnUpdateCategories.UseVisualStyleBackColor = true;
@@ -131,7 +132,7 @@
             this.btnCounterAddresses.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCounterAddresses.Location = new System.Drawing.Point(6, 6);
             this.btnCounterAddresses.Name = "btnCounterAddresses";
-            this.btnCounterAddresses.Size = new System.Drawing.Size(157, 56);
+            this.btnCounterAddresses.Size = new System.Drawing.Size(170, 56);
             this.btnCounterAddresses.TabIndex = 1;
             this.btnCounterAddresses.Text = "COUNTERS";
             this.btnCounterAddresses.UseVisualStyleBackColor = true;
@@ -187,10 +188,10 @@
             // btnSaveDatabaseInfo
             // 
             this.btnSaveDatabaseInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveDatabaseInfo.Location = new System.Drawing.Point(58, 102);
+            this.btnSaveDatabaseInfo.Location = new System.Drawing.Point(68, 85);
             this.btnSaveDatabaseInfo.Name = "btnSaveDatabaseInfo";
             this.btnSaveDatabaseInfo.Size = new System.Drawing.Size(64, 26);
-            this.btnSaveDatabaseInfo.TabIndex = 5;
+            this.btnSaveDatabaseInfo.TabIndex = 4;
             this.btnSaveDatabaseInfo.Text = "SAVE";
             this.btnSaveDatabaseInfo.UseVisualStyleBackColor = true;
             this.btnSaveDatabaseInfo.Click += new System.EventHandler(this.btnSaveDatabaseInfo_Click);
@@ -209,78 +210,10 @@
             this.gbPrinterSettings.Controls.Add(this.btnSavePrinterSettings);
             this.gbPrinterSettings.Location = new System.Drawing.Point(3, 3);
             this.gbPrinterSettings.Name = "gbPrinterSettings";
-            this.gbPrinterSettings.Size = new System.Drawing.Size(348, 241);
+            this.gbPrinterSettings.Size = new System.Drawing.Size(348, 305);
             this.gbPrinterSettings.TabIndex = 7;
             this.gbPrinterSettings.TabStop = false;
             this.gbPrinterSettings.Text = "Printer Settings";
-            // 
-            // in_PrintAreaWidth
-            // 
-            this.in_PrintAreaWidth.Checked = false;
-            this.in_PrintAreaWidth.DecimalPlaces = 0;
-            this.in_PrintAreaWidth.HideUpDown = false;
-            this.in_PrintAreaWidth.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.LabelText = "Lebar kertas";
-            this.in_PrintAreaWidth.Location = new System.Drawing.Point(156, 194);
-            this.in_PrintAreaWidth.MaximumValue = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.MinimumValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.Name = "in_PrintAreaWidth";
-            this.in_PrintAreaWidth.ShowAllowDecimalCheckbox = false;
-            this.in_PrintAreaWidth.ShowCheckbox = false;
-            this.in_PrintAreaWidth.ShowTextboxOnly = false;
-            this.in_PrintAreaWidth.Size = new System.Drawing.Size(78, 41);
-            this.in_PrintAreaWidth.TabIndex = 14;
-            this.in_PrintAreaWidth.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // in_PrintQty
-            // 
-            this.in_PrintQty.Checked = false;
-            this.in_PrintQty.DecimalPlaces = 0;
-            this.in_PrintQty.HideUpDown = false;
-            this.in_PrintQty.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintQty.LabelText = "Qty print";
-            this.in_PrintQty.Location = new System.Drawing.Point(78, 194);
-            this.in_PrintQty.MaximumValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.in_PrintQty.MinimumValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintQty.Name = "in_PrintQty";
-            this.in_PrintQty.ShowAllowDecimalCheckbox = false;
-            this.in_PrintQty.ShowCheckbox = false;
-            this.in_PrintQty.ShowTextboxOnly = false;
-            this.in_PrintQty.Size = new System.Drawing.Size(72, 41);
-            this.in_PrintQty.TabIndex = 13;
-            this.in_PrintQty.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // label4
             // 
@@ -296,9 +229,9 @@
             // btnAddPrintLine
             // 
             this.btnAddPrintLine.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAddPrintLine.Location = new System.Drawing.Point(6, 194);
+            this.btnAddPrintLine.Location = new System.Drawing.Point(6, 258);
             this.btnAddPrintLine.Name = "btnAddPrintLine";
-            this.btnAddPrintLine.Size = new System.Drawing.Size(66, 41);
+            this.btnAddPrintLine.Size = new System.Drawing.Size(46, 41);
             this.btnAddPrintLine.TabIndex = 9;
             this.btnAddPrintLine.Text = "ADD LINE";
             this.btnAddPrintLine.UseVisualStyleBackColor = true;
@@ -307,9 +240,9 @@
             // btnTestPrinter
             // 
             this.btnTestPrinter.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnTestPrinter.Location = new System.Drawing.Point(236, 194);
+            this.btnTestPrinter.Location = new System.Drawing.Point(287, 258);
             this.btnTestPrinter.Name = "btnTestPrinter";
-            this.btnTestPrinter.Size = new System.Drawing.Size(106, 41);
+            this.btnTestPrinter.Size = new System.Drawing.Size(55, 41);
             this.btnTestPrinter.TabIndex = 2;
             this.btnTestPrinter.Text = "TEST PRINT";
             this.btnTestPrinter.UseVisualStyleBackColor = true;
@@ -339,7 +272,7 @@
             this.gridPrintLayout.Name = "gridPrintLayout";
             this.gridPrintLayout.RowHeadersVisible = false;
             this.gridPrintLayout.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.gridPrintLayout.Size = new System.Drawing.Size(336, 157);
+            this.gridPrintLayout.Size = new System.Drawing.Size(336, 221);
             this.gridPrintLayout.TabIndex = 1;
             this.gridPrintLayout.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.gridPrintLayout_CellContentClick);
             this.gridPrintLayout.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.gridPrintLayout_CellMouseDown);
@@ -409,6 +342,7 @@
             this.col_gridPrintLayout_TextAlign_enumid.MinimumWidth = 40;
             this.col_gridPrintLayout_TextAlign_enumid.Name = "col_gridPrintLayout_TextAlign_enumid";
             this.col_gridPrintLayout_TextAlign_enumid.Visible = false;
+            this.col_gridPrintLayout_TextAlign_enumid.Width = 40;
             // 
             // col_gridPrintLayout_TextAlign_description
             // 
@@ -422,9 +356,9 @@
             // btnSavePrinterSettings
             // 
             this.btnSavePrinterSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnSavePrinterSettings.Location = new System.Drawing.Point(163, 194);
+            this.btnSavePrinterSettings.Location = new System.Drawing.Point(220, 258);
             this.btnSavePrinterSettings.Name = "btnSavePrinterSettings";
-            this.btnSavePrinterSettings.Size = new System.Drawing.Size(67, 41);
+            this.btnSavePrinterSettings.Size = new System.Drawing.Size(61, 41);
             this.btnSavePrinterSettings.TabIndex = 0;
             this.btnSavePrinterSettings.Text = "SAVE";
             this.btnSavePrinterSettings.UseVisualStyleBackColor = true;
@@ -619,7 +553,7 @@
             this.tcSettings.Location = new System.Drawing.Point(0, 0);
             this.tcSettings.Name = "tcSettings";
             this.tcSettings.SelectedIndex = 0;
-            this.tcSettings.Size = new System.Drawing.Size(362, 273);
+            this.tcSettings.Size = new System.Drawing.Size(362, 337);
             this.tcSettings.TabIndex = 21;
             // 
             // tpGeneral
@@ -633,30 +567,41 @@
             this.tpGeneral.Location = new System.Drawing.Point(4, 22);
             this.tpGeneral.Name = "tpGeneral";
             this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-            this.tpGeneral.Size = new System.Drawing.Size(354, 247);
+            this.tpGeneral.Size = new System.Drawing.Size(354, 311);
             this.tpGeneral.TabIndex = 0;
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
             // 
             // tpMasterData
             // 
+            this.tpMasterData.Controls.Add(this.btnHistory);
             this.tpMasterData.Controls.Add(this.btnCounterAddresses);
             this.tpMasterData.Controls.Add(this.btnUpdateCategories);
-            this.tpMasterData.Controls.Add(this.btnResetQueues);
             this.tpMasterData.Location = new System.Drawing.Point(4, 22);
             this.tpMasterData.Name = "tpMasterData";
             this.tpMasterData.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMasterData.Size = new System.Drawing.Size(354, 247);
+            this.tpMasterData.Size = new System.Drawing.Size(354, 311);
             this.tpMasterData.TabIndex = 1;
             this.tpMasterData.Text = "Master Data";
             this.tpMasterData.UseVisualStyleBackColor = true;
+            // 
+            // btnHistory
+            // 
+            this.btnHistory.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnHistory.Location = new System.Drawing.Point(6, 68);
+            this.btnHistory.Name = "btnHistory";
+            this.btnHistory.Size = new System.Drawing.Size(170, 56);
+            this.btnHistory.TabIndex = 3;
+            this.btnHistory.Text = "HISTORY";
+            this.btnHistory.UseVisualStyleBackColor = true;
+            this.btnHistory.Click += new System.EventHandler(this.BtnHistory_Click);
             // 
             // tpPrinter
             // 
             this.tpPrinter.Controls.Add(this.gbPrinterSettings);
             this.tpPrinter.Location = new System.Drawing.Point(4, 22);
             this.tpPrinter.Name = "tpPrinter";
-            this.tpPrinter.Size = new System.Drawing.Size(354, 247);
+            this.tpPrinter.Size = new System.Drawing.Size(354, 311);
             this.tpPrinter.TabIndex = 3;
             this.tpPrinter.Text = "Printer";
             this.tpPrinter.UseVisualStyleBackColor = true;
@@ -669,112 +614,20 @@
             this.tpSounds.Controls.Add(this.groupBox1);
             this.tpSounds.Location = new System.Drawing.Point(4, 22);
             this.tpSounds.Name = "tpSounds";
-            this.tpSounds.Size = new System.Drawing.Size(354, 247);
+            this.tpSounds.Size = new System.Drawing.Size(354, 311);
             this.tpSounds.TabIndex = 4;
             this.tpSounds.Text = "Sounds";
             this.tpSounds.UseVisualStyleBackColor = true;
-            // 
-            // tpDatabase
-            // 
-            this.tpDatabase.Controls.Add(this.btnSaveDatabaseInfo);
-            this.tpDatabase.Controls.Add(this.itxt_ServerName);
-            this.tpDatabase.Controls.Add(this.itxt_DatabaseName);
-            this.tpDatabase.Location = new System.Drawing.Point(4, 22);
-            this.tpDatabase.Name = "tpDatabase";
-            this.tpDatabase.Size = new System.Drawing.Size(354, 247);
-            this.tpDatabase.TabIndex = 2;
-            this.tpDatabase.Text = "Database";
-            this.tpDatabase.UseVisualStyleBackColor = true;
-            // 
-            // itxt_ServerName
-            // 
-            this.itxt_ServerName.IsBrowseMode = false;
-            this.itxt_ServerName.LabelText = "Server Name";
-            this.itxt_ServerName.Location = new System.Drawing.Point(15, 20);
-            this.itxt_ServerName.MaxLength = 32767;
-            this.itxt_ServerName.MultiLine = false;
-            this.itxt_ServerName.Name = "itxt_ServerName";
-            this.itxt_ServerName.PasswordChar = '\0';
-            this.itxt_ServerName.RowCount = 1;
-            this.itxt_ServerName.ShowDeleteButton = false;
-            this.itxt_ServerName.ShowFilter = false;
-            this.itxt_ServerName.ShowTextboxOnly = false;
-            this.itxt_ServerName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_ServerName.TabIndex = 0;
-            this.itxt_ServerName.ValueText = "";
-            // 
-            // itxt_DatabaseName
-            // 
-            this.itxt_DatabaseName.IsBrowseMode = false;
-            this.itxt_DatabaseName.LabelText = "Database Name";
-            this.itxt_DatabaseName.Location = new System.Drawing.Point(15, 61);
-            this.itxt_DatabaseName.MaxLength = 32767;
-            this.itxt_DatabaseName.MultiLine = false;
-            this.itxt_DatabaseName.Name = "itxt_DatabaseName";
-            this.itxt_DatabaseName.PasswordChar = '\0';
-            this.itxt_DatabaseName.RowCount = 1;
-            this.itxt_DatabaseName.ShowDeleteButton = false;
-            this.itxt_DatabaseName.ShowFilter = false;
-            this.itxt_DatabaseName.ShowTextboxOnly = false;
-            this.itxt_DatabaseName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_DatabaseName.TabIndex = 1;
-            this.itxt_DatabaseName.ValueText = "";
-            // 
-            // chkNotificationSound
-            // 
-            this.chkNotificationSound.AutoSize = true;
-            this.chkNotificationSound.Location = new System.Drawing.Point(22, 22);
-            this.chkNotificationSound.Name = "chkNotificationSound";
-            this.chkNotificationSound.Size = new System.Drawing.Size(113, 17);
-            this.chkNotificationSound.TabIndex = 0;
-            this.chkNotificationSound.Text = "Notification Sound";
-            this.chkNotificationSound.UseVisualStyleBackColor = true;
-            this.chkNotificationSound.CheckedChanged += new System.EventHandler(this.ChkNotificationSound_CheckedChanged);
-            // 
-            // chkCounter
-            // 
-            this.chkCounter.AutoSize = true;
-            this.chkCounter.Location = new System.Drawing.Point(22, 45);
-            this.chkCounter.Name = "chkCounter";
-            this.chkCounter.Size = new System.Drawing.Size(63, 17);
-            this.chkCounter.TabIndex = 4;
-            this.chkCounter.Text = "Counter";
-            this.chkCounter.UseVisualStyleBackColor = true;
-            this.chkCounter.CheckedChanged += new System.EventHandler(this.ChkCounter_CheckedChanged);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Controls.Add(this.txtSoundFolder);
-            this.groupBox1.Location = new System.Drawing.Point(22, 68);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 3, 6, 6);
-            this.groupBox1.Size = new System.Drawing.Size(310, 68);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Sound Folder";
-            // 
-            // txtSoundFolder
-            // 
-            this.txtSoundFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtSoundFolder.Location = new System.Drawing.Point(5, 15);
-            this.txtSoundFolder.Name = "txtSoundFolder";
-            this.txtSoundFolder.Size = new System.Drawing.Size(300, 20);
-            this.txtSoundFolder.TabIndex = 14;
-            this.txtSoundFolder.Click += new System.EventHandler(this.txtSoundFolder_Click);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.txtTransitionSoundFilepath);
-            this.groupBox2.Location = new System.Drawing.Point(22, 142);
+            this.groupBox2.Location = new System.Drawing.Point(8, 20);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Padding = new System.Windows.Forms.Padding(6, 3, 6, 6);
-            this.groupBox2.Size = new System.Drawing.Size(310, 40);
+            this.groupBox2.Size = new System.Drawing.Size(338, 40);
             this.groupBox2.TabIndex = 17;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Sound file untuk transisi ke counter";
@@ -785,31 +638,299 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTransitionSoundFilepath.Location = new System.Drawing.Point(5, 15);
             this.txtTransitionSoundFilepath.Name = "txtTransitionSoundFilepath";
-            this.txtTransitionSoundFilepath.Size = new System.Drawing.Size(300, 20);
+            this.txtTransitionSoundFilepath.Size = new System.Drawing.Size(328, 20);
             this.txtTransitionSoundFilepath.TabIndex = 14;
             this.txtTransitionSoundFilepath.Click += new System.EventHandler(this.txtFilepathForTransitionSound_Click);
             // 
+            // chkNotificationSound
+            // 
+            this.chkNotificationSound.AutoSize = true;
+            this.chkNotificationSound.Location = new System.Drawing.Point(8, 3);
+            this.chkNotificationSound.Name = "chkNotificationSound";
+            this.chkNotificationSound.Size = new System.Drawing.Size(113, 17);
+            this.chkNotificationSound.TabIndex = 0;
+            this.chkNotificationSound.Text = "Notification Sound";
+            this.chkNotificationSound.UseVisualStyleBackColor = true;
+            this.chkNotificationSound.CheckedChanged += new System.EventHandler(this.ChkNotificationSound_CheckedChanged);
+            // 
+            // chkCounter
+            // 
+            this.chkCounter.AutoSize = true;
+            this.chkCounter.Location = new System.Drawing.Point(127, 3);
+            this.chkCounter.Name = "chkCounter";
+            this.chkCounter.Size = new System.Drawing.Size(63, 17);
+            this.chkCounter.TabIndex = 4;
+            this.chkCounter.Text = "Counter";
+            this.chkCounter.UseVisualStyleBackColor = true;
+            this.chkCounter.CheckedChanged += new System.EventHandler(this.ChkCounter_CheckedChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.dgvSoundFiles);
+            this.groupBox1.Controls.Add(this.panel1);
+            this.groupBox1.Location = new System.Drawing.Point(8, 66);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(6, 3, 6, 6);
+            this.groupBox1.Size = new System.Drawing.Size(338, 242);
+            this.groupBox1.TabIndex = 16;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Sound Folder";
+            // 
+            // dgvSoundFiles
+            // 
+            this.dgvSoundFiles.AllowUserToAddRows = false;
+            this.dgvSoundFiles.AllowUserToDeleteRows = false;
+            this.dgvSoundFiles.AllowUserToResizeColumns = false;
+            this.dgvSoundFiles.AllowUserToResizeRows = false;
+            this.dgvSoundFiles.BackgroundColor = System.Drawing.Color.White;
+            this.dgvSoundFiles.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSoundFiles.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.col_dgvSoundFiles_Filename,
+            this.col_dgvSoundFiles_Filepath});
+            this.dgvSoundFiles.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvSoundFiles.Location = new System.Drawing.Point(6, 75);
+            this.dgvSoundFiles.Name = "dgvSoundFiles";
+            this.dgvSoundFiles.RowHeadersVisible = false;
+            this.dgvSoundFiles.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvSoundFiles.Size = new System.Drawing.Size(326, 161);
+            this.dgvSoundFiles.TabIndex = 17;
+            this.dgvSoundFiles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSoundFiles_CellContentClick);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnLoadSoundFiles);
+            this.panel1.Controls.Add(this.txtSoundFolder);
+            this.panel1.Controls.Add(this.label1);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(6, 16);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(326, 59);
+            this.panel1.TabIndex = 16;
+            // 
+            // btnLoadSoundFiles
+            // 
+            this.btnLoadSoundFiles.Location = new System.Drawing.Point(2, 25);
+            this.btnLoadSoundFiles.Name = "btnLoadSoundFiles";
+            this.btnLoadSoundFiles.Size = new System.Drawing.Size(45, 30);
+            this.btnLoadSoundFiles.TabIndex = 16;
+            this.btnLoadSoundFiles.Text = "LOAD";
+            this.btnLoadSoundFiles.UseVisualStyleBackColor = true;
+            this.btnLoadSoundFiles.Click += new System.EventHandler(this.BtnLoadSoundFiles_Click);
+            // 
+            // txtSoundFolder
+            // 
+            this.txtSoundFolder.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSoundFolder.Location = new System.Drawing.Point(3, 3);
+            this.txtSoundFolder.Name = "txtSoundFolder";
+            this.txtSoundFolder.Size = new System.Drawing.Size(320, 20);
+            this.txtSoundFolder.TabIndex = 14;
+            this.txtSoundFolder.Click += new System.EventHandler(this.txtSoundFolder_Click);
+            // 
             // label1
             // 
-            this.label1.Location = new System.Drawing.Point(2, 38);
+            this.label1.Location = new System.Drawing.Point(49, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 33);
+            this.label1.Size = new System.Drawing.Size(274, 33);
             this.label1.TabIndex = 15;
             this.label1.Text = "Penamaan file sesuai suara. Contoh: 1.wav, 2.wav, A.wav, B.wav, Counter 1.wav, Ka" +
     "sir.wav, etc.";
+            // 
+            // tpDatabase
+            // 
+            this.tpDatabase.Controls.Add(this.pnlDatabaseConnection);
+            this.tpDatabase.Controls.Add(this.btnSaveLicense);
+            this.tpDatabase.Controls.Add(this.itxt_License);
+            this.tpDatabase.Location = new System.Drawing.Point(4, 22);
+            this.tpDatabase.Name = "tpDatabase";
+            this.tpDatabase.Size = new System.Drawing.Size(354, 311);
+            this.tpDatabase.TabIndex = 2;
+            this.tpDatabase.Text = "Database";
+            this.tpDatabase.UseVisualStyleBackColor = true;
+            // 
+            // pnlDatabaseConnection
+            // 
+            this.pnlDatabaseConnection.Controls.Add(this.itxt_ServerName);
+            this.pnlDatabaseConnection.Controls.Add(this.itxt_DatabaseName);
+            this.pnlDatabaseConnection.Controls.Add(this.btnSaveDatabaseInfo);
+            this.pnlDatabaseConnection.Location = new System.Drawing.Point(77, 66);
+            this.pnlDatabaseConnection.Name = "pnlDatabaseConnection";
+            this.pnlDatabaseConnection.Size = new System.Drawing.Size(200, 115);
+            this.pnlDatabaseConnection.TabIndex = 5;
+            // 
+            // btnSaveLicense
+            // 
+            this.btnSaveLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLicense.Location = new System.Drawing.Point(224, 26);
+            this.btnSaveLicense.Name = "btnSaveLicense";
+            this.btnSaveLicense.Size = new System.Drawing.Size(62, 38);
+            this.btnSaveLicense.TabIndex = 1;
+            this.btnSaveLicense.Text = "SAVE";
+            this.btnSaveLicense.UseVisualStyleBackColor = true;
+            this.btnSaveLicense.Visible = false;
+            this.btnSaveLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
+            // 
+            // in_PrintAreaWidth
+            // 
+            this.in_PrintAreaWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.in_PrintAreaWidth.Checked = false;
+            this.in_PrintAreaWidth.DecimalPlaces = 0;
+            this.in_PrintAreaWidth.HideUpDown = false;
+            this.in_PrintAreaWidth.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.LabelText = "Lebar kertas";
+            this.in_PrintAreaWidth.Location = new System.Drawing.Point(136, 258);
+            this.in_PrintAreaWidth.MaximumValue = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.Name = "in_PrintAreaWidth";
+            this.in_PrintAreaWidth.ShowAllowDecimalCheckbox = false;
+            this.in_PrintAreaWidth.ShowCheckbox = false;
+            this.in_PrintAreaWidth.ShowTextboxOnly = false;
+            this.in_PrintAreaWidth.Size = new System.Drawing.Size(78, 41);
+            this.in_PrintAreaWidth.TabIndex = 14;
+            this.in_PrintAreaWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // in_PrintQty
+            // 
+            this.in_PrintQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.in_PrintQty.Checked = false;
+            this.in_PrintQty.DecimalPlaces = 0;
+            this.in_PrintQty.HideUpDown = false;
+            this.in_PrintQty.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.LabelText = "Qty print";
+            this.in_PrintQty.Location = new System.Drawing.Point(58, 258);
+            this.in_PrintQty.MaximumValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.in_PrintQty.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.Name = "in_PrintQty";
+            this.in_PrintQty.ShowAllowDecimalCheckbox = false;
+            this.in_PrintQty.ShowCheckbox = false;
+            this.in_PrintQty.ShowTextboxOnly = false;
+            this.in_PrintQty.Size = new System.Drawing.Size(72, 41);
+            this.in_PrintQty.TabIndex = 13;
+            this.in_PrintQty.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // itxt_ServerName
+            // 
+            this.itxt_ServerName.IsBrowseMode = false;
+            this.itxt_ServerName.LabelText = "Server Name";
+            this.itxt_ServerName.Location = new System.Drawing.Point(25, 3);
+            this.itxt_ServerName.MaxLength = 32767;
+            this.itxt_ServerName.MultiLine = false;
+            this.itxt_ServerName.Name = "itxt_ServerName";
+            this.itxt_ServerName.PasswordChar = '\0';
+            this.itxt_ServerName.RowCount = 1;
+            this.itxt_ServerName.ShowDeleteButton = false;
+            this.itxt_ServerName.ShowFilter = false;
+            this.itxt_ServerName.ShowTextboxOnly = false;
+            this.itxt_ServerName.Size = new System.Drawing.Size(151, 37);
+            this.itxt_ServerName.TabIndex = 2;
+            this.itxt_ServerName.ValueText = "";
+            // 
+            // itxt_DatabaseName
+            // 
+            this.itxt_DatabaseName.IsBrowseMode = false;
+            this.itxt_DatabaseName.LabelText = "Database Name";
+            this.itxt_DatabaseName.Location = new System.Drawing.Point(25, 44);
+            this.itxt_DatabaseName.MaxLength = 32767;
+            this.itxt_DatabaseName.MultiLine = false;
+            this.itxt_DatabaseName.Name = "itxt_DatabaseName";
+            this.itxt_DatabaseName.PasswordChar = '\0';
+            this.itxt_DatabaseName.RowCount = 1;
+            this.itxt_DatabaseName.ShowDeleteButton = false;
+            this.itxt_DatabaseName.ShowFilter = false;
+            this.itxt_DatabaseName.ShowTextboxOnly = false;
+            this.itxt_DatabaseName.Size = new System.Drawing.Size(151, 37);
+            this.itxt_DatabaseName.TabIndex = 3;
+            this.itxt_DatabaseName.ValueText = "";
+            // 
+            // itxt_License
+            // 
+            this.itxt_License.IsBrowseMode = false;
+            this.itxt_License.LabelText = "License";
+            this.itxt_License.Location = new System.Drawing.Point(67, 26);
+            this.itxt_License.MaxLength = 32767;
+            this.itxt_License.MultiLine = false;
+            this.itxt_License.Name = "itxt_License";
+            this.itxt_License.PasswordChar = '\0';
+            this.itxt_License.RowCount = 1;
+            this.itxt_License.ShowDeleteButton = false;
+            this.itxt_License.ShowFilter = false;
+            this.itxt_License.ShowTextboxOnly = false;
+            this.itxt_License.Size = new System.Drawing.Size(151, 37);
+            this.itxt_License.TabIndex = 0;
+            this.itxt_License.ValueText = "";
+            this.itxt_License.Visible = false;
+            // 
+            // col_dgvSoundFiles_Filename
+            // 
+            this.col_dgvSoundFiles_Filename.ActiveLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.col_dgvSoundFiles_Filename.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.col_dgvSoundFiles_Filename.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_dgvSoundFiles_Filename.HeaderText = "Filename";
+            this.col_dgvSoundFiles_Filename.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.col_dgvSoundFiles_Filename.LinkColor = System.Drawing.Color.CornflowerBlue;
+            this.col_dgvSoundFiles_Filename.Name = "col_dgvSoundFiles_Filename";
+            this.col_dgvSoundFiles_Filename.ReadOnly = true;
+            this.col_dgvSoundFiles_Filename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_dgvSoundFiles_Filename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_dgvSoundFiles_Filename.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            // 
+            // col_dgvSoundFiles_Filepath
+            // 
+            this.col_dgvSoundFiles_Filepath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.col_dgvSoundFiles_Filepath.HeaderText = "Path";
+            this.col_dgvSoundFiles_Filepath.Name = "col_dgvSoundFiles_Filepath";
+            this.col_dgvSoundFiles_Filepath.Visible = false;
+            this.col_dgvSoundFiles_Filepath.Width = 5;
             // 
             // Settings_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(362, 273);
+            this.ClientSize = new System.Drawing.Size(362, 337);
             this.Controls.Add(this.tcSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Settings_Form";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Settings";
             this.Load += new System.EventHandler(this.Form_Load);
-            this.Shown += new System.EventHandler(this.Settings_Form_Shown);
+            this.Shown += new System.EventHandler(this.Form_Shown);
             this.gbRefreshInterval.ResumeLayout(false);
             this.gbPrinterSettings.ResumeLayout(false);
             this.gbPrinterSettings.PerformLayout();
@@ -828,18 +949,19 @@
             this.tpPrinter.ResumeLayout(false);
             this.tpSounds.ResumeLayout(false);
             this.tpSounds.PerformLayout();
-            this.tpDatabase.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSoundFiles)).EndInit();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.tpDatabase.ResumeLayout(false);
+            this.pnlDatabaseConnection.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btnResetQueues;
         private System.Windows.Forms.Button btnUpdateCategories;
         private System.Windows.Forms.Button btnCounterAddresses;
         private System.Windows.Forms.GroupBox gbRefreshInterval;
@@ -894,5 +1016,14 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox txtTransitionSoundFilepath;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnHistory;
+        private System.Windows.Forms.Button btnSaveLicense;
+        private LIBUtil.Desktop.UserControls.InputControl_Textbox itxt_License;
+        private System.Windows.Forms.Panel pnlDatabaseConnection;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.DataGridView dgvSoundFiles;
+        private System.Windows.Forms.Button btnLoadSoundFiles;
+        private System.Windows.Forms.DataGridViewLinkColumn col_dgvSoundFiles_Filename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvSoundFiles_Filepath;
     }
 }

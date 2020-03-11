@@ -59,6 +59,9 @@ namespace Queue.UserControls
         {
             label.TextAlign = textAlignment;
             _format = format;
+
+            label = LIBUtil.Util.fitLabelFontSizeIntoContainer(label, this);
+
             timer.Start();
         }
 

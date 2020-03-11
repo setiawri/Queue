@@ -55,6 +55,7 @@ namespace Queue
             Util.clearWhenSelected(dgv);
             dgv.AutoGenerateColumns = false;
             col_dgv_CalledCount.DataPropertyName = QueueCategory.COL_CalledCount;
+            col_dgv_LastCalledNo.DataPropertyName = QueueCategory.COL_LastCalledNo;
             col_dgv_Count.DataPropertyName = QueueCategory.COL_QueueCount;
             col_dgv_WaitTime.DataPropertyName = QueueCategory.COL_WaitTime;
             col_dgv_CallerText.DataPropertyName = QueueCategory.COL_CallerText; //Code - description

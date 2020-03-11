@@ -24,8 +24,8 @@ namespace Queue
         private int currentAdIndex = -1;
 
         //Call Queue
-        private static string _CALL_QueueNumber;
-        private static string _CALL_CounterName;
+        private static List<string> _CALL_QueueNumber = new List<string>();
+        private static List<string> _CALL_CounterName = new List<string>();
 
         #endregion SETTINGS
         /*******************************************************************************************************/
@@ -55,7 +55,7 @@ namespace Queue
             Util.clearWhenSelected(dgv);
             dgv.AutoGenerateColumns = false;
             col_dgv_NoAntrian.DataPropertyName = Queues.COL_CallNo;
-            col_dgv_CounterAddresses_Name.DataPropertyName = Queues.COL_CounterAddresses_Name;
+            col_dgv_CounterAddresses_Name.DataPropertyName = Queues.COL_DB_CounterAddresses_Name;
 
             timerRefreshInterval.Interval = Settings.RefreshInterval;
 
@@ -79,6 +79,9 @@ namespace Queue
             lblSilahkanKeCounter.Visible = false;
 
             AddEventHandlerToChildControls(this);
+
+            //cosmetics
+            col_dgv_CounterAddresses_Name.DefaultCellStyle.BackColor = Color.DarkOrange;
         }
 
         private void setupControlsBasedOnRoles()
@@ -99,11 +102,19 @@ namespace Queue
         private void populateDgvQueue()
         {
             //            Util.displayMessageBox("", Util.isDBConnectionAvailable(Properties.Resources.Q, false, false).ToString());
-            
+
+            //while (!string.IsNullOrEmpty(_CALL_QueueNumber))
+            //{
+            //    if (string.IsNullOrEmpty(_CALL_QueueNumber))
+            //        break;
+            //    else
+            //        System.Threading.Thread.Sleep(1000);
+            //}
+
             DataTable datatable;
             try
             {
-                datatable = Queues.get(true, null, null, MAXDISPLAYEDQUEUE);
+                datatable = Queues.get(true, null, null, MAXDISPLAYEDQUEUE, true, null, null);
                 if (pnlHeader.BackColor == _HeaderColor_ERROR)
                     pnlHeader.BackColor = _HeaderColor_DEFAULT;
             }
@@ -135,9 +146,11 @@ namespace Queue
                     showLargeCallDisplay(datatable.Rows[0]);
 
                     _lastCalledId = newCalledId;
-                    _CALL_QueueNumber = row[Queues.COL_CallNo].ToString();
-                    _CALL_CounterName = row[Queues.COL_CounterAddresses_Name].ToString();
-                    bgwCaller.RunWorkerAsync();
+                    _CALL_QueueNumber.Add(row[Queues.COL_CallNo].ToString());
+                    _CALL_CounterName.Add(row[Queues.COL_DB_CounterAddresses_Name].ToString());
+
+                    if (!bgwCaller.IsBusy)
+                        bgwCaller.RunWorkerAsync();
                 }
             }
         }
@@ -258,7 +271,7 @@ namespace Queue
                 lblCallingCounter.Visible = true;
                 lblSilahkanKeCounter.Visible = true;
                 lblCallingNo.Text = row[Queues.COL_CallNo].ToString();
-                lblCallingCounter.Text = row[Queues.COL_CounterAddresses_Name].ToString();
+                lblCallingCounter.Text = row[Queues.COL_DB_CounterAddresses_Name].ToString();
                 Util.fitTextToLabel(lblCallingNo);
                 Util.fitTextToLabel(lblCallingCounter);
             }
@@ -293,8 +306,12 @@ namespace Queue
 
         private void BgwCaller_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            playCallSound(_CALL_QueueNumber, _CALL_CounterName);
-            _CALL_CounterName = _CALL_QueueNumber = "";
+            while(_CALL_CounterName.Count > 0)
+            {
+                playCallSound(_CALL_QueueNumber[0], _CALL_CounterName[0]);
+                _CALL_CounterName.RemoveAt(0);
+                _CALL_QueueNumber.RemoveAt(0);
+            }
         }
 
         #endregion EVENT HANDLERS

@@ -45,7 +45,8 @@ namespace Queue.UserControls
             _speed = speed;
             timer.Interval = interval;
 
-            label.Height = this.Height; //set the height to match the container
+            label = LIBUtil.Util.fitLabelFontSizeIntoContainer(label, this);
+
             label.Width = TextRenderer.MeasureText(label.Text, label.Font).Width; //set width to show the text
             _textlength = label.Width; //memorize the width of the text
             if (_textlength < this.Width) //scroll if width larger than the container

@@ -34,6 +34,7 @@ namespace Queue
         public const string COL_RequestText = "RequestText";
         public const string COL_CallerText = "CallerText";
         public const string COL_CalledCount = "CalledCount";
+        public const string COL_LastCalledNo = "LastCalledNo";
         public const string COL_PendingCount = "PendingCount";
         public const string COL_WaitTime = "WaitTime";
 

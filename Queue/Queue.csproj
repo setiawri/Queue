@@ -108,6 +108,12 @@
     <Compile Include="Queue_Request_Form.Designer.cs">
       <DependentUpon>Queue_Request_Form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reports\History_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Reports\History_Form.Designer.cs">
+      <DependentUpon>History_Form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Settings_Form.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Queue_Request_Form.resx">
       <DependentUpon>Queue_Request_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\History_Form.resx">
+      <DependentUpon>History_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Settings_Form.resx">
       <DependentUpon>Settings_Form.cs</DependentUpon>

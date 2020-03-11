@@ -96,17 +96,6 @@ namespace Queue
             //this.ClientSize = new Size(this.ClientSize.Width, height); //uncomment if form is not maximized
         }
 
-        private void clearQueueIfStartOfDay()
-        {
-            DataTable datatable = Queues.get_withtrycatch(true, null, null, 1);
-            if (datatable.Rows.Count > 0)
-            {
-                DateTime lastdate = Util.wrapNullable<DateTime>(datatable.Rows[0], Queues.COL_DB_Timestamp);
-                if(lastdate.Date < DateTime.Now.Date)
-                    Queues.deleteAll();
-            }
-        }
-
         //in order for the cursor to properly hide/show, the settings panel is visible when form is shown
         //and this method is run once to hide the settings panel and the cursor
         //on form closed event, the cursor is shown again so cursor works properly on the next form
@@ -134,12 +123,11 @@ namespace Queue
 
         private void Form_Load(object sender, EventArgs e)
         {
-            clearQueueIfStartOfDay();
-
             setupControls();
             populateData();
 
             clickSettings();
+            //Queues.clearQueueIfStartOfDay();
         }
 
         private void Queue_Request_Form_Shown(object sender, EventArgs e)

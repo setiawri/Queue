@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.IO;
+using System.Data;
+using System.Media;
 
 using LIBUtil;
 using LIBUtil.Desktop.Classes;
@@ -14,11 +17,14 @@ namespace Queue
         private const string FORMTITLE = "SETTINGS";
         private const int MAXROLLINGTEXTSPEED = 9;
         private const int MINROLLINGTEXTSPEED = 1;
-        
+
+        private const string COL_Filename = "Filename";
+        private const string COL_Filepath = "Filepath";
+
         #endregion SETTINGS
         /*******************************************************************************************************/
         #region PUBLIC VARIABLES
-            
+
         #endregion PUBLIC VARIABLES
         /*******************************************************************************************************/
         #region PRIVATE VARIABLES
@@ -32,8 +38,6 @@ namespace Queue
         public Settings_Form()
         {
             InitializeComponent();
-
-            //setupControls();
         }
 
         #endregion CONSTRUCTOR METHODS
@@ -44,7 +48,7 @@ namespace Queue
         {
             this.Text = FORMTITLE;
             Util.disableFormResize(this);
-            
+
             gridPrintLayout.AutoGenerateColumns = false;
             //Util.clearWhenSelected(gridPrintLayout);
             col_gridPrintLayout_Id.DataPropertyName = PrintLayout.COL_DB_Id;
@@ -56,17 +60,12 @@ namespace Queue
             col_gridPrintLayout_TextAlign_description.DataPropertyName = PrintLayout.COL_TextAlign_description;
             addContextMenu();
 
-            if (!DBConnection.hasDBConnection)
-            {
-                //Util.displayMessageBoxError("Koneksi ke database tidak berhasil. Silahkan coba lagi atau perbaiki informasi koneksi.");
+            dgvSoundFiles.AutoGenerateColumns = false;
+            col_dgvSoundFiles_Filename.DataPropertyName = COL_Filename;
+            col_dgvSoundFiles_Filepath.DataPropertyName = COL_Filepath;
+            Util.clearWhenSelected(dgvSoundFiles);
 
-                Util.enableControls(false, tpSounds, tpGeneral, tpMasterData, tpPrinter);
-                tcSettings.SelectedTab = tpDatabase;
-            }
-            else
-            {
-                Util.enableControls(true, tpSounds, tpGeneral, tpMasterData, tpPrinter);
-            }
+            Util.enableControls(true, tpSounds, tpGeneral, tpMasterData, tpPrinter, pnlDatabaseConnection);
         }
 
         private void populateData()
@@ -146,14 +145,52 @@ namespace Queue
             }
         }
 
+        private void validateLicenseAndTestConnection()
+        {
+            if (!License.hasValidLicense || !DBConnection.hasDBConnection)
+            {
+                Util.enableControls(false, tpSounds, tpGeneral, tpMasterData, tpPrinter);
+                tcSettings.SelectedTab = tpDatabase;
+
+                if (!License.hasValidLicense)
+                {
+                    Util.enableControls(false, pnlDatabaseConnection);
+
+                    itxt_License.Visible = true;
+                    btnSaveLicense.Visible = true;
+                    itxt_License.focus();
+                }
+            }
+            else
+            {
+                setupControls();
+                populateData();
+            }
+        }
+
+        private bool testDBConnectionSuccessful()
+        {
+            if (Helper.isDBConnectionAvailable())
+            {
+                Util.displayMessageBoxSuccess("Connection test successful");
+                return true;
+            }
+            return false;
+        }
+
         #endregion METHODS
         /*******************************************************************************************************/
         #region EVENT HANDLERS
 
         private void Form_Load(object sender, EventArgs e)
         {
-            setupControls();
-            populateData();
+            validateLicenseAndTestConnection();
+        }
+
+        private void Form_Shown(object sender, EventArgs e)
+        {
+            if (itxt_License.Visible)
+                itxt_License.focus();
         }
 
         private void btnResetQueues_Click(object sender, EventArgs e)
@@ -182,10 +219,11 @@ namespace Queue
         private void btnSaveDatabaseInfo_Click(object sender, EventArgs e)
         {            
             DBConnection.update(itxt_ServerName, itxt_DatabaseName);
-            if (Helper.isDBConnectionAvailable())
-                Util.displayMessageBoxSuccess("Connection test successful");
-            setupControls();
-            populateData();
+            if(testDBConnectionSuccessful())
+            { 
+                setupControls();
+                populateData();
+            }
         }
 
         private void btnTestPrinter_Click(object sender, EventArgs e)
@@ -312,11 +350,6 @@ namespace Queue
             Util.displayMessageBoxSuccess("Saved");
         }
 
-        private void Settings_Form_Shown(object sender, EventArgs e)
-        {
-
-        }
-
         private void txtSoundFolder_Click(object sender, EventArgs e)
         {
             using (var dialog = new FolderBrowserDialog())
@@ -345,6 +378,55 @@ namespace Queue
         private void ChkCounter_CheckedChanged(object sender, EventArgs e)
         {
             Settings.PlayCounter = chkCounter.Checked;
+        }
+
+        private void BtnHistory_Click(object sender, EventArgs e)
+        {
+            Util.displayForm(this, new Reports.History_Form());       
+        }
+
+        private void BtnSaveLicense_Click(object sender, EventArgs e)
+        {
+            if (!License.validate(itxt_License.ValueText))
+            {
+                Util.displayMessageBoxError("Invalid License.");
+                itxt_License.focus();
+            }
+            else
+            {
+                itxt_License.Visible = false;
+                btnSaveLicense.Visible = false;
+                Util.enableControls(true, pnlDatabaseConnection);
+                testDBConnectionSuccessful();
+                validateLicenseAndTestConnection();
+            }
+        }
+
+        private void BtnLoadSoundFiles_Click(object sender, EventArgs e)
+        {
+            DataTable data = new DataTable();
+            DataRow row;
+
+            Util.addColumnToTable<string>(data, COL_Filename, "a");
+            Util.addColumnToTable<string>(data, COL_Filepath, null);
+            foreach (string filepath in Directory.GetFiles(txtSoundFolder.Text))
+            {
+                row = data.NewRow();
+                row[COL_Filename] = filepath.Substring(filepath.LastIndexOf('\\')+1);
+                row[COL_Filepath] = filepath;
+                data.Rows.Add(row);
+            }
+            dgvSoundFiles.DataSource = data;
+            //Util.setGridviewDataSource(dgvSoundFiles, true, true, data);
+        }
+
+        private void DgvSoundFiles_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string filepath = Util.getClickedRowValue(sender, e, col_dgvSoundFiles_Filepath).ToString();
+            if (!File.Exists(filepath))
+                Util.displayMessageBoxError("File is no longer available");
+            else
+                new SoundPlayer().PlaySync();
         }
 
         #endregion EVENT HANDLERS

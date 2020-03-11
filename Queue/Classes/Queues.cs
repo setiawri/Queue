@@ -17,6 +17,7 @@ namespace Queue
 
         public Guid Id;
         public Guid QueueCategories_Id;
+        public string QueueCategories_Code;
         public DateTime Timestamp;
         public int No;
         public DateTime CallTimestamp;
@@ -29,15 +30,20 @@ namespace Queue
 
         public const string COL_DB_Id = "Id";
         public const string COL_DB_QueueCategories_Id = "QueueCategories_Id";
+        public const string COL_DB_QueueCategories_Code = "QueueCategories_Code";
         public const string COL_DB_Timestamp = "Timestamp";
         public const string COL_DB_CallTimestamp = "CallTimestamp";
         public const string COL_DB_No = "No";
         public const string COL_DB_CounterAddresses_Id = "CounterAddresses_Id";
+        public const string COL_DB_CounterAddresses_Name = "CounterAddresses_Name";
 
         public const string COL_CallNo = "CallNo";
-        public const string COL_CounterAddresses_Name = "CounterAddresses_Name";
+        public const string COL_WaitTime = "WaitTime";
         public const string FILTER_CalledOnly = "FILTER_CalledOnly";
         public const string FILTER_TopCount = "FILTER_TopCount";
+        public const string FILTER_ShowTodayOnly = "FILTER_ShowTodayOnly";
+        public const string FILTER_StartDate = "FILTER_StartDate";
+        public const string FILTER_EndDate = "FILTER_EndDate";
 
         #endregion PUBLIC VARIABLES
         /*******************************************************************************************************/
@@ -48,11 +54,11 @@ namespace Queue
             DataRow row = get(id);
             Id = id;
             QueueCategories_Id = Util.wrapNullable<Guid>(row, COL_DB_QueueCategories_Id);
+            QueueCategories_Code = Util.wrapNullable<string>(row, COL_DB_QueueCategories_Code);
             Timestamp = Util.wrapNullable<DateTime>(row, COL_DB_Timestamp);
             No = Util.wrapNullable<int>(row, COL_DB_No);
             CounterAddresses_Id = Util.wrapNullable<Guid>(row, COL_DB_CounterAddresses_Id);
-
-            CounterAddresses_Name = Util.wrapNullable<string>(row, COL_CounterAddresses_Name);
+            CounterAddresses_Name = Util.wrapNullable<string>(row, COL_DB_CounterAddresses_Name);
         }
 
         public Queues() { }
@@ -89,22 +95,22 @@ namespace Queue
             return printString;
         }
 
-        public static DataRow get(Guid id) { return Util.getFirstRow(get_withtrycatch(false, id, null, null)); }
+        public static DataRow get(Guid id) { return Util.getFirstRow(get_withtrycatch(false, id, null, null, false)); }
 
-        public static DataTable get_withtrycatch(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount)
+        public static DataTable get_withtrycatch(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount, bool showTodayOnly)
         {
             DataTable datatable = new DataTable();
 
             try
             {
-                datatable = get(calledOnly, id, queueCategoryId, topCount);
+                datatable = get(calledOnly, id, queueCategoryId, topCount, showTodayOnly, null, null);
             }
             catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
 
             return datatable;
         }
 
-        public static DataTable get(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount)
+        public static DataTable get(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount, bool showTodayOnly, DateTime? startDate, DateTime? endDate)
         {
             DataTable datatable = new DataTable();
 
@@ -117,6 +123,9 @@ namespace Queue
                 cmd.Parameters.Add("@" + COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier).Value = queueCategoryId;
                 cmd.Parameters.Add("@" + FILTER_CalledOnly, SqlDbType.Bit).Value = calledOnly;
                 cmd.Parameters.Add("@" + FILTER_TopCount, SqlDbType.Int).Value = topCount;
+                cmd.Parameters.Add("@" + FILTER_ShowTodayOnly, SqlDbType.Bit).Value = showTodayOnly;
+                cmd.Parameters.Add("@" + FILTER_StartDate, SqlDbType.DateTime).Value = Util.wrapNullable(startDate);
+                cmd.Parameters.Add("@" + FILTER_EndDate, SqlDbType.DateTime).Value = Util.wrapNullable(endDate); 
 
                 adapter.SelectCommand = cmd;
                 adapter.Fill(datatable);
@@ -205,7 +214,18 @@ namespace Queue
     
         public static void populateDropDownList(LIBUtil.Desktop.UserControls.Dropdownlist dropdownlist, bool calledOnly, int? lastQueueCount)
         {
-            dropdownlist.populate(get_withtrycatch(calledOnly, null, null, lastQueueCount), COL_CallNo, COL_DB_Id, null);
+            dropdownlist.populate(get_withtrycatch(calledOnly, null, null, lastQueueCount, true), COL_CallNo, COL_DB_Id, null);
+        }
+
+        public static void clearQueueIfStartOfDay()
+        {
+            DataTable datatable = Queues.get_withtrycatch(true, null, null, 1, false);
+            if (datatable.Rows.Count > 0)
+            {
+                DateTime lastdate = Util.wrapNullable<DateTime>(datatable.Rows[0], Queues.COL_DB_Timestamp);
+                if (lastdate.Date < DateTime.Now.Date)
+                    Queues.deleteAll();
+            }
         }
 
         #endregion CLASS METHODS

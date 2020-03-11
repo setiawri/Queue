@@ -48,8 +48,11 @@
             this.ddlCalled = new LIBUtil.Desktop.UserControls.Dropdownlist();
             this.btnCallPrevious = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pnlOptions = new System.Windows.Forms.Panel();
             this.col_dgv_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_CalledCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dgv_LastCalledNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_CallerButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_dgv_PendingCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_WaitTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,8 +60,6 @@
             this.col_dgv_CallerText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_Categories_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pnlOptions = new System.Windows.Forms.Panel();
             this.pnlInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnlock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLock)).BeginInit();
@@ -160,7 +161,9 @@
             this.ddlCalled.Filter = "";
             this.ddlCalled.Location = new System.Drawing.Point(43, 6);
             this.ddlCalled.Name = "ddlCalled";
+            this.ddlCalled.SelectedIndex = -1;
             this.ddlCalled.SelectedItem = null;
+            this.ddlCalled.SelectedItemText = "";
             this.ddlCalled.SelectedValue = null;
             this.ddlCalled.Size = new System.Drawing.Size(63, 21);
             this.ddlCalled.TabIndex = 28;
@@ -198,6 +201,7 @@
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_dgv_Id,
             this.col_dgv_CalledCount,
+            this.col_dgv_LastCalledNo,
             this.col_dgv_CallerButton,
             this.col_dgv_PendingCount,
             this.col_dgv_WaitTime,
@@ -221,6 +225,22 @@
             this.dgv.TabIndex = 26;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pnlOptions
+            // 
+            this.pnlOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlOptions.Controls.Add(this.txtFilterCalled);
+            this.pnlOptions.Controls.Add(this.ddlCalled);
+            this.pnlOptions.Controls.Add(this.btnCallPrevious);
+            this.pnlOptions.Location = new System.Drawing.Point(236, 32);
+            this.pnlOptions.Name = "pnlOptions";
+            this.pnlOptions.Size = new System.Drawing.Size(185, 35);
+            this.pnlOptions.TabIndex = 27;
+            this.pnlOptions.Visible = false;
+            // 
             // col_dgv_Id
             // 
             this.col_dgv_Id.HeaderText = "Id";
@@ -232,11 +252,20 @@
             this.col_dgv_CalledCount.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             this.col_dgv_CalledCount.DefaultCellStyle = dataGridViewCellStyle2;
-            this.col_dgv_CalledCount.HeaderText = "Last";
-            this.col_dgv_CalledCount.MinimumWidth = 30;
+            this.col_dgv_CalledCount.HeaderText = "Count";
+            this.col_dgv_CalledCount.MinimumWidth = 40;
             this.col_dgv_CalledCount.Name = "col_dgv_CalledCount";
             this.col_dgv_CalledCount.ReadOnly = true;
-            this.col_dgv_CalledCount.Width = 30;
+            this.col_dgv_CalledCount.Width = 40;
+            // 
+            // col_dgv_LastCalledNo
+            // 
+            this.col_dgv_LastCalledNo.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.col_dgv_LastCalledNo.HeaderText = "Last";
+            this.col_dgv_LastCalledNo.MinimumWidth = 30;
+            this.col_dgv_LastCalledNo.Name = "col_dgv_LastCalledNo";
+            this.col_dgv_LastCalledNo.ReadOnly = true;
+            this.col_dgv_LastCalledNo.Width = 30;
             // 
             // col_dgv_CallerButton
             // 
@@ -267,7 +296,7 @@
             this.col_dgv_WaitTime.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             this.col_dgv_WaitTime.DefaultCellStyle = dataGridViewCellStyle5;
-            this.col_dgv_WaitTime.HeaderText = "menit";
+            this.col_dgv_WaitTime.HeaderText = "Menit";
             this.col_dgv_WaitTime.MinimumWidth = 40;
             this.col_dgv_WaitTime.Name = "col_dgv_WaitTime";
             this.col_dgv_WaitTime.ReadOnly = true;
@@ -295,6 +324,7 @@
             this.col_dgv_Count.Name = "col_dgv_Count";
             this.col_dgv_Count.ReadOnly = true;
             this.col_dgv_Count.Visible = false;
+            this.col_dgv_Count.Width = 30;
             // 
             // col_dgv_Categories_Description
             // 
@@ -306,22 +336,6 @@
             this.col_dgv_Categories_Description.MinimumWidth = 50;
             this.col_dgv_Categories_Description.Name = "col_dgv_Categories_Description";
             this.col_dgv_Categories_Description.ReadOnly = true;
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pnlOptions
-            // 
-            this.pnlOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlOptions.Controls.Add(this.txtFilterCalled);
-            this.pnlOptions.Controls.Add(this.ddlCalled);
-            this.pnlOptions.Controls.Add(this.btnCallPrevious);
-            this.pnlOptions.Location = new System.Drawing.Point(236, 32);
-            this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(185, 35);
-            this.pnlOptions.TabIndex = 27;
-            this.pnlOptions.Visible = false;
             // 
             // Queue_Caller_Form
             // 
@@ -360,8 +374,11 @@
         private System.Windows.Forms.Button btnShowQueue;
         private System.Windows.Forms.PictureBox pbUpdate;
         private System.Windows.Forms.Label lblLastCalled;
+        private System.Windows.Forms.PictureBox pbLock;
+        private System.Windows.Forms.PictureBox pbUnlock;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Id;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_CalledCount;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_LastCalledNo;
         private System.Windows.Forms.DataGridViewButtonColumn col_dgv_CallerButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_PendingCount;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_WaitTime;
@@ -369,7 +386,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_CallerText;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Count;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Categories_Description;
-        private System.Windows.Forms.PictureBox pbLock;
-        private System.Windows.Forms.PictureBox pbUnlock;
     }
 }
