@@ -40,6 +40,8 @@
             this.btnIncreaseRefreshInterval = new System.Windows.Forms.Button();
             this.btnSaveDatabaseInfo = new System.Windows.Forms.Button();
             this.gbPrinterSettings = new System.Windows.Forms.GroupBox();
+            this.in_PrintAreaWidth = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
+            this.in_PrintQty = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddPrintLine = new System.Windows.Forms.Button();
             this.btnTestPrinter = new System.Windows.Forms.Button();
@@ -71,7 +73,11 @@
             this.txtHeaderText = new System.Windows.Forms.TextBox();
             this.tcSettings = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
-            this.tpMasterData = new System.Windows.Forms.TabPage();
+            this.gbQueueCutOffTime = new System.Windows.Forms.GroupBox();
+            this.in_AutomaticQueueNoResetHour = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
+            this.rbAutomaticQueueNoReset = new System.Windows.Forms.RadioButton();
+            this.rbManualQueueNoReset = new System.Windows.Forms.RadioButton();
+            this.tpData = new System.Windows.Forms.TabPage();
             this.btnHistory = new System.Windows.Forms.Button();
             this.tpPrinter = new System.Windows.Forms.TabPage();
             this.tpSounds = new System.Windows.Forms.TabPage();
@@ -81,20 +87,20 @@
             this.chkCounter = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.dgvSoundFiles = new System.Windows.Forms.DataGridView();
+            this.col_dgvSoundFiles_Filename = new System.Windows.Forms.DataGridViewLinkColumn();
+            this.col_dgvSoundFiles_Filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnLoadSoundFiles = new System.Windows.Forms.Button();
             this.txtSoundFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tpDatabase = new System.Windows.Forms.TabPage();
             this.pnlDatabaseConnection = new System.Windows.Forms.Panel();
-            this.btnSaveLicense = new System.Windows.Forms.Button();
-            this.in_PrintAreaWidth = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
-            this.in_PrintQty = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
             this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
             this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.btnSaveLicense = new System.Windows.Forms.Button();
             this.itxt_License = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.col_dgvSoundFiles_Filename = new System.Windows.Forms.DataGridViewLinkColumn();
-            this.col_dgvSoundFiles_Filepath = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.label2 = new System.Windows.Forms.Label();
+            this.lblQueueNoCutoffTimestamp = new System.Windows.Forms.Label();
             this.gbRefreshInterval.SuspendLayout();
             this.gbPrinterSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).BeginInit();
@@ -105,7 +111,8 @@
             this.gbHeaderText.SuspendLayout();
             this.tcSettings.SuspendLayout();
             this.tpGeneral.SuspendLayout();
-            this.tpMasterData.SuspendLayout();
+            this.gbQueueCutOffTime.SuspendLayout();
+            this.tpData.SuspendLayout();
             this.tpPrinter.SuspendLayout();
             this.tpSounds.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -214,6 +221,77 @@
             this.gbPrinterSettings.TabIndex = 7;
             this.gbPrinterSettings.TabStop = false;
             this.gbPrinterSettings.Text = "Printer Settings";
+            // 
+            // in_PrintAreaWidth
+            // 
+            this.in_PrintAreaWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.in_PrintAreaWidth.Checked = false;
+            this.in_PrintAreaWidth.DecimalPlaces = 0;
+            this.in_PrintAreaWidth.HideUpDown = false;
+            this.in_PrintAreaWidth.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.LabelText = "Lebar kertas";
+            this.in_PrintAreaWidth.Location = new System.Drawing.Point(136, 258);
+            this.in_PrintAreaWidth.MaximumValue = new decimal(new int[] {
+            9999,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintAreaWidth.Name = "in_PrintAreaWidth";
+            this.in_PrintAreaWidth.ShowAllowDecimalCheckbox = false;
+            this.in_PrintAreaWidth.ShowCheckbox = false;
+            this.in_PrintAreaWidth.ShowTextboxOnly = false;
+            this.in_PrintAreaWidth.Size = new System.Drawing.Size(78, 41);
+            this.in_PrintAreaWidth.TabIndex = 14;
+            this.in_PrintAreaWidth.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // in_PrintQty
+            // 
+            this.in_PrintQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.in_PrintQty.Checked = false;
+            this.in_PrintQty.DecimalPlaces = 0;
+            this.in_PrintQty.HideUpDown = false;
+            this.in_PrintQty.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.LabelText = "Qty print";
+            this.in_PrintQty.Location = new System.Drawing.Point(58, 258);
+            this.in_PrintQty.MaximumValue = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
+            this.in_PrintQty.MinimumValue = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_PrintQty.Name = "in_PrintQty";
+            this.in_PrintQty.ShowAllowDecimalCheckbox = false;
+            this.in_PrintQty.ShowCheckbox = false;
+            this.in_PrintQty.ShowTextboxOnly = false;
+            this.in_PrintQty.Size = new System.Drawing.Size(72, 41);
+            this.in_PrintQty.TabIndex = 13;
+            this.in_PrintQty.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // label4
             // 
@@ -342,7 +420,6 @@
             this.col_gridPrintLayout_TextAlign_enumid.MinimumWidth = 40;
             this.col_gridPrintLayout_TextAlign_enumid.Name = "col_gridPrintLayout_TextAlign_enumid";
             this.col_gridPrintLayout_TextAlign_enumid.Visible = false;
-            this.col_gridPrintLayout_TextAlign_enumid.Width = 40;
             // 
             // col_gridPrintLayout_TextAlign_description
             // 
@@ -545,7 +622,7 @@
             // tcSettings
             // 
             this.tcSettings.Controls.Add(this.tpGeneral);
-            this.tcSettings.Controls.Add(this.tpMasterData);
+            this.tcSettings.Controls.Add(this.tpData);
             this.tcSettings.Controls.Add(this.tpPrinter);
             this.tcSettings.Controls.Add(this.tpSounds);
             this.tcSettings.Controls.Add(this.tpDatabase);
@@ -558,6 +635,7 @@
             // 
             // tpGeneral
             // 
+            this.tpGeneral.Controls.Add(this.gbQueueCutOffTime);
             this.tpGeneral.Controls.Add(this.gbHeaderText);
             this.tpGeneral.Controls.Add(this.gbRollingText);
             this.tpGeneral.Controls.Add(this.gbInterval);
@@ -572,18 +650,91 @@
             this.tpGeneral.Text = "General";
             this.tpGeneral.UseVisualStyleBackColor = true;
             // 
-            // tpMasterData
+            // gbQueueCutOffTime
             // 
-            this.tpMasterData.Controls.Add(this.btnHistory);
-            this.tpMasterData.Controls.Add(this.btnCounterAddresses);
-            this.tpMasterData.Controls.Add(this.btnUpdateCategories);
-            this.tpMasterData.Location = new System.Drawing.Point(4, 22);
-            this.tpMasterData.Name = "tpMasterData";
-            this.tpMasterData.Padding = new System.Windows.Forms.Padding(3);
-            this.tpMasterData.Size = new System.Drawing.Size(354, 311);
-            this.tpMasterData.TabIndex = 1;
-            this.tpMasterData.Text = "Master Data";
-            this.tpMasterData.UseVisualStyleBackColor = true;
+            this.gbQueueCutOffTime.Controls.Add(this.lblQueueNoCutoffTimestamp);
+            this.gbQueueCutOffTime.Controls.Add(this.label2);
+            this.gbQueueCutOffTime.Controls.Add(this.in_AutomaticQueueNoResetHour);
+            this.gbQueueCutOffTime.Controls.Add(this.rbAutomaticQueueNoReset);
+            this.gbQueueCutOffTime.Controls.Add(this.rbManualQueueNoReset);
+            this.gbQueueCutOffTime.Location = new System.Drawing.Point(8, 198);
+            this.gbQueueCutOffTime.Name = "gbQueueCutOffTime";
+            this.gbQueueCutOffTime.Size = new System.Drawing.Size(338, 87);
+            this.gbQueueCutOffTime.TabIndex = 21;
+            this.gbQueueCutOffTime.TabStop = false;
+            this.gbQueueCutOffTime.Text = "Queue Number Reset";
+            // 
+            // in_AutomaticQueueNoResetHour
+            // 
+            this.in_AutomaticQueueNoResetHour.Checked = false;
+            this.in_AutomaticQueueNoResetHour.DecimalPlaces = 0;
+            this.in_AutomaticQueueNoResetHour.HideUpDown = false;
+            this.in_AutomaticQueueNoResetHour.Increment = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.in_AutomaticQueueNoResetHour.LabelText = "numeric";
+            this.in_AutomaticQueueNoResetHour.Location = new System.Drawing.Point(184, 42);
+            this.in_AutomaticQueueNoResetHour.MaximumValue = new decimal(new int[] {
+            23,
+            0,
+            0,
+            0});
+            this.in_AutomaticQueueNoResetHour.MinimumValue = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.in_AutomaticQueueNoResetHour.Name = "in_AutomaticQueueNoResetHour";
+            this.in_AutomaticQueueNoResetHour.ShowAllowDecimalCheckbox = false;
+            this.in_AutomaticQueueNoResetHour.ShowCheckbox = false;
+            this.in_AutomaticQueueNoResetHour.ShowTextboxOnly = true;
+            this.in_AutomaticQueueNoResetHour.Size = new System.Drawing.Size(37, 24);
+            this.in_AutomaticQueueNoResetHour.TabIndex = 22;
+            this.in_AutomaticQueueNoResetHour.Value = new decimal(new int[] {
+            0,
+            0,
+            0,
+            0});
+            this.in_AutomaticQueueNoResetHour.ValueChanged += new System.EventHandler(this.QueueNoReset_Changed);
+            // 
+            // rbAutomaticQueueNoReset
+            // 
+            this.rbAutomaticQueueNoReset.AutoSize = true;
+            this.rbAutomaticQueueNoReset.Location = new System.Drawing.Point(75, 46);
+            this.rbAutomaticQueueNoReset.Name = "rbAutomaticQueueNoReset";
+            this.rbAutomaticQueueNoReset.Size = new System.Drawing.Size(111, 17);
+            this.rbAutomaticQueueNoReset.TabIndex = 23;
+            this.rbAutomaticQueueNoReset.TabStop = true;
+            this.rbAutomaticQueueNoReset.Text = "Automatic at hour:";
+            this.rbAutomaticQueueNoReset.UseVisualStyleBackColor = true;
+            this.rbAutomaticQueueNoReset.CheckedChanged += new System.EventHandler(this.QueueNoReset_Changed);
+            // 
+            // rbManualQueueNoReset
+            // 
+            this.rbManualQueueNoReset.AutoSize = true;
+            this.rbManualQueueNoReset.Location = new System.Drawing.Point(9, 46);
+            this.rbManualQueueNoReset.Name = "rbManualQueueNoReset";
+            this.rbManualQueueNoReset.Size = new System.Drawing.Size(60, 17);
+            this.rbManualQueueNoReset.TabIndex = 22;
+            this.rbManualQueueNoReset.TabStop = true;
+            this.rbManualQueueNoReset.Text = "Manual";
+            this.rbManualQueueNoReset.UseVisualStyleBackColor = true;
+            this.rbManualQueueNoReset.CheckedChanged += new System.EventHandler(this.QueueNoReset_Changed);
+            // 
+            // tpData
+            // 
+            this.tpData.Controls.Add(this.btnHistory);
+            this.tpData.Controls.Add(this.btnCounterAddresses);
+            this.tpData.Controls.Add(this.btnUpdateCategories);
+            this.tpData.Location = new System.Drawing.Point(4, 22);
+            this.tpData.Name = "tpData";
+            this.tpData.Padding = new System.Windows.Forms.Padding(3);
+            this.tpData.Size = new System.Drawing.Size(354, 311);
+            this.tpData.TabIndex = 1;
+            this.tpData.Text = "DATA";
+            this.tpData.UseVisualStyleBackColor = true;
             // 
             // btnHistory
             // 
@@ -699,6 +850,28 @@
             this.dgvSoundFiles.TabIndex = 17;
             this.dgvSoundFiles.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DgvSoundFiles_CellContentClick);
             // 
+            // col_dgvSoundFiles_Filename
+            // 
+            this.col_dgvSoundFiles_Filename.ActiveLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.col_dgvSoundFiles_Filename.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.col_dgvSoundFiles_Filename.DefaultCellStyle = dataGridViewCellStyle3;
+            this.col_dgvSoundFiles_Filename.HeaderText = "Filename";
+            this.col_dgvSoundFiles_Filename.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.col_dgvSoundFiles_Filename.LinkColor = System.Drawing.Color.CornflowerBlue;
+            this.col_dgvSoundFiles_Filename.Name = "col_dgvSoundFiles_Filename";
+            this.col_dgvSoundFiles_Filename.ReadOnly = true;
+            this.col_dgvSoundFiles_Filename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.col_dgvSoundFiles_Filename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            this.col_dgvSoundFiles_Filename.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            // 
+            // col_dgvSoundFiles_Filepath
+            // 
+            this.col_dgvSoundFiles_Filepath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.col_dgvSoundFiles_Filepath.HeaderText = "Path";
+            this.col_dgvSoundFiles_Filepath.Name = "col_dgvSoundFiles_Filepath";
+            this.col_dgvSoundFiles_Filepath.Visible = false;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.btnLoadSoundFiles);
@@ -761,89 +934,6 @@
             this.pnlDatabaseConnection.Size = new System.Drawing.Size(200, 115);
             this.pnlDatabaseConnection.TabIndex = 5;
             // 
-            // btnSaveLicense
-            // 
-            this.btnSaveLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveLicense.Location = new System.Drawing.Point(224, 26);
-            this.btnSaveLicense.Name = "btnSaveLicense";
-            this.btnSaveLicense.Size = new System.Drawing.Size(62, 38);
-            this.btnSaveLicense.TabIndex = 1;
-            this.btnSaveLicense.Text = "SAVE";
-            this.btnSaveLicense.UseVisualStyleBackColor = true;
-            this.btnSaveLicense.Visible = false;
-            this.btnSaveLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
-            // 
-            // in_PrintAreaWidth
-            // 
-            this.in_PrintAreaWidth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.in_PrintAreaWidth.Checked = false;
-            this.in_PrintAreaWidth.DecimalPlaces = 0;
-            this.in_PrintAreaWidth.HideUpDown = false;
-            this.in_PrintAreaWidth.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.LabelText = "Lebar kertas";
-            this.in_PrintAreaWidth.Location = new System.Drawing.Point(136, 258);
-            this.in_PrintAreaWidth.MaximumValue = new decimal(new int[] {
-            9999,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.MinimumValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintAreaWidth.Name = "in_PrintAreaWidth";
-            this.in_PrintAreaWidth.ShowAllowDecimalCheckbox = false;
-            this.in_PrintAreaWidth.ShowCheckbox = false;
-            this.in_PrintAreaWidth.ShowTextboxOnly = false;
-            this.in_PrintAreaWidth.Size = new System.Drawing.Size(78, 41);
-            this.in_PrintAreaWidth.TabIndex = 14;
-            this.in_PrintAreaWidth.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
-            // in_PrintQty
-            // 
-            this.in_PrintQty.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.in_PrintQty.Checked = false;
-            this.in_PrintQty.DecimalPlaces = 0;
-            this.in_PrintQty.HideUpDown = false;
-            this.in_PrintQty.Increment = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintQty.LabelText = "Qty print";
-            this.in_PrintQty.Location = new System.Drawing.Point(58, 258);
-            this.in_PrintQty.MaximumValue = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-            this.in_PrintQty.MinimumValue = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.in_PrintQty.Name = "in_PrintQty";
-            this.in_PrintQty.ShowAllowDecimalCheckbox = false;
-            this.in_PrintQty.ShowCheckbox = false;
-            this.in_PrintQty.ShowTextboxOnly = false;
-            this.in_PrintQty.Size = new System.Drawing.Size(72, 41);
-            this.in_PrintQty.TabIndex = 13;
-            this.in_PrintQty.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            // 
             // itxt_ServerName
             // 
             this.itxt_ServerName.IsBrowseMode = false;
@@ -878,6 +968,18 @@
             this.itxt_DatabaseName.TabIndex = 3;
             this.itxt_DatabaseName.ValueText = "";
             // 
+            // btnSaveLicense
+            // 
+            this.btnSaveLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveLicense.Location = new System.Drawing.Point(224, 26);
+            this.btnSaveLicense.Name = "btnSaveLicense";
+            this.btnSaveLicense.Size = new System.Drawing.Size(62, 38);
+            this.btnSaveLicense.TabIndex = 1;
+            this.btnSaveLicense.Text = "SAVE";
+            this.btnSaveLicense.UseVisualStyleBackColor = true;
+            this.btnSaveLicense.Visible = false;
+            this.btnSaveLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
+            // 
             // itxt_License
             // 
             this.itxt_License.IsBrowseMode = false;
@@ -896,28 +998,23 @@
             this.itxt_License.ValueText = "";
             this.itxt_License.Visible = false;
             // 
-            // col_dgvSoundFiles_Filename
+            // label2
             // 
-            this.col_dgvSoundFiles_Filename.ActiveLinkColor = System.Drawing.Color.CornflowerBlue;
-            this.col_dgvSoundFiles_Filename.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.col_dgvSoundFiles_Filename.DefaultCellStyle = dataGridViewCellStyle3;
-            this.col_dgvSoundFiles_Filename.HeaderText = "Filename";
-            this.col_dgvSoundFiles_Filename.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.col_dgvSoundFiles_Filename.LinkColor = System.Drawing.Color.CornflowerBlue;
-            this.col_dgvSoundFiles_Filename.Name = "col_dgvSoundFiles_Filename";
-            this.col_dgvSoundFiles_Filename.ReadOnly = true;
-            this.col_dgvSoundFiles_Filename.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.col_dgvSoundFiles_Filename.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            this.col_dgvSoundFiles_Filename.VisitedLinkColor = System.Drawing.Color.CornflowerBlue;
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(326, 27);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "WARNING! Nomor antrian akan di VOID sesuai perubahan pada setting ini!";
             // 
-            // col_dgvSoundFiles_Filepath
+            // lblQueueNoCutoffTimestamp
             // 
-            this.col_dgvSoundFiles_Filepath.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
-            this.col_dgvSoundFiles_Filepath.HeaderText = "Path";
-            this.col_dgvSoundFiles_Filepath.Name = "col_dgvSoundFiles_Filepath";
-            this.col_dgvSoundFiles_Filepath.Visible = false;
-            this.col_dgvSoundFiles_Filepath.Width = 5;
+            this.lblQueueNoCutoffTimestamp.AutoSize = true;
+            this.lblQueueNoCutoffTimestamp.Location = new System.Drawing.Point(6, 66);
+            this.lblQueueNoCutoffTimestamp.Name = "lblQueueNoCutoffTimestamp";
+            this.lblQueueNoCutoffTimestamp.Size = new System.Drawing.Size(142, 13);
+            this.lblQueueNoCutoffTimestamp.TabIndex = 25;
+            this.lblQueueNoCutoffTimestamp.Text = "lblQueueNoCutoffTimestamp";
             // 
             // Settings_Form
             // 
@@ -945,7 +1042,9 @@
             this.gbHeaderText.PerformLayout();
             this.tcSettings.ResumeLayout(false);
             this.tpGeneral.ResumeLayout(false);
-            this.tpMasterData.ResumeLayout(false);
+            this.gbQueueCutOffTime.ResumeLayout(false);
+            this.gbQueueCutOffTime.PerformLayout();
+            this.tpData.ResumeLayout(false);
             this.tpPrinter.ResumeLayout(false);
             this.tpSounds.ResumeLayout(false);
             this.tpSounds.PerformLayout();
@@ -1003,7 +1102,7 @@
         private System.Windows.Forms.TextBox txtHeaderText;
         private System.Windows.Forms.TabControl tcSettings;
         private System.Windows.Forms.TabPage tpGeneral;
-        private System.Windows.Forms.TabPage tpMasterData;
+        private System.Windows.Forms.TabPage tpData;
         private System.Windows.Forms.TabPage tpPrinter;
         private System.Windows.Forms.TabPage tpDatabase;
         private LIBUtil.Desktop.UserControls.InputControl_Numeric in_PrintAreaWidth;
@@ -1025,5 +1124,11 @@
         private System.Windows.Forms.Button btnLoadSoundFiles;
         private System.Windows.Forms.DataGridViewLinkColumn col_dgvSoundFiles_Filename;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvSoundFiles_Filepath;
+        private System.Windows.Forms.GroupBox gbQueueCutOffTime;
+        private LIBUtil.Desktop.UserControls.InputControl_Numeric in_AutomaticQueueNoResetHour;
+        private System.Windows.Forms.RadioButton rbAutomaticQueueNoReset;
+        private System.Windows.Forms.RadioButton rbManualQueueNoReset;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label lblQueueNoCutoffTimestamp;
     }
 }

@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.scContent = new System.Windows.Forms.SplitContainer();
             this.scContentLeft = new System.Windows.Forms.SplitContainer();
             this.pnlDisplay = new System.Windows.Forms.Panel();
@@ -112,7 +112,7 @@
             // 
             this.scContentLeft.Panel2.Controls.Add(this.rollingText1);
             this.scContentLeft.Size = new System.Drawing.Size(503, 369);
-            this.scContentLeft.SplitterDistance = 339;
+            this.scContentLeft.SplitterDistance = 342;
             this.scContentLeft.SplitterWidth = 1;
             this.scContentLeft.TabIndex = 0;
             // 
@@ -125,7 +125,7 @@
             this.pnlDisplay.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlDisplay.Location = new System.Drawing.Point(0, 0);
             this.pnlDisplay.Name = "pnlDisplay";
-            this.pnlDisplay.Size = new System.Drawing.Size(503, 339);
+            this.pnlDisplay.Size = new System.Drawing.Size(503, 342);
             this.pnlDisplay.TabIndex = 4;
             // 
             // lblCallingNo
@@ -145,7 +145,7 @@
             this.lblCallingCounter.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lblCallingCounter.Font = new System.Drawing.Font("Arial", 30F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblCallingCounter.ForeColor = System.Drawing.Color.Crimson;
-            this.lblCallingCounter.Location = new System.Drawing.Point(0, 199);
+            this.lblCallingCounter.Location = new System.Drawing.Point(0, 202);
             this.lblCallingCounter.Name = "lblCallingCounter";
             this.lblCallingCounter.Size = new System.Drawing.Size(503, 140);
             this.lblCallingCounter.TabIndex = 6;
@@ -159,7 +159,7 @@
             this.lblSilahkanKeCounter.ForeColor = System.Drawing.Color.MidnightBlue;
             this.lblSilahkanKeCounter.Location = new System.Drawing.Point(0, 0);
             this.lblSilahkanKeCounter.Name = "lblSilahkanKeCounter";
-            this.lblSilahkanKeCounter.Size = new System.Drawing.Size(503, 339);
+            this.lblSilahkanKeCounter.Size = new System.Drawing.Size(503, 342);
             this.lblSilahkanKeCounter.TabIndex = 5;
             this.lblSilahkanKeCounter.Text = "SILAHKAN KE";
             this.lblSilahkanKeCounter.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -170,7 +170,7 @@
             this.rollingText1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rollingText1.Location = new System.Drawing.Point(0, 0);
             this.rollingText1.Name = "rollingText1";
-            this.rollingText1.Size = new System.Drawing.Size(503, 29);
+            this.rollingText1.Size = new System.Drawing.Size(503, 26);
             this.rollingText1.TabIndex = 0;
             // 
             // scContentRight
@@ -190,7 +190,7 @@
             // 
             this.scContentRight.Panel2.Controls.Add(this.clock1);
             this.scContentRight.Size = new System.Drawing.Size(346, 369);
-            this.scContentRight.SplitterDistance = 339;
+            this.scContentRight.SplitterDistance = 342;
             this.scContentRight.SplitterWidth = 1;
             this.scContentRight.TabIndex = 1;
             // 
@@ -200,43 +200,43 @@
             this.dgv.AllowUserToDeleteRows = false;
             this.dgv.AllowUserToResizeColumns = false;
             this.dgv.AllowUserToResizeRows = false;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.ForeColor = System.Drawing.Color.Black;
-            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            this.dgv.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCells;
             this.dgv.BackgroundColor = System.Drawing.Color.White;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.SingleHorizontal;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = System.Drawing.Color.White;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.CornflowerBlue;
-            dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(10);
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Arial Narrow", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.CornflowerBlue;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(10);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_dgv_Id,
             this.col_dgv_NoAntrian,
             this.col_dgv_CounterAddresses_Name});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.Color.LightGray;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Arial", 36F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.LightGray;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial", 27.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 30, 0, 30);
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle3;
             this.dgv.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgv.GridColor = System.Drawing.Color.White;
             this.dgv.Location = new System.Drawing.Point(0, 0);
             this.dgv.Name = "dgv";
             this.dgv.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             this.dgv.RowHeadersVisible = false;
-            this.dgv.Size = new System.Drawing.Size(346, 339);
+            this.dgv.Size = new System.Drawing.Size(346, 342);
             this.dgv.TabIndex = 2;
             // 
             // col_dgv_Id
@@ -268,7 +268,7 @@
             this.clock1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.clock1.Location = new System.Drawing.Point(0, 0);
             this.clock1.Name = "clock1";
-            this.clock1.Size = new System.Drawing.Size(346, 29);
+            this.clock1.Size = new System.Drawing.Size(346, 26);
             this.clock1.TabIndex = 0;
             // 
             // timerAds

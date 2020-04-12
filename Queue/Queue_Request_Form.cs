@@ -72,7 +72,7 @@ namespace Queue
 
         private void populateData()
         {
-            Util.populateDataGridView(dgv, QueueCategory.get(false, null, null, null));
+            Util.populateDataGridView(dgv, QueueCategory.get(false, null, null, null, Settings.QueueNoCutoffTimestamp));
 
             //update button text
             //foreach (DataGridViewRow row in dgv.Rows)
@@ -146,13 +146,28 @@ namespace Queue
         {
             if (Util.isColumnMatch(sender, e, col_dgv_RequestButton))
             {
-                _printString = Queues.add(Util.wrapClickedCellValueNullable<Guid>(col_dgv_QueueCategories_Id, e));
+                //case:
+                //automatic reset hour jam 3
+                //last cutofftime is tgl 12 jam 3
+                //current time is tgl 13 jam 3.02
+                //new cutofftime is tgl 13 jam 3
+                if (!Settings.ManualQueueNoReset)
+                {
+                    DateTime nextCutoffTimestamp = Settings.getAutomaticQueueNoResetTimestamp(DateTime.Now);
+                    if (Settings.QueueNoCutoffTimestamp < nextCutoffTimestamp)
+                    {
+                        Settings.QueueNoCutoffTimestamp = nextCutoffTimestamp;
+                        Queues.update_VoidTimestamp(nextCutoffTimestamp);
+                    }
+                }
+
+                _printString = Queues.add(Util.wrapClickedCellValueNullable<Guid>(col_dgv_QueueCategories_Id, e), Settings.QueueNoCutoffTimestamp);
                 
                 if (_printString != null)
                     Util.displayForm(null, new LIBUtil.Desktop.Forms.MessageBox_Form(
                         () => Helper.printReceipt(_printString), 
                         "Printing..", 
-                        (int)dgv.DefaultCellStyle.Font.Size,
+                        11,
                         3, 
                         false, 
                         false, 
@@ -254,6 +269,15 @@ namespace Queue
         {
 
             updateWidth(LARGESTEP * 5);
+        }
+
+        private void BtnResetQueueNo_Click(object sender, EventArgs e)
+        {
+            if (Util.displayMessageBoxYesNo("Konfirmasi nomor antrian akan di RESET ke 1"))
+            {
+                Settings.QueueNoCutoffTimestamp = DateTime.Now;
+                Queues.update_VoidTimestamp(DateTime.Now);
+            }
         }
 
         #endregion EVENT HANDLERS

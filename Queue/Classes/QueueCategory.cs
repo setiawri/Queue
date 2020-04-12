@@ -38,10 +38,12 @@ namespace Queue
         public const string COL_PendingCount = "PendingCount";
         public const string COL_WaitTime = "WaitTime";
 
+        public const string FILTER_QueueNoCutoffTimestamp = "FILTER_QueueNoCutoffTimestamp";
+
         #endregion PUBLIC VARIABLES
         /*******************************************************************************************************/
         #region CONSTRUCTOR METHODS
-		
+
         public QueueCategory(Guid id)
         {
             DataRow row = get(id);
@@ -59,125 +61,95 @@ namespace Queue
 
         public static void add(string code, string description)
         {
-            Guid id = Guid.NewGuid();
-            try
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("QueueCategories_add", sqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                    cmd.Parameters.Add("@" + COL_DB_Code, SqlDbType.NVarChar).Value = code;
-                    cmd.Parameters.Add("@" + COL_DB_Description, SqlDbType.NVarChar).Value = description;
+            Guid Id = Guid.NewGuid();
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "QueueCategories_add",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, code),
+                new SqlQueryParameter(COL_DB_Description, SqlDbType.NVarChar, description)
+            );
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Added");
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
+            //if (result.IsSuccessful)
+            //    ActivityLog.submit(Id, "Added");
         }
 
-        public static DataRow get(Guid id) { return Util.getFirstRow(get(true, id, null, null)); }
+        public static DataRow get(Guid id) { return Util.getFirstRow(get(true, id, null, null, null)); }
 
-        public static DataTable get(bool filterIncludeInactive, Guid? id, string code, string description)
+        public static DataTable get(bool filterIncludeInactive, Guid? Id, string Code, string Description, DateTime? QueueNoCutoffTimestamp)
         {
-            DataTable datatable = new DataTable();
-            try
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("QueueCategories_get", sqlConnection))
-                using (SqlDataAdapter adapter = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_FILTER_IncludeInactive, SqlDbType.Bit).Value = filterIncludeInactive;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = Util.wrapNullable(id);
-                    cmd.Parameters.Add("@" + COL_DB_Code, SqlDbType.NVarChar).Value = Util.wrapNullable(code);
-                    cmd.Parameters.Add("@" + COL_DB_Description, SqlDbType.NVarChar).Value = Util.wrapNullable(description);
-
-                    adapter.SelectCommand = cmd;
-                    adapter.Fill(datatable);
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return datatable;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.FillByAdapter,
+                "QueueCategories_get",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Util.wrapNullable(Id)),
+                new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, Util.wrapNullable(Code)),
+                new SqlQueryParameter(COL_DB_Description, SqlDbType.NVarChar, Util.wrapNullable(Description)),
+                new SqlQueryParameter(COL_FILTER_IncludeInactive, SqlDbType.BigInt, Util.wrapNullable(filterIncludeInactive)),
+                new SqlQueryParameter(FILTER_QueueNoCutoffTimestamp, SqlDbType.DateTime, Util.wrapNullable(QueueNoCutoffTimestamp))
+                );
+            return result.Datatable;
         }
 
-        public static void update(Guid id, string code, string description)
+        public static void update(Guid Id, string Code, string Description)
         {
-            try
-            {
-                QueueCategory objOld = new QueueCategory(id);
-                string log = "";
-                log = Util.appendChange(log, objOld.Code, code, "Code: '{0}' to '{1}'");
-                log = Util.appendChange(log, objOld.Description, description, "Description: '{0}' to '{1}'");
+            QueueCategory objOld = new QueueCategory(Id);
+            string log = "";
+            log = Util.appendChange(log, objOld.Code, Code, "Code: '{0}' to '{1}'");
+            log = Util.appendChange(log, objOld.Description, Description, "Description: '{0}' to '{1}'");
 				
-                if (string.IsNullOrEmpty(log))
-                {
-                    Util.displayMessageBoxError("No changes to record");
-                }
-                else
-                {
-					using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-					using (SqlCommand cmd = new SqlCommand("QueueCategories_update", sqlConnection))
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                        cmd.Parameters.Add("@" + COL_DB_Code, SqlDbType.NVarChar).Value = Util.wrapNullable(code);
-                        cmd.Parameters.Add("@" + COL_DB_Description, SqlDbType.NVarChar).Value = Util.wrapNullable(description);
+            if (string.IsNullOrEmpty(log))
+            {
+                Util.displayMessageBoxError("No changes to record");
+            }
+            else
+            {
+                SqlQueryResult result = DBConnection.query(
+                    false,
+                    DBConnection.ActiveSqlConnection,
+                    QueryTypes.ExecuteNonQuery,
+                    "QueueCategories_update",
+                    new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                    new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, Util.wrapNullable(Code)),
+                    new SqlQueryParameter(COL_DB_Description, SqlDbType.UniqueIdentifier, Util.wrapNullable(Description))
+                );
 
-						if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
-						cmd.ExecuteNonQuery();
-					
-						//ActivityLog.add(sqlConnection, userAccountID, id, String.Format("Updated: {0}", log));
-                    
-						//notify supervisor role
-						//if (new UserAccount(userAccountID).UserRole != UserAccountRoles.Supervisor)
-						//  add row to Notifications table
-					}
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
+                //if (result.IsSuccessful)
+                //    ActivityLog.submit(Id, String.Format("Updated: {0}", log));
+
+            }
         }
 
-        public static string updateActiveStatus(Guid id, bool active)
+        public static void updateActiveStatus(Guid Id, bool Value)
         {
-            try
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("QueueCategories_update_Active", sqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                    cmd.Parameters.Add("@" + COL_DB_Active, SqlDbType.Bit).Value = active;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "QueueCategories_update_Active",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                new SqlQueryParameter(COL_DB_Active, SqlDbType.Bit, Value)
+            );
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                    
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Update Active Status to " + active);
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return string.Empty;
+            //if (result.IsSuccessful)
+            //    ActivityLog.submit(Id, String.Format("Completed changed to: {0}", Value));
         }
 
-        public static string delete(Guid id)
+        public static void delete(Guid Id)
         {
-            try
-            {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("QueueCategories_delete", sqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "QueueCategories_delete",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id)
+            );
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
-                    cmd.ExecuteNonQuery();
-                    
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Deleted");
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return string.Empty;
+            //if (result.IsSuccessful)
+            //    ActivityLog.submit(Id, String.Format("Completed changed to: {0}", Value));
         }
 
         #endregion DATABASE METHODS

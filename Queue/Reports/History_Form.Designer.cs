@@ -32,14 +32,15 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvHistory = new System.Windows.Forms.DataGridView();
             this.col_dgvQueues_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgvQueues_CallNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dgvQueues_CounterAddresses_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgvQueues_Timestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dgvQueues_CounterAddresses_Name = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgvQueues_CallTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgvQueues_WaitTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.col_dgv_Filler = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.col_dgv_VoidTimestamp = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnSubmit = new System.Windows.Forms.Button();
             this.idtp_EndDate = new LIBUtil.Desktop.UserControls.InputControl_DateTimePicker();
@@ -67,11 +68,11 @@
             this.dgvHistory.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.col_dgvQueues_Id,
             this.col_dgvQueues_CallNo,
-            this.col_dgvQueues_CounterAddresses_Name,
             this.col_dgvQueues_Timestamp,
+            this.col_dgvQueues_CounterAddresses_Name,
             this.col_dgvQueues_CallTimestamp,
             this.col_dgvQueues_WaitTime,
-            this.col_dgv_Filler});
+            this.col_dgv_VoidTimestamp});
             this.dgvHistory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvHistory.Location = new System.Drawing.Point(0, 66);
             this.dgvHistory.MultiSelect = false;
@@ -95,14 +96,6 @@
             this.col_dgvQueues_CallNo.ReadOnly = true;
             this.col_dgvQueues_CallNo.Width = 46;
             // 
-            // col_dgvQueues_CounterAddresses_Name
-            // 
-            this.col_dgvQueues_CounterAddresses_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
-            this.col_dgvQueues_CounterAddresses_Name.HeaderText = "Counter";
-            this.col_dgvQueues_CounterAddresses_Name.Name = "col_dgvQueues_CounterAddresses_Name";
-            this.col_dgvQueues_CounterAddresses_Name.ReadOnly = true;
-            this.col_dgvQueues_CounterAddresses_Name.Width = 69;
-            // 
             // col_dgvQueues_Timestamp
             // 
             this.col_dgvQueues_Timestamp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
@@ -112,6 +105,14 @@
             this.col_dgvQueues_Timestamp.Name = "col_dgvQueues_Timestamp";
             this.col_dgvQueues_Timestamp.ReadOnly = true;
             this.col_dgvQueues_Timestamp.Width = 72;
+            // 
+            // col_dgvQueues_CounterAddresses_Name
+            // 
+            this.col_dgvQueues_CounterAddresses_Name.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
+            this.col_dgvQueues_CounterAddresses_Name.HeaderText = "Counter";
+            this.col_dgvQueues_CounterAddresses_Name.Name = "col_dgvQueues_CounterAddresses_Name";
+            this.col_dgvQueues_CounterAddresses_Name.ReadOnly = true;
+            this.col_dgvQueues_CounterAddresses_Name.Width = 69;
             // 
             // col_dgvQueues_CallTimestamp
             // 
@@ -134,12 +135,15 @@
             this.col_dgvQueues_WaitTime.ReadOnly = true;
             this.col_dgvQueues_WaitTime.Width = 54;
             // 
-            // col_dgv_Filler
+            // col_dgv_VoidTimestamp
             // 
-            this.col_dgv_Filler.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.col_dgv_Filler.HeaderText = "";
-            this.col_dgv_Filler.Name = "col_dgv_Filler";
-            this.col_dgv_Filler.ReadOnly = true;
+            this.col_dgv_VoidTimestamp.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle5.Format = "dd/MM/yy HH:mm";
+            this.col_dgv_VoidTimestamp.DefaultCellStyle = dataGridViewCellStyle5;
+            this.col_dgv_VoidTimestamp.HeaderText = "Void";
+            this.col_dgv_VoidTimestamp.MinimumWidth = 30;
+            this.col_dgv_VoidTimestamp.Name = "col_dgv_VoidTimestamp";
+            this.col_dgv_VoidTimestamp.ReadOnly = true;
             // 
             // panel1
             // 
@@ -154,7 +158,7 @@
             // 
             // btnSubmit
             // 
-            this.btnSubmit.Location = new System.Drawing.Point(264, 4);
+            this.btnSubmit.Location = new System.Drawing.Point(282, 4);
             this.btnSubmit.Name = "btnSubmit";
             this.btnSubmit.Size = new System.Drawing.Size(76, 41);
             this.btnSubmit.TabIndex = 2;
@@ -165,15 +169,16 @@
             // idtp_EndDate
             // 
             this.idtp_EndDate.Checked = false;
-            this.idtp_EndDate.CustomFormat = "ddd, dd/MM/yy";
+            this.idtp_EndDate.CustomFormat = "ddd, dd/MM/yyyy";
             this.idtp_EndDate.DefaultCheckedValue = false;
             this.idtp_EndDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.idtp_EndDate.LabelText = "End";
-            this.idtp_EndDate.Location = new System.Drawing.Point(130, 3);
+            this.idtp_EndDate.Location = new System.Drawing.Point(134, 3);
             this.idtp_EndDate.Name = "idtp_EndDate";
             this.idtp_EndDate.ShowCheckBox = true;
+            this.idtp_EndDate.ShowDateTimePickerOnly = false;
             this.idtp_EndDate.ShowUpAndDown = false;
-            this.idtp_EndDate.Size = new System.Drawing.Size(128, 41);
+            this.idtp_EndDate.Size = new System.Drawing.Size(148, 41);
             this.idtp_EndDate.TabIndex = 1;
             this.idtp_EndDate.Value = null;
             this.idtp_EndDate.ValueTimeSpan = null;
@@ -181,15 +186,16 @@
             // idtp_StartDate
             // 
             this.idtp_StartDate.Checked = true;
-            this.idtp_StartDate.CustomFormat = "ddd, dd/MM/yy";
+            this.idtp_StartDate.CustomFormat = "ddd, dd/MM/yyyy";
             this.idtp_StartDate.DefaultCheckedValue = false;
             this.idtp_StartDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.idtp_StartDate.LabelText = "Start";
             this.idtp_StartDate.Location = new System.Drawing.Point(3, 3);
             this.idtp_StartDate.Name = "idtp_StartDate";
             this.idtp_StartDate.ShowCheckBox = false;
+            this.idtp_StartDate.ShowDateTimePickerOnly = false;
             this.idtp_StartDate.ShowUpAndDown = false;
-            this.idtp_StartDate.Size = new System.Drawing.Size(121, 41);
+            this.idtp_StartDate.Size = new System.Drawing.Size(130, 41);
             this.idtp_StartDate.TabIndex = 0;
             this.idtp_StartDate.Value = new System.DateTime(1753, 1, 1, 0, 0, 0, 0);
             this.idtp_StartDate.ValueTimeSpan = System.TimeSpan.Parse("00:00:00");
@@ -214,15 +220,15 @@
 
         protected System.Windows.Forms.DataGridView dgvHistory;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_Id;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CallNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CounterAddresses_Name;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_Timestamp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CallTimestamp;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_WaitTime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Filler;
         private System.Windows.Forms.Button btnSubmit;
         private LIBUtil.Desktop.UserControls.InputControl_DateTimePicker idtp_EndDate;
         private LIBUtil.Desktop.UserControls.InputControl_DateTimePicker idtp_StartDate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_Id;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CallNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_Timestamp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CounterAddresses_Name;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_CallTimestamp;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgvQueues_WaitTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_VoidTimestamp;
     }
 }

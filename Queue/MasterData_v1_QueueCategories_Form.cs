@@ -70,7 +70,7 @@ namespace Queue
 
         protected override System.Data.DataView loadGridviewDataSource()
         {
-            return QueueCategory.get(chkIncludeInactive.Checked, null, itxt_Code.ValueText, itxt_Description.ValueText).DefaultView;
+            return QueueCategory.get(chkIncludeInactive.Checked, null, itxt_Code.ValueText, itxt_Description.ValueText, null).DefaultView;
         }
 
         protected override void populateInputFields()
@@ -108,14 +108,7 @@ namespace Queue
         #endregion METHODS
         /*******************************************************************************************************/
         #region EVENT HANDLERS
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            Helper.processCmdKey(this, keyData);
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
-
+            
         #endregion EVENT HANDLERS
         /*******************************************************************************************************/
     }

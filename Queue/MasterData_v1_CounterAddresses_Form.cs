@@ -46,8 +46,7 @@ namespace Queue
         {
             iddl_DefaultForms.populate(typeof(DefaultForms));
 
-            setColumnsDataPropertyNames(CounterAddress.COL_DB_Id, null, null, null, null, null);
-            disableFieldActive();
+            setColumnsDataPropertyNames(CounterAddress.COL_DB_Id, null, null, null, null, null);            
 
             col_dgv_Name = base.addColumn<DataGridViewTextBoxCell>(dgv, "col_dgv_Name", itxt_Name.LabelText, CounterAddress.COL_DB_Name, true, true, "", true, false, null, DataGridViewContentAlignment.MiddleLeft);
             col_dgv_Name.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
@@ -123,14 +122,6 @@ namespace Queue
         #endregion METHODS
         /*******************************************************************************************************/
         #region EVENT HANDLERS
-
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (Helper.counter.isValidCounter())
-                Helper.processCmdKey(this, keyData);
-
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {

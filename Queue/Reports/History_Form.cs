@@ -48,6 +48,7 @@ namespace Queue.Reports
             col_dgvQueues_CounterAddresses_Name.DataPropertyName = Queues.COL_DB_CounterAddresses_Name;
             col_dgvQueues_Timestamp.DataPropertyName = Queues.COL_DB_Timestamp;
             col_dgvQueues_WaitTime.DataPropertyName = Queues.COL_WaitTime;
+            col_dgv_VoidTimestamp.DataPropertyName = Queues.COL_DB_VoidTimestamp;
 
         }
 
@@ -60,7 +61,7 @@ namespace Queue.Reports
         {
             if(isValidToPopulateData())
             {
-                DataTable data = Queues.get(false, null, null, null, false, idtp_StartDate.ValueAsStartDateFilter, idtp_EndDate.ValueAsEndDateFilter);
+                DataTable data = Queues.get(false, null, null, null, idtp_StartDate.ValueAsStartDateFilter, idtp_EndDate.ValueAsEndDateFilter, null);
                 data = Util.sortData(data, Queues.COL_DB_Timestamp, SortOrder.Descending, null, null);
                 Util.setGridviewDataSource(dgvHistory, true, true, data);
 			}

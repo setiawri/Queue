@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.col_dgv_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_QueueCategories_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +37,10 @@
             this.col_dgv_RequestButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_dgv_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlSettings = new System.Windows.Forms.Panel();
+            this.btnIncreaseWidthStep = new System.Windows.Forms.Button();
+            this.btnDecreaseWidthStep = new System.Windows.Forms.Button();
+            this.btnIncreaseWidth = new System.Windows.Forms.Button();
+            this.btnDecreaseWidth = new System.Windows.Forms.Button();
             this.btnQuit = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.btnIncreaseFontStep = new System.Windows.Forms.Button();
@@ -45,10 +49,7 @@
             this.btnDecreaseFont = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.pbSettings = new System.Windows.Forms.PictureBox();
-            this.btnIncreaseWidthStep = new System.Windows.Forms.Button();
-            this.btnDecreaseWidthStep = new System.Windows.Forms.Button();
-            this.btnIncreaseWidth = new System.Windows.Forms.Button();
-            this.btnDecreaseWidth = new System.Windows.Forms.Button();
+            this.btnResetQueueNo = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.pnlSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
@@ -64,14 +65,14 @@
             this.dgv.BackgroundColor = System.Drawing.Color.White;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.ColumnHeadersVisible = false;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -80,15 +81,15 @@
             this.col_dgv_RequestText,
             this.col_dgv_RequestButton,
             this.col_dgv_Description});
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
             this.dgv.GridColor = System.Drawing.SystemColors.Control;
             this.dgv.Location = new System.Drawing.Point(30, 35);
             this.dgv.Name = "dgv";
@@ -136,6 +137,7 @@
             // 
             this.pnlSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlSettings.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlSettings.Controls.Add(this.btnResetQueueNo);
             this.pnlSettings.Controls.Add(this.btnIncreaseWidthStep);
             this.pnlSettings.Controls.Add(this.btnDecreaseWidthStep);
             this.pnlSettings.Controls.Add(this.btnIncreaseWidth);
@@ -149,17 +151,61 @@
             this.pnlSettings.Controls.Add(this.label1);
             this.pnlSettings.Location = new System.Drawing.Point(361, 73);
             this.pnlSettings.Name = "pnlSettings";
-            this.pnlSettings.Size = new System.Drawing.Size(150, 86);
+            this.pnlSettings.Size = new System.Drawing.Size(150, 111);
             this.pnlSettings.TabIndex = 29;
+            // 
+            // btnIncreaseWidthStep
+            // 
+            this.btnIncreaseWidthStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIncreaseWidthStep.Location = new System.Drawing.Point(121, 31);
+            this.btnIncreaseWidthStep.Name = "btnIncreaseWidthStep";
+            this.btnIncreaseWidthStep.Size = new System.Drawing.Size(22, 23);
+            this.btnIncreaseWidthStep.TabIndex = 14;
+            this.btnIncreaseWidthStep.Text = ">";
+            this.btnIncreaseWidthStep.UseVisualStyleBackColor = true;
+            this.btnIncreaseWidthStep.Click += new System.EventHandler(this.btnIncreaseWidthStep_Click);
+            // 
+            // btnDecreaseWidthStep
+            // 
+            this.btnDecreaseWidthStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDecreaseWidthStep.Location = new System.Drawing.Point(6, 31);
+            this.btnDecreaseWidthStep.Name = "btnDecreaseWidthStep";
+            this.btnDecreaseWidthStep.Size = new System.Drawing.Size(22, 23);
+            this.btnDecreaseWidthStep.TabIndex = 13;
+            this.btnDecreaseWidthStep.Text = "<";
+            this.btnDecreaseWidthStep.UseVisualStyleBackColor = true;
+            this.btnDecreaseWidthStep.Click += new System.EventHandler(this.btnDecreaseWidthStep_Click);
+            // 
+            // btnIncreaseWidth
+            // 
+            this.btnIncreaseWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnIncreaseWidth.Location = new System.Drawing.Point(98, 31);
+            this.btnIncreaseWidth.Name = "btnIncreaseWidth";
+            this.btnIncreaseWidth.Size = new System.Drawing.Size(22, 23);
+            this.btnIncreaseWidth.TabIndex = 12;
+            this.btnIncreaseWidth.Text = "+";
+            this.btnIncreaseWidth.UseVisualStyleBackColor = true;
+            this.btnIncreaseWidth.Click += new System.EventHandler(this.btnIncreaseWidth_Click);
+            // 
+            // btnDecreaseWidth
+            // 
+            this.btnDecreaseWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDecreaseWidth.Location = new System.Drawing.Point(29, 31);
+            this.btnDecreaseWidth.Name = "btnDecreaseWidth";
+            this.btnDecreaseWidth.Size = new System.Drawing.Size(22, 23);
+            this.btnDecreaseWidth.TabIndex = 11;
+            this.btnDecreaseWidth.Text = "-";
+            this.btnDecreaseWidth.UseVisualStyleBackColor = true;
+            this.btnDecreaseWidth.Click += new System.EventHandler(this.btnDecreaseWidth_Click);
             // 
             // btnQuit
             // 
             this.btnQuit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnQuit.Location = new System.Drawing.Point(53, 58);
+            this.btnQuit.Location = new System.Drawing.Point(41, 83);
             this.btnQuit.Name = "btnQuit";
-            this.btnQuit.Size = new System.Drawing.Size(43, 23);
+            this.btnQuit.Size = new System.Drawing.Size(67, 23);
             this.btnQuit.TabIndex = 10;
-            this.btnQuit.Text = "QUIT";
+            this.btnQuit.Text = "CLOSE";
             this.btnQuit.UseVisualStyleBackColor = true;
             this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
             // 
@@ -240,49 +286,16 @@
             this.pbSettings.TabStop = false;
             this.pbSettings.Click += new System.EventHandler(this.pbUpdate_Click);
             // 
-            // btnIncreaseWidthStep
+            // btnResetQueueNo
             // 
-            this.btnIncreaseWidthStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIncreaseWidthStep.Location = new System.Drawing.Point(121, 31);
-            this.btnIncreaseWidthStep.Name = "btnIncreaseWidthStep";
-            this.btnIncreaseWidthStep.Size = new System.Drawing.Size(22, 23);
-            this.btnIncreaseWidthStep.TabIndex = 14;
-            this.btnIncreaseWidthStep.Text = ">";
-            this.btnIncreaseWidthStep.UseVisualStyleBackColor = true;
-            this.btnIncreaseWidthStep.Click += new System.EventHandler(this.btnIncreaseWidthStep_Click);
-            // 
-            // btnDecreaseWidthStep
-            // 
-            this.btnDecreaseWidthStep.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDecreaseWidthStep.Location = new System.Drawing.Point(6, 31);
-            this.btnDecreaseWidthStep.Name = "btnDecreaseWidthStep";
-            this.btnDecreaseWidthStep.Size = new System.Drawing.Size(22, 23);
-            this.btnDecreaseWidthStep.TabIndex = 13;
-            this.btnDecreaseWidthStep.Text = "<";
-            this.btnDecreaseWidthStep.UseVisualStyleBackColor = true;
-            this.btnDecreaseWidthStep.Click += new System.EventHandler(this.btnDecreaseWidthStep_Click);
-            // 
-            // btnIncreaseWidth
-            // 
-            this.btnIncreaseWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnIncreaseWidth.Location = new System.Drawing.Point(98, 31);
-            this.btnIncreaseWidth.Name = "btnIncreaseWidth";
-            this.btnIncreaseWidth.Size = new System.Drawing.Size(22, 23);
-            this.btnIncreaseWidth.TabIndex = 12;
-            this.btnIncreaseWidth.Text = "+";
-            this.btnIncreaseWidth.UseVisualStyleBackColor = true;
-            this.btnIncreaseWidth.Click += new System.EventHandler(this.btnIncreaseWidth_Click);
-            // 
-            // btnDecreaseWidth
-            // 
-            this.btnDecreaseWidth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDecreaseWidth.Location = new System.Drawing.Point(29, 31);
-            this.btnDecreaseWidth.Name = "btnDecreaseWidth";
-            this.btnDecreaseWidth.Size = new System.Drawing.Size(22, 23);
-            this.btnDecreaseWidth.TabIndex = 11;
-            this.btnDecreaseWidth.Text = "-";
-            this.btnDecreaseWidth.UseVisualStyleBackColor = true;
-            this.btnDecreaseWidth.Click += new System.EventHandler(this.btnDecreaseWidth_Click);
+            this.btnResetQueueNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnResetQueueNo.Location = new System.Drawing.Point(17, 58);
+            this.btnResetQueueNo.Name = "btnResetQueueNo";
+            this.btnResetQueueNo.Size = new System.Drawing.Size(114, 23);
+            this.btnResetQueueNo.TabIndex = 15;
+            this.btnResetQueueNo.Text = "RESET NOMOR";
+            this.btnResetQueueNo.UseVisualStyleBackColor = true;
+            this.btnResetQueueNo.Click += new System.EventHandler(this.BtnResetQueueNo_Click);
             // 
             // Queue_Request_Form
             // 
@@ -328,5 +341,6 @@
         private System.Windows.Forms.Button btnDecreaseWidthStep;
         private System.Windows.Forms.Button btnIncreaseWidth;
         private System.Windows.Forms.Button btnDecreaseWidth;
+        private System.Windows.Forms.Button btnResetQueueNo;
     }
 }

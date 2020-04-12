@@ -77,8 +77,7 @@ namespace Queue
             Guid id = Guid.NewGuid();
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_add", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand("CounterAddresses_add", DBConnection.ActiveSqlConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
@@ -86,7 +85,6 @@ namespace Queue
                     cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = IPAddress;
                     cmd.Parameters.Add("@" + COL_DB_DefaultForms_enumid, SqlDbType.TinyInt).Value = defaultForm;
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
                     cmd.ExecuteNonQuery();
 
                     //ActivityLog.add(sqlConnection, userAccountID, id, "Added");
@@ -102,8 +100,7 @@ namespace Queue
             DataTable datatable = new DataTable();
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get", DBConnection.ActiveSqlConnection))
                 using (SqlDataAdapter adapter = new SqlDataAdapter())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -127,8 +124,7 @@ namespace Queue
             string name = "";
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get_Name_by_IPAddress", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get_Name_by_IPAddress", DBConnection.ActiveSqlConnection))
                 using (SqlDataAdapter adapter = new SqlDataAdapter())
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
@@ -136,7 +132,6 @@ namespace Queue
                     SqlParameter return_value = cmd.Parameters.Add("@" + COL_DB_Name, SqlDbType.NVarChar, -1);
                     return_value.Direction = ParameterDirection.Output;
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
                     cmd.ExecuteNonQuery();
 
                     name = return_value.Value.ToString();
@@ -163,8 +158,7 @@ namespace Queue
                 }
                 else
                 {
-					using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-					using (SqlCommand cmd = new SqlCommand("CounterAddresses_update", sqlConnection))
+					using (SqlCommand cmd = new SqlCommand("CounterAddresses_update", DBConnection.ActiveSqlConnection))
 					{
 						cmd.CommandType = CommandType.StoredProcedure;
                         cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
@@ -172,7 +166,6 @@ namespace Queue
                         cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = Util.wrapNullable(ipAddress);
                         cmd.Parameters.Add("@" + COL_DB_DefaultForms_enumid, SqlDbType.TinyInt).Value = defaultForm;
 
-                        if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
 						cmd.ExecuteNonQuery();
 					
 						//ActivityLog.add(sqlConnection, userAccountID, id, String.Format("Updated: {0}", log));
@@ -189,13 +182,11 @@ namespace Queue
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(DBConnection.ConnectionString))
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_delete", sqlConnection))
+                using (SqlCommand cmd = new SqlCommand("CounterAddresses_delete", DBConnection.ActiveSqlConnection))
                 {
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
 
-                    if (sqlConnection.State != ConnectionState.Open) sqlConnection.Open();
                     cmd.ExecuteNonQuery();
                     
                     //ActivityLog.add(sqlConnection, userAccountID, id, "Deleted");

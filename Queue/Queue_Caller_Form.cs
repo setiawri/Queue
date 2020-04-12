@@ -68,7 +68,7 @@ namespace Queue
 
         private void populateData()
         {
-            Util.populateDataGridView(dgv, QueueCategory.get(false, null, null, null));
+            Util.populateDataGridView(dgv, QueueCategory.get(false, null, null, null, Settings.QueueNoCutoffTimestamp));
 
             //set button text as combination of code and description
             //DataGridViewButtonCell button;

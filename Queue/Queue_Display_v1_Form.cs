@@ -101,20 +101,10 @@ namespace Queue
         }
         private void populateDgvQueue()
         {
-            //            Util.displayMessageBox("", Util.isDBConnectionAvailable(Properties.Resources.Q, false, false).ToString());
-
-            //while (!string.IsNullOrEmpty(_CALL_QueueNumber))
-            //{
-            //    if (string.IsNullOrEmpty(_CALL_QueueNumber))
-            //        break;
-            //    else
-            //        System.Threading.Thread.Sleep(1000);
-            //}
-
             DataTable datatable;
             try
             {
-                datatable = Queues.get(true, null, null, MAXDISPLAYEDQUEUE, true, null, null);
+                datatable = Queues.get(true, null, null, MAXDISPLAYEDQUEUE, null, null, Settings.QueueNoCutoffTimestamp);
                 if (pnlHeader.BackColor == _HeaderColor_ERROR)
                     pnlHeader.BackColor = _HeaderColor_DEFAULT;
             }
@@ -308,9 +298,13 @@ namespace Queue
         {
             while(_CALL_CounterName.Count > 0)
             {
-                playCallSound(_CALL_QueueNumber[0], _CALL_CounterName[0]);
-                _CALL_CounterName.RemoveAt(0);
-                _CALL_QueueNumber.RemoveAt(0);
+                try
+                {
+                    playCallSound(_CALL_QueueNumber[0], _CALL_CounterName[0]);
+                    _CALL_CounterName.RemoveAt(0);
+                    _CALL_QueueNumber.RemoveAt(0);
+                }
+                catch { }
             }
         }
 

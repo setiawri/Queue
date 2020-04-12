@@ -65,7 +65,19 @@ namespace Queue
             col_dgvSoundFiles_Filepath.DataPropertyName = COL_Filepath;
             Util.clearWhenSelected(dgvSoundFiles);
 
-            Util.enableControls(true, tpSounds, tpGeneral, tpMasterData, tpPrinter, pnlDatabaseConnection);
+            //Queue Number Reset Settings
+            this.rbManualQueueNoReset.CheckedChanged -= new System.EventHandler(this.QueueNoReset_Changed);
+            this.rbAutomaticQueueNoReset.CheckedChanged -= new System.EventHandler(this.QueueNoReset_Changed);
+            this.in_AutomaticQueueNoResetHour.ValueChanged -= new System.EventHandler(this.QueueNoReset_Changed);
+            rbManualQueueNoReset.Checked = Settings.ManualQueueNoReset;
+            rbAutomaticQueueNoReset.Checked = !rbManualQueueNoReset.Checked;
+            in_AutomaticQueueNoResetHour.Value = Settings.AutomaticQueueNoResetHour;
+            lblQueueNoCutoffTimestamp.Text = string.Format("Current Cut Off Time: {0:dd/MM/yy HH:mm}", Settings.QueueNoCutoffTimestamp);
+            this.rbManualQueueNoReset.CheckedChanged += new System.EventHandler(this.QueueNoReset_Changed);
+            this.rbAutomaticQueueNoReset.CheckedChanged += new System.EventHandler(this.QueueNoReset_Changed);
+            this.in_AutomaticQueueNoResetHour.ValueChanged += new System.EventHandler(this.QueueNoReset_Changed);
+
+            Util.enableControls(true, tpSounds, tpGeneral, tpData, tpPrinter, pnlDatabaseConnection);
         }
 
         private void populateData()
@@ -149,7 +161,7 @@ namespace Queue
         {
             if (!License.hasValidLicense || !DBConnection.hasDBConnection)
             {
-                Util.enableControls(false, tpSounds, tpGeneral, tpMasterData, tpPrinter);
+                Util.enableControls(false, tpSounds, tpGeneral, tpData, tpPrinter);
                 tcSettings.SelectedTab = tpDatabase;
 
                 if (!License.hasValidLicense)
@@ -238,17 +250,14 @@ namespace Queue
                 Settings.PrintAreaWidth = in_PrintAreaWidth.ValueInt;
                 Settings.PrintQty = in_PrintQty.ValueInt;
 
-                using (System.Data.SqlClient.SqlConnection sqlConnection = new System.Data.SqlClient.SqlConnection(DBConnection.ConnectionString))
+                foreach (DataGridViewRow row in gridPrintLayout.Rows)
                 {
-                    foreach (DataGridViewRow row in gridPrintLayout.Rows)
-                    {
-                        PrintLayout.update(sqlConnection,
-                            Util.wrapNullable<Guid>(row, col_gridPrintLayout_Id.Name),
-                            Util.wrapNullable<bool>(row, col_gridPrintLayout_Hide.Name),
-                            Util.wrapNullable<string>(row, col_gridPrintLayout_Text.Name),
-                            Util.wrapNullable<int>(row, col_gridPrintLayout_FontSize.Name),
-                            Util.wrapNullable<int>(row, col_gridPrintLayout_TextAlign_enumid.Name));
-                    }
+                    PrintLayout.update(DBConnection.ActiveSqlConnection,
+                        Util.wrapNullable<Guid>(row, col_gridPrintLayout_Id.Name),
+                        Util.wrapNullable<bool>(row, col_gridPrintLayout_Hide.Name),
+                        Util.wrapNullable<string>(row, col_gridPrintLayout_Text.Name),
+                        Util.wrapNullable<int>(row, col_gridPrintLayout_FontSize.Name),
+                        Util.wrapNullable<int>(row, col_gridPrintLayout_TextAlign_enumid.Name));
                 }
                 
                 populateData();
@@ -427,6 +436,19 @@ namespace Queue
                 Util.displayMessageBoxError("File is no longer available");
             else
                 new SoundPlayer().PlaySync();
+        }
+
+        private void QueueNoReset_Changed(object sender, EventArgs e)
+        {
+            Settings.ManualQueueNoReset = rbManualQueueNoReset.Checked;
+            Settings.AutomaticQueueNoResetHour = in_AutomaticQueueNoResetHour.ValueInt;
+            if (rbAutomaticQueueNoReset.Checked)
+            {
+                DateTime newCutoffTimestamp = Settings.getAutomaticQueueNoResetTimestamp(DateTime.Now);
+                Settings.QueueNoCutoffTimestamp = newCutoffTimestamp;
+                Queues.update_VoidTimestamp(newCutoffTimestamp);
+                lblQueueNoCutoffTimestamp.Text = string.Format("Current Cut Off Time: {0:dd/MM/yy HH:mm}", newCutoffTimestamp);
+            }
         }
 
         #endregion EVENT HANDLERS

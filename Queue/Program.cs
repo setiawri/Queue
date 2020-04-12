@@ -18,8 +18,8 @@ namespace Queue
             Application.SetCompatibleTextRenderingDefault(false);
             
             LIBUtil.DBConnection.initialize(Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
-            runApplication();
-            //LIBUtil.Util.ensureSingleInstance(runApplication);
+            //runApplication();
+            LIBUtil.Util.ensureSingleInstance(runApplication);
         }
         
         static void runApplication()

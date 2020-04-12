@@ -52,6 +52,8 @@ namespace Queue
                 rbDisplayMode1.Checked = true;
             else
                 rbDisplayMode2.Checked = true;
+
+            rbDisplayMode2.Visible = false;
         }
 
         public void AddEventHandlerToChildControls(Control parent)

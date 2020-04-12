@@ -1,23 +1,89 @@
-﻿
-DELETE Queues
+﻿CREATE TABLE [dbo].[Licensed]
+(
+	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [HashedMACAddress] VARCHAR(MAX) NOT NULL
+)
 GO
 
-ALTER TABLE Queues ADD CounterAddresses_Id uniqueidentifier
+ALTER TABLE Queues ADD VoidTimestamp datetime NULL
 GO
 
-ALTER PROCEDURE [dbo].[Queues_call]
+ALTER TABLE QueueCategories ALTER COLUMN Description nvarchar(MAX) NULL
+GO
+
+ALTER TABLE Settings ADD Value_DateTime datetime NULL
+GO
+
+ALTER PROCEDURE [dbo].[Settings_update]
 
 	@Id uniqueidentifier,
-	@CounterAddresses_Id uniqueidentifier
+	@Value_Int int = NULL,
+	@Value_String nvarchar(MAX) = NULL,
+	@Value_DateTime datetime = NULL
 
 AS
 
 BEGIN
 
-	UPDATE Queues SET
-		CallTimestamp = CURRENT_TIMESTAMP,
-		CounterAddresses_Id = @CounterAddresses_Id
-	WHERE Id = @Id
+	IF((SELECT Id FROM Settings WHERE Id=@Id) IS NULL)
+		INSERT INTO Settings(Id,Value_Int,Value_String) VALUES(@Id,@Value_Int,@Value_String)
+	ELSE
+		BEGIN
+		IF @Value_Int IS NOT NULL
+			UPDATE Settings SET Value_Int = @Value_Int WHERE Id = @Id
+
+		IF @Value_String IS NOT NULL
+			UPDATE Settings SET Value_String = @Value_String WHERE Id = @Id
+			
+		IF @Value_DateTime IS NOT NULL
+			UPDATE Settings SET Value_DateTime = @Value_DateTime WHERE Id = @Id
+		END
+END
+GO
+
+CREATE PROCEDURE [dbo].[Queues_update_VoidTimestamp]
+
+	@FILTER_QueueNoCutoffTimestamp datetime = NULL
+
+AS
+
+BEGIN
+
+	UPDATE Queues 
+	SET VoidTimestamp = CURRENT_TIMESTAMP 
+	WHERE CallTimestamp IS NULL
+		AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp < @FILTER_QueueNoCutoffTimestamp)
+
+END
+GO
+
+
+
+ALTER PROCEDURE [dbo].[Queues_add]
+
+	@Id uniqueidentifier,
+	@QueueCategories_Id uniqueidentifier,
+	@FILTER_QueueNoCutoffTimestamp datetime = NULL,
+	@CallNo nvarchar(MAX) OUTPUT
+	
+AS
+
+BEGIN
+
+	DECLARE @No int = 0;
+	
+	SELECT @No = ISNULL(MAX(Queues.No), 0) + 1 
+	FROM Queues 
+	WHERE QueueCategories_Id = @QueueCategories_Id 
+		AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)
+
+	INSERT INTO Queues(Id,Timestamp,QueueCategories_Id,QueueCategories_Code,No) 
+	VALUES(@Id,CURRENT_TIMESTAMP,@QueueCategories_Id,(SELECT Code FROM QueueCategories WHERE Id=@QueueCategories_Id),@No)
+	
+	SELECT @CallNo = CONVERT(varchar, QueueCategories.Code) + CONVERT(varchar, Queues.No)
+	FROM Queues
+		LEFT OUTER JOIN QueueCategories ON QueueCategories.Id = Queues.QueueCategories_Id
+	WHERE Queues.Id = @Id
 
 END
 GO
@@ -35,7 +101,9 @@ BEGIN
 	DECLARE @NextId uniqueidentifier
 	SELECT TOP 1 @NextId = Queues.Id
 	FROM Queues
-	WHERE Queues.QueueCategories_Id = @QueueCategories_Id AND Queues.CallTimestamp IS NULL
+	WHERE Queues.QueueCategories_Id = @QueueCategories_Id 
+		AND Queues.CallTimestamp IS NULL 
+		AND Queues.VoidTimestamp IS NULL
 	ORDER BY No ASC
 	
 	IF @NextId IS NOT NULL
@@ -51,16 +119,97 @@ BEGIN
 END
 GO
 
-ALTER TABLE Queues DROP COLUMN Destination
+ALTER PROCEDURE [dbo].[QueueCategories_get]
+
+	@FILTER_IncludeInactive bit,
+	@Id uniqueidentifier = NULL,
+	@Code nvarchar(MAX) = NULL,
+	@Description nvarchar(MAX) = NULL,
+	@FILTER_QueueNoCutoffTimestamp datetime = NULL
+
+AS
+
+BEGIN
+	
+	IF(SELECT object_id('TempDB..#TEMP_TOTALQUEUES')) IS NOT NULL
+		DROP TABLE #TEMP_TOTALQUEUES
+	IF(SELECT object_id('TempDB..#TEMP_CALLEDQUEUES')) IS NOT NULL
+		DROP TABLE #TEMP_CALLEDQUEUES
+	IF(SELECT object_id('TempDB..#TEMP_WAITTIME')) IS NOT NULL
+		DROP TABLE #TEMP_WAITTIME
+	IF(SELECT object_id('TempDB..#TEMP_LASTCALLEDNO')) IS NOT NULL
+		DROP TABLE #TEMP_LASTCALLEDNO
+
+	SELECT * INTO #TEMP_TOTALQUEUES FROM (
+		SELECT Queues.QueueCategories_Id, COUNT(Queues.Id) AS TotalCount
+		FROM Queues 
+		WHERE VoidTimestamp IS NULL
+			AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)
+		GROUP BY Queues.QueueCategories_Id
+	) AS x
+	
+	SELECT * INTO #TEMP_CALLEDQUEUES FROM (
+		SELECT Queues.QueueCategories_Id, COUNT(Queues.Id) AS CalledCount
+		FROM Queues
+		WHERE Queues.CallTimestamp IS NOT NULL 
+			AND VoidTimestamp IS NULL
+			AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)
+		GROUP BY Queues.QueueCategories_Id
+	) AS x
+	
+	SELECT * INTO #TEMP_WAITTIME FROM (
+		SELECT Queues.QueueCategories_Id, DATEDIFF(MINUTE, MIN(Queues.Timestamp), CURRENT_TIMESTAMP) AS WaitTime
+		FROM Queues
+		WHERE Queues.CallTimestamp IS NOT NULL 
+			AND VoidTimestamp IS NULL
+			AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)
+		GROUP BY Queues.QueueCategories_Id
+	) AS x
+
+	SELECT * INTO #TEMP_LASTCALLEDNO FROM (
+		SELECT Queues.QueueCategories_Id, MAX(Queues.CallTimestamp) AS LastCallTimestamp
+		FROM Queues
+		WHERE Queues.CallTimestamp IS NOT NULL 
+			AND VoidTimestamp IS NULL
+			AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)
+		GROUP BY Queues.QueueCategories_Id
+	) AS x
+
+	SELECT QueueCategories.*,
+		QueueCategories.Code + ' - ' + QueueCategories.Description AS RequestText,
+		'CALL ' + QueueCategories.Code + ' - ' + QueueCategories.Description AS CallerText,
+		CONVERT(varchar, ISNULL(#TEMP_CALLEDQUEUES.CalledCount,0)) + '/' + CONVERT(varchar, ISNULL(#TEMP_TOTALQUEUES.TotalCount,0)) AS QueueCount,
+		#TEMP_CALLEDQUEUES.CalledCount AS CalledCount,
+		ISNULL(#TEMP_TOTALQUEUES.TotalCount,0) - ISNULL(#TEMP_CALLEDQUEUES.CalledCount,0) AS PendingCount,
+		#TEMP_WAITTIME.WaitTime AS WaitTime,
+		LastCalledQueue.No AS LastCalledNo
+	FROM QueueCategories 
+		LEFT OUTER JOIN #TEMP_CALLEDQUEUES ON #TEMP_CALLEDQUEUES.QueueCategories_Id = QueueCategories.Id
+		LEFT OUTER JOIN #TEMP_TOTALQUEUES ON #TEMP_TOTALQUEUES.QueueCategories_Id = QueueCategories.Id
+		LEFT OUTER JOIN #TEMP_WAITTIME ON #TEMP_WAITTIME.QueueCategories_Id = QueueCategories.Id
+		LEFT OUTER JOIN #TEMP_LASTCALLEDNO ON #TEMP_LASTCALLEDNO.QueueCategories_Id = QueueCategories.Id
+		LEFT OUTER JOIN Queues LastCalledQueue ON LastCalledQueue.CallTimestamp = #TEMP_LASTCALLEDNO.LastCallTimestamp
+	WHERE 1=1
+		AND (@FILTER_IncludeInactive = 1 OR Active = 1)
+		AND (@Id IS NULL OR QueueCategories.Id = @Id)
+		AND (@Code IS NULL OR Code LIKE '%'+@Code+'%')
+		AND (@Description IS NULL OR Description LIKE '%'+@Description+'%')
+	ORDER BY QueueCategories.Code ASC
+
+END
 GO
+
 
 ALTER PROCEDURE [dbo].[Queues_get]
 
 	@Id uniqueidentifier = NULL,
 	@QueueCategories_Id uniqueidentifier = NULL,
 	@FILTER_CalledOnly bit = 0,
-	@FILTER_TopCount int = NULL
-	
+	@FILTER_TopCount int = NULL,
+	@FILTER_StartDate datetime = NULL,
+	@FILTER_EndDate datetime = NULL,
+	@FILTER_QueueNoCutoffTimestamp datetime = NULL
+
 AS
 
 BEGIN
@@ -74,14 +223,15 @@ BEGIN
 
 	SELECT TOP(@TopCount) Queues.*,
 		CONVERT(varchar, QueueCategories.Code) + CONVERT(varchar, Queues.No) AS CallNo,
-		CounterAddresses.Name AS CounterAddresses_Name
+		DATEDIFF(MINUTE, Queues.Timestamp, Queues.CallTimestamp) AS WaitTime
 	FROM Queues 
 		LEFT OUTER JOIN QueueCategories ON QueueCategories.Id = Queues.QueueCategories_Id
-		LEFT OUTER JOIN CounterAddresses ON CounterAddresses.Id = Queues.CounterAddresses_Id
 	WHERE 1=1
 		AND (@FILTER_CalledOnly = 0 OR CallTimestamp IS NOT NULL)
+		AND (@FILTER_QueueNoCutoffTimestamp IS NULL OR Queues.Timestamp >= @FILTER_QueueNoCutoffTimestamp)		
+		AND (@FILTER_StartDate IS NULL OR Queues.Timestamp >= @FILTER_StartDate)
+		AND (@FILTER_EndDate IS NULL OR Queues.Timestamp < @FILTER_EndDate)
 	ORDER BY Queues.CallTimestamp DESC
 
 END
 GO
-
