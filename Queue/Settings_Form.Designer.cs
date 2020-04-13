@@ -74,6 +74,8 @@
             this.tcSettings = new System.Windows.Forms.TabControl();
             this.tpGeneral = new System.Windows.Forms.TabPage();
             this.gbQueueCutOffTime = new System.Windows.Forms.GroupBox();
+            this.lblQueueNoCutoffTimestamp = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.in_AutomaticQueueNoResetHour = new LIBUtil.Desktop.UserControls.InputControl_Numeric();
             this.rbAutomaticQueueNoReset = new System.Windows.Forms.RadioButton();
             this.rbManualQueueNoReset = new System.Windows.Forms.RadioButton();
@@ -97,10 +99,8 @@
             this.pnlDatabaseConnection = new System.Windows.Forms.Panel();
             this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
             this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.btnSaveLicense = new System.Windows.Forms.Button();
+            this.btnSubmitLicense = new System.Windows.Forms.Button();
             this.itxt_License = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.lblQueueNoCutoffTimestamp = new System.Windows.Forms.Label();
             this.gbRefreshInterval.SuspendLayout();
             this.gbPrinterSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).BeginInit();
@@ -198,7 +198,7 @@
             this.btnSaveDatabaseInfo.Location = new System.Drawing.Point(68, 85);
             this.btnSaveDatabaseInfo.Name = "btnSaveDatabaseInfo";
             this.btnSaveDatabaseInfo.Size = new System.Drawing.Size(64, 26);
-            this.btnSaveDatabaseInfo.TabIndex = 4;
+            this.btnSaveDatabaseInfo.TabIndex = 2;
             this.btnSaveDatabaseInfo.Text = "SAVE";
             this.btnSaveDatabaseInfo.UseVisualStyleBackColor = true;
             this.btnSaveDatabaseInfo.Click += new System.EventHandler(this.btnSaveDatabaseInfo_Click);
@@ -664,6 +664,24 @@
             this.gbQueueCutOffTime.TabStop = false;
             this.gbQueueCutOffTime.Text = "Queue Number Reset";
             // 
+            // lblQueueNoCutoffTimestamp
+            // 
+            this.lblQueueNoCutoffTimestamp.AutoSize = true;
+            this.lblQueueNoCutoffTimestamp.Location = new System.Drawing.Point(6, 66);
+            this.lblQueueNoCutoffTimestamp.Name = "lblQueueNoCutoffTimestamp";
+            this.lblQueueNoCutoffTimestamp.Size = new System.Drawing.Size(142, 13);
+            this.lblQueueNoCutoffTimestamp.TabIndex = 25;
+            this.lblQueueNoCutoffTimestamp.Text = "lblQueueNoCutoffTimestamp";
+            // 
+            // label2
+            // 
+            this.label2.ForeColor = System.Drawing.Color.Red;
+            this.label2.Location = new System.Drawing.Point(6, 16);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(326, 27);
+            this.label2.TabIndex = 24;
+            this.label2.Text = "WARNING! Nomor antrian akan di VOID sesuai perubahan pada setting ini!";
+            // 
             // in_AutomaticQueueNoResetHour
             // 
             this.in_AutomaticQueueNoResetHour.Checked = false;
@@ -915,7 +933,7 @@
             // tpDatabase
             // 
             this.tpDatabase.Controls.Add(this.pnlDatabaseConnection);
-            this.tpDatabase.Controls.Add(this.btnSaveLicense);
+            this.tpDatabase.Controls.Add(this.btnSubmitLicense);
             this.tpDatabase.Controls.Add(this.itxt_License);
             this.tpDatabase.Location = new System.Drawing.Point(4, 22);
             this.tpDatabase.Name = "tpDatabase";
@@ -932,7 +950,7 @@
             this.pnlDatabaseConnection.Location = new System.Drawing.Point(77, 66);
             this.pnlDatabaseConnection.Name = "pnlDatabaseConnection";
             this.pnlDatabaseConnection.Size = new System.Drawing.Size(200, 115);
-            this.pnlDatabaseConnection.TabIndex = 5;
+            this.pnlDatabaseConnection.TabIndex = 1;
             // 
             // itxt_ServerName
             // 
@@ -948,7 +966,7 @@
             this.itxt_ServerName.ShowFilter = false;
             this.itxt_ServerName.ShowTextboxOnly = false;
             this.itxt_ServerName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_ServerName.TabIndex = 2;
+            this.itxt_ServerName.TabIndex = 0;
             this.itxt_ServerName.ValueText = "";
             // 
             // itxt_DatabaseName
@@ -965,26 +983,26 @@
             this.itxt_DatabaseName.ShowFilter = false;
             this.itxt_DatabaseName.ShowTextboxOnly = false;
             this.itxt_DatabaseName.Size = new System.Drawing.Size(151, 37);
-            this.itxt_DatabaseName.TabIndex = 3;
+            this.itxt_DatabaseName.TabIndex = 1;
             this.itxt_DatabaseName.ValueText = "";
             // 
-            // btnSaveLicense
+            // btnSubmitLicense
             // 
-            this.btnSaveLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveLicense.Location = new System.Drawing.Point(224, 26);
-            this.btnSaveLicense.Name = "btnSaveLicense";
-            this.btnSaveLicense.Size = new System.Drawing.Size(62, 38);
-            this.btnSaveLicense.TabIndex = 1;
-            this.btnSaveLicense.Text = "SAVE";
-            this.btnSaveLicense.UseVisualStyleBackColor = true;
-            this.btnSaveLicense.Visible = false;
-            this.btnSaveLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
+            this.btnSubmitLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmitLicense.Location = new System.Drawing.Point(206, 26);
+            this.btnSubmitLicense.Name = "btnSubmitLicense";
+            this.btnSubmitLicense.Size = new System.Drawing.Size(81, 38);
+            this.btnSubmitLicense.TabIndex = 1;
+            this.btnSubmitLicense.Text = "SUBMIT";
+            this.btnSubmitLicense.UseVisualStyleBackColor = true;
+            this.btnSubmitLicense.Visible = false;
+            this.btnSubmitLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
             // 
             // itxt_License
             // 
             this.itxt_License.IsBrowseMode = false;
             this.itxt_License.LabelText = "License";
-            this.itxt_License.Location = new System.Drawing.Point(67, 26);
+            this.itxt_License.Location = new System.Drawing.Point(68, 26);
             this.itxt_License.MaxLength = 32767;
             this.itxt_License.MultiLine = false;
             this.itxt_License.Name = "itxt_License";
@@ -993,28 +1011,10 @@
             this.itxt_License.ShowDeleteButton = false;
             this.itxt_License.ShowFilter = false;
             this.itxt_License.ShowTextboxOnly = false;
-            this.itxt_License.Size = new System.Drawing.Size(151, 37);
+            this.itxt_License.Size = new System.Drawing.Size(132, 37);
             this.itxt_License.TabIndex = 0;
             this.itxt_License.ValueText = "";
             this.itxt_License.Visible = false;
-            // 
-            // label2
-            // 
-            this.label2.ForeColor = System.Drawing.Color.Red;
-            this.label2.Location = new System.Drawing.Point(6, 16);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(326, 27);
-            this.label2.TabIndex = 24;
-            this.label2.Text = "WARNING! Nomor antrian akan di VOID sesuai perubahan pada setting ini!";
-            // 
-            // lblQueueNoCutoffTimestamp
-            // 
-            this.lblQueueNoCutoffTimestamp.AutoSize = true;
-            this.lblQueueNoCutoffTimestamp.Location = new System.Drawing.Point(6, 66);
-            this.lblQueueNoCutoffTimestamp.Name = "lblQueueNoCutoffTimestamp";
-            this.lblQueueNoCutoffTimestamp.Size = new System.Drawing.Size(142, 13);
-            this.lblQueueNoCutoffTimestamp.TabIndex = 25;
-            this.lblQueueNoCutoffTimestamp.Text = "lblQueueNoCutoffTimestamp";
             // 
             // Settings_Form
             // 
@@ -1116,7 +1116,7 @@
         private System.Windows.Forms.TextBox txtTransitionSoundFilepath;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnHistory;
-        private System.Windows.Forms.Button btnSaveLicense;
+        private System.Windows.Forms.Button btnSubmitLicense;
         private LIBUtil.Desktop.UserControls.InputControl_Textbox itxt_License;
         private System.Windows.Forms.Panel pnlDatabaseConnection;
         private System.Windows.Forms.Panel panel1;

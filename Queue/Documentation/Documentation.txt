@@ -1,8 +1,41 @@
-﻿CREATE TABLE [dbo].[Licensed]
-(
-	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
-    [HashedMACAddress] VARCHAR(MAX) NOT NULL
-)
+﻿CREATE TABLE [dbo].[LicensedDevices] (
+    [Id]               UNIQUEIDENTIFIER NOT NULL,
+    [HashedMACAddress] VARCHAR (MAX)    NOT NULL,
+    [Timestamp] DATETIME NOT NULL, 
+    PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+GO
+
+CREATE PROCEDURE [dbo].[LicensedDevices_isExist_HashedMACAddress]
+
+	@HashedMACAddress varchar(MAX), 
+	@returnValueBoolean bit = 0 OUTPUT 
+
+AS
+
+BEGIN
+
+	IF EXISTS (SELECT Id FROM LicensedDevices WHERE HashedMACAddress = @HashedMACAddress)
+		SET @returnValueBoolean = 1
+	ELSE
+		SET @returnValueBoolean = 0
+
+END
+GO
+
+CREATE PROCEDURE [dbo].[LicensedDevices_add]
+
+	@Id uniqueidentifier,
+	@HashedMACAddress varchar(MAX)
+
+AS
+
+BEGIN
+
+	INSERT INTO LicensedDevices(Id,Timestamp,HashedMACAddress) 
+	VALUES(@Id,CURRENT_TIMESTAMP,@HashedMACAddress)
+
+END
 GO
 
 ALTER TABLE Queues ADD VoidTimestamp datetime NULL

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using LIBUtil;
 
 namespace Queue
 {
@@ -17,14 +18,14 @@ namespace Queue
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            LIBUtil.DBConnection.initialize(Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
+            DBConnection.initialize(Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
             //runApplication();
-            LIBUtil.Util.ensureSingleInstance(runApplication);
+            Util.ensureSingleInstance(runApplication);
         }
         
         static void runApplication()
         {
-            if (!LIBUtil.License.hasValidLicense || !LIBUtil.Util.isDBConnectionAvailable(Properties.Resources.Q, true, true))
+            if (!Util.isDBConnectionAvailable(Properties.Resources.Q, true, true) || !License.isRegistered())
                 Helper.formToOpen = new Settings_Form();
             else
             {

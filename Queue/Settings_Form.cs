@@ -24,7 +24,7 @@ namespace Queue
         #endregion SETTINGS
         /*******************************************************************************************************/
         #region PUBLIC VARIABLES
-
+            
         #endregion PUBLIC VARIABLES
         /*******************************************************************************************************/
         #region PRIVATE VARIABLES
@@ -157,24 +157,29 @@ namespace Queue
             }
         }
 
-        private void validateLicenseAndTestConnection()
+        private void testConnectionAndValidateLicense()
         {
-            if (!License.hasValidLicense || !DBConnection.hasDBConnection)
+            if (!DBConnection.hasDBConnection)
             {
                 Util.enableControls(false, tpSounds, tpGeneral, tpData, tpPrinter);
                 tcSettings.SelectedTab = tpDatabase;
+                itxt_ServerName.focus();
+            }
+            else if(!License.isDeviceRegistered)
+            {
+                itxt_ServerName.ValueText = DBConnection.ServerName;
+                itxt_DatabaseName.ValueText = DBConnection.DatabaseName;
+                Util.enableControls(false, tpSounds, tpGeneral, tpData, tpPrinter);
+                tcSettings.SelectedTab = tpDatabase;
 
-                if (!License.hasValidLicense)
-                {
-                    Util.enableControls(false, pnlDatabaseConnection);
-
-                    itxt_License.Visible = true;
-                    btnSaveLicense.Visible = true;
-                    itxt_License.focus();
-                }
+                itxt_License.Visible = true;
+                btnSubmitLicense.Visible = true;
+                itxt_License.focus();
             }
             else
             {
+                itxt_License.Visible = false;
+                btnSubmitLicense.Visible = false;
                 setupControls();
                 populateData();
             }
@@ -196,7 +201,7 @@ namespace Queue
 
         private void Form_Load(object sender, EventArgs e)
         {
-            validateLicenseAndTestConnection();
+            testConnectionAndValidateLicense();
         }
 
         private void Form_Shown(object sender, EventArgs e)
@@ -232,10 +237,7 @@ namespace Queue
         {            
             DBConnection.update(itxt_ServerName, itxt_DatabaseName);
             if(testDBConnectionSuccessful())
-            { 
-                setupControls();
-                populateData();
-            }
+                testConnectionAndValidateLicense();
         }
 
         private void btnTestPrinter_Click(object sender, EventArgs e)
@@ -396,18 +398,12 @@ namespace Queue
 
         private void BtnSaveLicense_Click(object sender, EventArgs e)
         {
-            if (!License.validate(itxt_License.ValueText))
+            if (License.validate(itxt_License.ValueText))
+                testConnectionAndValidateLicense();
+            else
             {
                 Util.displayMessageBoxError("Invalid License.");
                 itxt_License.focus();
-            }
-            else
-            {
-                itxt_License.Visible = false;
-                btnSaveLicense.Visible = false;
-                Util.enableControls(true, pnlDatabaseConnection);
-                testDBConnectionSuccessful();
-                validateLicenseAndTestConnection();
             }
         }
 
