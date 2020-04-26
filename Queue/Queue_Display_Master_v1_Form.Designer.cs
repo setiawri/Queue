@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.lblHeaderText = new System.Windows.Forms.Label();
-            this.pbSettings = new System.Windows.Forms.PictureBox();
             this.pnlHeader = new System.Windows.Forms.Panel();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -38,13 +37,17 @@
             this.chkShowAds = new System.Windows.Forms.CheckBox();
             this.btnQuit = new System.Windows.Forms.Button();
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
+            this.lblAppVersion = new System.Windows.Forms.Label();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.pnlLogo = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
             this.pnlSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
+            this.pnlLogo.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblHeaderText
@@ -58,23 +61,11 @@
             this.lblHeaderText.Size = new System.Drawing.Size(0, 55);
             this.lblHeaderText.TabIndex = 0;
             // 
-            // pbSettings
-            // 
-            this.pbSettings.BackColor = System.Drawing.Color.Transparent;
-            this.pbSettings.BackgroundImage = global::Queue.Properties.Resources.Q_48;
-            this.pbSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbSettings.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pbSettings.Location = new System.Drawing.Point(770, 0);
-            this.pbSettings.Name = "pbSettings";
-            this.pbSettings.Size = new System.Drawing.Size(80, 80);
-            this.pbSettings.TabIndex = 32;
-            this.pbSettings.TabStop = false;
-            // 
             // pnlHeader
             // 
             this.pnlHeader.BackColor = System.Drawing.Color.SlateGray;
+            this.pnlHeader.Controls.Add(this.pnlLogo);
             this.pnlHeader.Controls.Add(this.pnlSettings);
-            this.pnlHeader.Controls.Add(this.pbSettings);
             this.pnlHeader.Controls.Add(this.lblHeaderText);
             this.pnlHeader.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pnlHeader.Location = new System.Drawing.Point(0, 0);
@@ -90,7 +81,7 @@
             this.pnlSettings.Controls.Add(this.groupBox1);
             this.pnlSettings.Controls.Add(this.chkShowAds);
             this.pnlSettings.Controls.Add(this.btnQuit);
-            this.pnlSettings.Location = new System.Drawing.Point(618, 3);
+            this.pnlSettings.Location = new System.Drawing.Point(632, 3);
             this.pnlSettings.Name = "pnlSettings";
             this.pnlSettings.Size = new System.Drawing.Size(150, 74);
             this.pnlSettings.TabIndex = 0;
@@ -170,6 +161,40 @@
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 5;
             // 
+            // lblAppVersion
+            // 
+            this.lblAppVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblAppVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblAppVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblAppVersion.Location = new System.Drawing.Point(0, 67);
+            this.lblAppVersion.Name = "lblAppVersion";
+            this.lblAppVersion.Size = new System.Drawing.Size(67, 13);
+            this.lblAppVersion.TabIndex = 0;
+            this.lblAppVersion.Text = "VERSION";
+            this.lblAppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pbLogo.BackgroundImage = global::Queue.Properties.Resources.Q_48;
+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLogo.Location = new System.Drawing.Point(0, 0);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(67, 67);
+            this.pbLogo.TabIndex = 33;
+            this.pbLogo.TabStop = false;
+            // 
+            // pnlLogo
+            // 
+            this.pnlLogo.Controls.Add(this.pbLogo);
+            this.pnlLogo.Controls.Add(this.lblAppVersion);
+            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlLogo.Location = new System.Drawing.Point(783, 0);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(67, 80);
+            this.pnlLogo.TabIndex = 34;
+            // 
             // Queue_Display_Master_v1_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -181,7 +206,6 @@
             this.Text = "QueueDisplay_Master_Form";
             this.Load += new System.EventHandler(this.Form_Load);
             this.Shown += new System.EventHandler(this.Queue_Display_Master_Form_Shown);
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
             this.pnlSettings.ResumeLayout(false);
@@ -191,13 +215,14 @@
             this.scContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
+            this.pnlLogo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private System.Windows.Forms.Label lblHeaderText;
-        private System.Windows.Forms.PictureBox pbSettings;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbDisplayMode2;
         private System.Windows.Forms.RadioButton rbDisplayMode1;
@@ -206,5 +231,8 @@
         public System.Windows.Forms.CheckBox chkShowAds;
         public System.Windows.Forms.Panel pnlHeader;
         public System.Windows.Forms.Panel pnlSettings;
+        private System.Windows.Forms.Label lblAppVersion;
+        private System.Windows.Forms.Panel pnlLogo;
+        private System.Windows.Forms.PictureBox pbLogo;
     }
 }

@@ -48,6 +48,7 @@ namespace Queue
         private void setupControls()
         {
             this.Text = FORMTITLE;
+            lblAppVersion.Text = Settings.APPVERSION;
             Util.disableFormResize(this);
 
             timer1.Interval = Settings.RefreshInterval;

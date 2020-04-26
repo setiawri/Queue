@@ -48,8 +48,6 @@
             this.ddlCalled = new LIBUtil.Desktop.UserControls.Dropdownlist();
             this.btnCallPrevious = new System.Windows.Forms.Button();
             this.dgv = new System.Windows.Forms.DataGridView();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pnlOptions = new System.Windows.Forms.Panel();
             this.col_dgv_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_CalledCount = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_LastCalledNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -60,6 +58,9 @@
             this.col_dgv_CallerText = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_Count = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_Categories_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.pnlOptions = new System.Windows.Forms.Panel();
+            this.lblAppVersion = new System.Windows.Forms.Label();
             this.pnlInput.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbUnlock)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbLock)).BeginInit();
@@ -70,10 +71,11 @@
             // 
             // pnlInput
             // 
+            this.pnlInput.Controls.Add(this.pbUpdate);
+            this.pnlInput.Controls.Add(this.lblAppVersion);
             this.pnlInput.Controls.Add(this.pbUnlock);
             this.pnlInput.Controls.Add(this.pbLock);
             this.pnlInput.Controls.Add(this.lblLastCalled);
-            this.pnlInput.Controls.Add(this.pbUpdate);
             this.pnlInput.Controls.Add(this.btnShowQueue);
             this.pnlInput.Dock = System.Windows.Forms.DockStyle.Top;
             this.pnlInput.Location = new System.Drawing.Point(0, 0);
@@ -225,22 +227,6 @@
             this.dgv.TabIndex = 26;
             this.dgv.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgv_CellContentClick);
             // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
-            // pnlOptions
-            // 
-            this.pnlOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.pnlOptions.Controls.Add(this.txtFilterCalled);
-            this.pnlOptions.Controls.Add(this.ddlCalled);
-            this.pnlOptions.Controls.Add(this.btnCallPrevious);
-            this.pnlOptions.Location = new System.Drawing.Point(236, 32);
-            this.pnlOptions.Name = "pnlOptions";
-            this.pnlOptions.Size = new System.Drawing.Size(185, 35);
-            this.pnlOptions.TabIndex = 27;
-            this.pnlOptions.Visible = false;
-            // 
             // col_dgv_Id
             // 
             this.col_dgv_Id.HeaderText = "Id";
@@ -324,7 +310,6 @@
             this.col_dgv_Count.Name = "col_dgv_Count";
             this.col_dgv_Count.ReadOnly = true;
             this.col_dgv_Count.Visible = false;
-            this.col_dgv_Count.Width = 30;
             // 
             // col_dgv_Categories_Description
             // 
@@ -336,6 +321,33 @@
             this.col_dgv_Categories_Description.MinimumWidth = 50;
             this.col_dgv_Categories_Description.Name = "col_dgv_Categories_Description";
             this.col_dgv_Categories_Description.ReadOnly = true;
+            // 
+            // timer1
+            // 
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // pnlOptions
+            // 
+            this.pnlOptions.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlOptions.Controls.Add(this.txtFilterCalled);
+            this.pnlOptions.Controls.Add(this.ddlCalled);
+            this.pnlOptions.Controls.Add(this.btnCallPrevious);
+            this.pnlOptions.Location = new System.Drawing.Point(236, 32);
+            this.pnlOptions.Name = "pnlOptions";
+            this.pnlOptions.Size = new System.Drawing.Size(185, 35);
+            this.pnlOptions.TabIndex = 27;
+            this.pnlOptions.Visible = false;
+            // 
+            // lblAppVersion
+            // 
+            this.lblAppVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblAppVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblAppVersion.Location = new System.Drawing.Point(326, 15);
+            this.lblAppVersion.Name = "lblAppVersion";
+            this.lblAppVersion.Size = new System.Drawing.Size(67, 13);
+            this.lblAppVersion.TabIndex = 37;
+            this.lblAppVersion.Text = "VERSION";
+            this.lblAppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Queue_Caller_Form
             // 
@@ -386,5 +398,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_CallerText;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Count;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Categories_Description;
+        private System.Windows.Forms.Label lblAppVersion;
     }
 }

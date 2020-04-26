@@ -409,20 +409,27 @@ namespace Queue
 
         private void BtnLoadSoundFiles_Click(object sender, EventArgs e)
         {
-            DataTable data = new DataTable();
-            DataRow row;
-
-            Util.addColumnToTable<string>(data, COL_Filename, "a");
-            Util.addColumnToTable<string>(data, COL_Filepath, null);
-            foreach (string filepath in Directory.GetFiles(txtSoundFolder.Text))
+            if (!Directory.Exists(txtSoundFolder.Text))
             {
-                row = data.NewRow();
-                row[COL_Filename] = filepath.Substring(filepath.LastIndexOf('\\')+1);
-                row[COL_Filepath] = filepath;
-                data.Rows.Add(row);
+                Util.displayMessageBoxError("Folder tidak ditemukan.");
+                Util.setGridviewDataSource(dgvSoundFiles, false, false, null);
             }
-            dgvSoundFiles.DataSource = data;
-            //Util.setGridviewDataSource(dgvSoundFiles, true, true, data);
+            else
+            {
+                DataTable data = new DataTable();
+                DataRow row;
+
+                Util.addColumnToTable<string>(data, COL_Filename, "a");
+                Util.addColumnToTable<string>(data, COL_Filepath, null);
+                foreach (string filepath in Directory.GetFiles(txtSoundFolder.Text))
+                {
+                    row = data.NewRow();
+                    row[COL_Filename] = filepath.Substring(filepath.LastIndexOf('\\') + 1);
+                    row[COL_Filepath] = filepath;
+                    data.Rows.Add(row);
+                }
+                Util.setGridviewDataSource(dgvSoundFiles, false, false, data);
+            }
         }
 
         private void DgvSoundFiles_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -431,7 +438,7 @@ namespace Queue
             if (!File.Exists(filepath))
                 Util.displayMessageBoxError("File is no longer available");
             else
-                new SoundPlayer().PlaySync();
+                new SoundPlayer(filepath).PlaySync();
         }
 
         private void QueueNoReset_Changed(object sender, EventArgs e)

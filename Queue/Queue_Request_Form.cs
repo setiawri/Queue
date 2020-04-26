@@ -52,7 +52,8 @@ namespace Queue
         {
             this.Cursor = null;
             this.Text = FORMTITLE;
-            
+            lblAppVersion.Text = Settings.APPVERSION;
+
             this.WindowState = FormWindowState.Maximized;
             Util.clearWhenSelected(dgv);
             dgv.AutoGenerateColumns = false;

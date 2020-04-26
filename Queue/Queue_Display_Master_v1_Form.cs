@@ -43,6 +43,7 @@ namespace Queue
         private void setupControls()
         {
             this.Text = FORMTITLE;
+            lblAppVersion.Text = Settings.APPVERSION;
             this.WindowState = FormWindowState.Maximized;
 
             lblHeaderText.Text = Settings.HeaderText;

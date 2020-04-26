@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.col_dgv_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.col_dgv_QueueCategories_Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -37,6 +37,7 @@
             this.col_dgv_RequestButton = new System.Windows.Forms.DataGridViewButtonColumn();
             this.col_dgv_Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.pnlSettings = new System.Windows.Forms.Panel();
+            this.btnResetQueueNo = new System.Windows.Forms.Button();
             this.btnIncreaseWidthStep = new System.Windows.Forms.Button();
             this.btnDecreaseWidthStep = new System.Windows.Forms.Button();
             this.btnIncreaseWidth = new System.Windows.Forms.Button();
@@ -48,11 +49,13 @@
             this.btnIncreaseFont = new System.Windows.Forms.Button();
             this.btnDecreaseFont = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.pbSettings = new System.Windows.Forms.PictureBox();
-            this.btnResetQueueNo = new System.Windows.Forms.Button();
+            this.pnlLogo = new System.Windows.Forms.Panel();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.lblAppVersion = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
             this.pnlSettings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).BeginInit();
+            this.pnlLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.SuspendLayout();
             // 
             // dgv
@@ -65,14 +68,14 @@
             this.dgv.BackgroundColor = System.Drawing.Color.White;
             this.dgv.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dgv.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgv.ColumnHeadersVisible = false;
             this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -81,15 +84,15 @@
             this.col_dgv_RequestText,
             this.col_dgv_RequestButton,
             this.col_dgv_Description});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
-            dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle10.Padding = new System.Windows.Forms.Padding(0, 0, 0, 20);
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv.DefaultCellStyle = dataGridViewCellStyle10;
             this.dgv.GridColor = System.Drawing.SystemColors.Control;
             this.dgv.Location = new System.Drawing.Point(30, 35);
             this.dgv.Name = "dgv";
@@ -149,10 +152,21 @@
             this.pnlSettings.Controls.Add(this.btnIncreaseFont);
             this.pnlSettings.Controls.Add(this.btnDecreaseFont);
             this.pnlSettings.Controls.Add(this.label1);
-            this.pnlSettings.Location = new System.Drawing.Point(361, 73);
+            this.pnlSettings.Location = new System.Drawing.Point(292, 2);
             this.pnlSettings.Name = "pnlSettings";
             this.pnlSettings.Size = new System.Drawing.Size(150, 111);
             this.pnlSettings.TabIndex = 29;
+            // 
+            // btnResetQueueNo
+            // 
+            this.btnResetQueueNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnResetQueueNo.Location = new System.Drawing.Point(17, 58);
+            this.btnResetQueueNo.Name = "btnResetQueueNo";
+            this.btnResetQueueNo.Size = new System.Drawing.Size(114, 23);
+            this.btnResetQueueNo.TabIndex = 15;
+            this.btnResetQueueNo.Text = "RESET NOMOR";
+            this.btnResetQueueNo.UseVisualStyleBackColor = true;
+            this.btnResetQueueNo.Click += new System.EventHandler(this.BtnResetQueueNo_Click);
             // 
             // btnIncreaseWidthStep
             // 
@@ -273,29 +287,39 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Font Size";
             // 
-            // pbSettings
+            // pnlLogo
             // 
-            this.pbSettings.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.pbSettings.BackColor = System.Drawing.Color.Transparent;
-            this.pbSettings.BackgroundImage = global::Queue.Properties.Resources.Q_48;
-            this.pbSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pbSettings.Location = new System.Drawing.Point(439, 1);
-            this.pbSettings.Name = "pbSettings";
-            this.pbSettings.Size = new System.Drawing.Size(72, 72);
-            this.pbSettings.TabIndex = 30;
-            this.pbSettings.TabStop = false;
-            this.pbSettings.Click += new System.EventHandler(this.pbUpdate_Click);
+            this.pnlLogo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlLogo.Controls.Add(this.pbLogo);
+            this.pnlLogo.Controls.Add(this.lblAppVersion);
+            this.pnlLogo.Location = new System.Drawing.Point(444, 2);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(67, 80);
+            this.pnlLogo.TabIndex = 35;
             // 
-            // btnResetQueueNo
+            // pbLogo
             // 
-            this.btnResetQueueNo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnResetQueueNo.Location = new System.Drawing.Point(17, 58);
-            this.btnResetQueueNo.Name = "btnResetQueueNo";
-            this.btnResetQueueNo.Size = new System.Drawing.Size(114, 23);
-            this.btnResetQueueNo.TabIndex = 15;
-            this.btnResetQueueNo.Text = "RESET NOMOR";
-            this.btnResetQueueNo.UseVisualStyleBackColor = true;
-            this.btnResetQueueNo.Click += new System.EventHandler(this.BtnResetQueueNo_Click);
+            this.pbLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pbLogo.BackgroundImage = global::Queue.Properties.Resources.Q_48;
+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLogo.Location = new System.Drawing.Point(0, 0);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(67, 67);
+            this.pbLogo.TabIndex = 33;
+            this.pbLogo.TabStop = false;
+            // 
+            // lblAppVersion
+            // 
+            this.lblAppVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblAppVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblAppVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblAppVersion.Location = new System.Drawing.Point(0, 67);
+            this.lblAppVersion.Name = "lblAppVersion";
+            this.lblAppVersion.Size = new System.Drawing.Size(67, 13);
+            this.lblAppVersion.TabIndex = 0;
+            this.lblAppVersion.Text = "VERSION";
+            this.lblAppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Queue_Request_Form
             // 
@@ -303,7 +327,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(512, 434);
-            this.Controls.Add(this.pbSettings);
+            this.Controls.Add(this.pnlLogo);
             this.Controls.Add(this.pnlSettings);
             this.Controls.Add(this.dgv);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
@@ -315,7 +339,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
             this.pnlSettings.ResumeLayout(false);
             this.pnlSettings.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbSettings)).EndInit();
+            this.pnlLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -335,12 +360,14 @@
         private System.Windows.Forms.DataGridViewButtonColumn col_dgv_RequestButton;
         private System.Windows.Forms.DataGridViewTextBoxColumn col_dgv_Description;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.PictureBox pbSettings;
         private System.Windows.Forms.Button btnQuit;
         private System.Windows.Forms.Button btnIncreaseWidthStep;
         private System.Windows.Forms.Button btnDecreaseWidthStep;
         private System.Windows.Forms.Button btnIncreaseWidth;
         private System.Windows.Forms.Button btnDecreaseWidth;
         private System.Windows.Forms.Button btnResetQueueNo;
+        private System.Windows.Forms.Panel pnlLogo;
+        private System.Windows.Forms.PictureBox pbLogo;
+        private System.Windows.Forms.Label lblAppVersion;
     }
 }

@@ -25,7 +25,11 @@ namespace Queue
         
         static void runApplication()
         {
-            if (!Util.isDBConnectionAvailable(Properties.Resources.Q, true, true) || !License.isRegistered())
+            bool hasDBConnection = Util.isDBConnectionAvailable(Properties.Resources.Q, true, true);
+
+            if (hasDBConnection && !Settings.hasLatestAppVersion())
+                Util.displayMessageBoxError("Please update application to the latest version");
+            else if (!hasDBConnection || !License.isRegistered())
                 Helper.formToOpen = new Settings_Form();
             else
             {
@@ -49,6 +53,7 @@ namespace Queue
             }
 
             Application.Run(new Main_Form());
+            DBConnection.terminateActiveSqlConnection();
         }
     }
 }
