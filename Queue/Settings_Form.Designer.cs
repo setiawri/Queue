@@ -680,7 +680,8 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(326, 27);
             this.label2.TabIndex = 24;
-            this.label2.Text = "WARNING! Nomor antrian akan di VOID sesuai perubahan pada setting ini!";
+            this.label2.Text = "WARNING! Nomor antrian akan di VOID sesuai perubahan pada setting ini! Reset berj" +
+    "alan saat tiket antrian di print.";
             // 
             // in_AutomaticQueueNoResetHour
             // 

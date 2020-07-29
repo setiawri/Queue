@@ -18,14 +18,14 @@ namespace Queue
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             
-            DBConnection.initialize(Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
-            //runApplication();
+            DBConnection.initialize(Settings.SQLCONNECTION_MULTIPLEUSE, Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
+            runApplication();
             Util.ensureSingleInstance(runApplication);
         }
         
         static void runApplication()
         {
-            bool hasDBConnection = Util.isDBConnectionAvailable(Properties.Resources.Q, true, true);
+            bool hasDBConnection = DBConnection.isDBConnectionAvailable(Properties.Resources.Q, true, true);
 
             if (hasDBConnection && !Settings.hasLatestAppVersion())
                 Util.displayMessageBoxError("Please update application to the latest version");

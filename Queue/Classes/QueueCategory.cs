@@ -114,7 +114,7 @@ namespace Queue
                     "QueueCategories_update",
                     new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
                     new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, Util.wrapNullable(Code)),
-                    new SqlQueryParameter(COL_DB_Description, SqlDbType.UniqueIdentifier, Util.wrapNullable(Description))
+                    new SqlQueryParameter(COL_DB_Description, SqlDbType.NVarChar, Util.wrapNullable(Description))
                 );
 
                 //if (result.IsSuccessful)

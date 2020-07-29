@@ -55,7 +55,7 @@ namespace Queue
         
         public static bool isDBConnectionAvailable()
         {
-            return Util.isDBConnectionAvailable(Properties.Resources.Q, true, true);
+            return DBConnection.isDBConnectionAvailable(Properties.Resources.Q, true, true);
         }
     }
 }

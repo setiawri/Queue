@@ -13,13 +13,20 @@ namespace Queue
 {
     public class Settings
     {
+        public const string USERACCOUNTS_TEMPORARYPASSWORD = "qwerty";
+        public const bool SQLCONNECTION_MULTIPLEUSE = false;
+
         /*******************************************************************************************************/
         #region APP VERSION
 
         public const string APPVERSION = "v200427";
         private static Guid GUID_LatestAppVersion = new Guid("C1552CB9-E157-4925-897E-904180379BFE");
 
-        public static string LatestAppVersion { get { return getStringValue(GUID_LatestAppVersion); } set { update(GUID_LatestAppVersion, value); } }
+        public static string LatestAppVersion 
+        { 
+            get { return LIBUtil.Settings.getStringValue(GUID_LatestAppVersion); } 
+            set { LIBUtil.Settings.update(GUID_LatestAppVersion, value); } 
+        }
 
         public static bool hasLatestAppVersion()
         {
@@ -99,158 +106,156 @@ namespace Queue
         /*******************************************************************************************************/
         #region PUBLIC VARIABLES
 
-        public const string USERACCOUNTS_TEMPORARYPASSWORD = "qwerty";
-
         /// <summary><para></para></summary>
         public static int DisplayFormMode
         {
-            get { return getIntValue(GUID_DisplayFormMode, DEFAULTDISPLAYFORMMODE); }
-            set { update(GUID_DisplayFormMode, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_DisplayFormMode, DEFAULTDISPLAYFORMMODE); }
+            set { LIBUtil.Settings.update(GUID_DisplayFormMode, value); }
         }
 
         /// <summary><para></para></summary>
         public static int AdInterval
         {
-            get { return getIntValue(GUID_AdInterval, DEFAULTADINTERVAL); }
-            set { update(GUID_AdInterval, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_AdInterval, DEFAULTADINTERVAL); }
+            set { LIBUtil.Settings.update(GUID_AdInterval, value); }
         }
 
         /// <summary><para></para></summary>
         public static bool ShowAdAsDefault
         {
-            get { return getBoolValue(GUID_ShowAdAsDefault); }
-            set { update(GUID_ShowAdAsDefault, value); }
+            get { return LIBUtil.Settings.getBoolValue(GUID_ShowAdAsDefault); }
+            set { LIBUtil.Settings.update(GUID_ShowAdAsDefault, value); }
         }
 
         /// <summary><para></para></summary>
         public static string AdFolder
         {
-            get { return getStringValue(GUID_AdFolder); }
-            set { update(GUID_AdFolder, value); }
+            get { return LIBUtil.Settings.getStringValue(GUID_AdFolder); }
+            set { LIBUtil.Settings.update(GUID_AdFolder, value); }
         }
 
         /// <summary><para></para></summary>
         public static string SoundFolder
         {
-            get { return getStringValue(GUID_SoundFolder); }
-            set { update(GUID_SoundFolder, value); }
+            get { return LIBUtil.Settings.getStringValue(GUID_SoundFolder); }
+            set { LIBUtil.Settings.update(GUID_SoundFolder, value); }
         }
 
         /// <summary><para></para></summary>
         public static string TransitionSoundFile
         {
-            get { return getStringValue(GUID_TransitionSoundFile); }
-            set { update(GUID_TransitionSoundFile, value); }
+            get { return LIBUtil.Settings.getStringValue(GUID_TransitionSoundFile); }
+            set { LIBUtil.Settings.update(GUID_TransitionSoundFile, value); }
         }
 
         /// <summary><para></para></summary>
         public static bool PlayNotificationSound
         {
-            get { return getBoolValue(GUID_CallFormat_PlayNotificationSound); }
-            set { update(GUID_CallFormat_PlayNotificationSound, value); }
+            get { return LIBUtil.Settings.getBoolValue(GUID_CallFormat_PlayNotificationSound); }
+            set { LIBUtil.Settings.update(GUID_CallFormat_PlayNotificationSound, value); }
         }
 
         /// <summary><para></para></summary>
         public static bool PlayCounter
         {
-            get { return getBoolValue(GUID_CallFormat_PlayCounter); }
-            set { update(GUID_CallFormat_PlayCounter, value); }
+            get { return LIBUtil.Settings.getBoolValue(GUID_CallFormat_PlayCounter); }
+            set { LIBUtil.Settings.update(GUID_CallFormat_PlayCounter, value); }
         }
 
         /// <summary><para></para></summary>
         public static int RefreshInterval
         {
-            get { return getIntValue(GUID_RefreshInterval, DEFAULTREFRESHINTERVAL); }
-            set { update(GUID_RefreshInterval, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_RefreshInterval, DEFAULTREFRESHINTERVAL); }
+            set { LIBUtil.Settings.update(GUID_RefreshInterval, value); }
         }
 
         /// <summary><para></para></summary>
         public static int RequestGridWidth
         {
-            get { return getIntValue(GUID_RequestGridWidth, DEFAULTREQUESTGRIDWIDTH); }
-            set { update(GUID_RequestGridWidth, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_RequestGridWidth, DEFAULTREQUESTGRIDWIDTH); }
+            set { LIBUtil.Settings.update(GUID_RequestGridWidth, value); }
         }
 
         /// <summary><para></para></summary>
         public static int DisplayFontSize
         {
             get {
-                int size = getIntValue(GUID_DisplayFontSize, DEFAULTFONTSIZE);
+                int size = LIBUtil.Settings.getIntValue(GUID_DisplayFontSize, DEFAULTFONTSIZE);
                 if (size < 1)
                     size = DisplayFontSize = 1;
                 return size;
             }
-            set { update(GUID_DisplayFontSize, value); }
+            set { LIBUtil.Settings.update(GUID_DisplayFontSize, value); }
         }
 
         /// <summary><para></para></summary>
         public static int DisplayGridWidth
         {
-            get { return getIntValue(GUID_DisplayGridWidth, DEFAULTDISPLAYGRIDWIDTH); }
-            set { update(GUID_DisplayGridWidth, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_DisplayGridWidth, DEFAULTDISPLAYGRIDWIDTH); }
+            set { LIBUtil.Settings.update(GUID_DisplayGridWidth, value); }
         }
 
         /// <summary><para></para></summary>
         public static int PrintAreaWidth
         {
-            get { return getIntValue(GUID_PrintAreaWidth, DEFAULTPRINTAREAWIDTH); }
-            set { update(GUID_PrintAreaWidth, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_PrintAreaWidth, DEFAULTPRINTAREAWIDTH); }
+            set { LIBUtil.Settings.update(GUID_PrintAreaWidth, value); }
         }
 
         /// <summary><para></para></summary>
         public static int PrintQty
         {
-            get { return getIntValue(GUID_PrintQty, DEFAULTPRINTQTY); }
-            set { update(GUID_PrintQty, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_PrintQty, DEFAULTPRINTQTY); }
+            set { LIBUtil.Settings.update(GUID_PrintQty, value); }
         }
 
         /// <summary><para></para></summary>
         public static string HeaderText
         {
-            get { return getStringValue(GUID_HeaderText); }
-            set { update(GUID_HeaderText, value); }
+            get { return LIBUtil.Settings.getStringValue(GUID_HeaderText); }
+            set { LIBUtil.Settings.update(GUID_HeaderText, value); }
         }
 
         /// <summary><para></para></summary>
         public static string RollingText
         {
-            get { return getStringValue(GUID_RollingText); }
-            set { update(GUID_RollingText, value); }
+            get { return LIBUtil.Settings.getStringValue(GUID_RollingText); }
+            set { LIBUtil.Settings.update(GUID_RollingText, value); }
         }
 
         /// <summary><para></para></summary>
         public static int RollingTextSpeed
         {
-            get { return getIntValue(GUID_RollingTextSpeed, DEFAULTROLLINGTEXTSPEED); }
-            set { update(GUID_RollingTextSpeed, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_RollingTextSpeed, DEFAULTROLLINGTEXTSPEED); }
+            set { LIBUtil.Settings.update(GUID_RollingTextSpeed, value); }
         }
 
         /// <summary><para></para></summary>
         public static bool ManualQueueNoReset
         {
-            get { return getBoolValue(GUID_ManualQueueNoReset); }
-            set { update(GUID_ManualQueueNoReset, value); }
+            get { return LIBUtil.Settings.getBoolValue(GUID_ManualQueueNoReset); }
+            set { LIBUtil.Settings.update(GUID_ManualQueueNoReset, value); }
         }
 
         /// <summary><para></para></summary>
         public static int AutomaticQueueNoResetHour
         {
-            get { return getIntValue(GUID_AutomaticQueueNoResetHour, 0); }
-            set { update(GUID_AutomaticQueueNoResetHour, value); }
+            get { return LIBUtil.Settings.getIntValue(GUID_AutomaticQueueNoResetHour, 0); }
+            set { LIBUtil.Settings.update(GUID_AutomaticQueueNoResetHour, value); }
         }
 
         /// <summary><para></para></summary>
         public static DateTime QueueNoCutoffTimestamp
         {
             get {
-                DateTime? value = getDateTimeValue(GUID_QueueNoCutoffTimestamp);
+                DateTime? value = LIBUtil.Settings.getDateTimeValue(GUID_QueueNoCutoffTimestamp);
                 if (value == null)
                     return DateTime.Now;
                 else
                     return (DateTime)value;
             }
             set {
-                update(GUID_QueueNoCutoffTimestamp, value);
+                LIBUtil.Settings.update(GUID_QueueNoCutoffTimestamp, value);
             }
         }
 
@@ -259,115 +264,13 @@ namespace Queue
             return new DateTime(value.Year, value.Month, value.Day, AutomaticQueueNoResetHour, 0, 0);
         }
 
-        private static int getIntValue(Guid GUID, int defaultValue)
-        {
-            DataRow row = get(GUID);
-            if (row == null)
-                return defaultValue;
-            else
-                return Convert.ToInt32(row[COL_DB_Value_Int]);
-        }
-
-        private static string getStringValue(Guid GUID)
-        {
-            DataRow row = get(GUID);
-            if (row == null)
-                return "";
-            else
-                return row[COL_DB_Value_String].ToString();
-        }
-
-        private static bool getBoolValue(Guid GUID)
-        {
-            if (getIntValue(GUID, 0) == 0)
-                return false;
-            else
-                return true;
-        }
-
-        private static DateTime? getDateTimeValue(Guid GUID)
-        {
-            DataRow row = get(GUID);
-            if (row == null)
-                return null;
-            else
-                return Util.wrapNullable<DateTime?>(row[COL_DB_Value_DateTime]);
-        }
-
         #endregion PUBLIC VARIABLES
         /*******************************************************************************************************/
         #region DATABASE FIELDS
 
-        public const string COL_DB_Id = "Id";
-        public const string COL_DB_Value_Int = "Value_Int";
-        public const string COL_DB_Value_String = "Value_String";
-        public const string COL_DB_Value_DateTime = "Value_DateTime";
-
         #endregion DATABASE FIELDS
         /*******************************************************************************************************/
         #region DATABASE METHODS
-
-        public static DataRow get(Guid? id)
-        {
-            DataTable datatable = new DataTable();
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("Settings_get", DBConnection.ActiveSqlConnection))
-                using (SqlDataAdapter adapter = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = Util.wrapNullable(id);
-
-                    adapter.SelectCommand = cmd;
-                    adapter.Fill(datatable);
-                }
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return Util.getFirstRow(datatable);
-        }
-
-        public static void update(Guid id, int value) { update(id, value, null, null, null); }
-        public static void update(Guid id, string value) { update(id, null, value, null, null); }
-        public static void update(Guid id, bool value) { update(id, null, null, value, null); }
-        public static void update(Guid id, DateTime? value) { update(id, null, null, null, value); }
-        private static void update(Guid id, int? intValue, string stringValue, bool? boolValue, DateTime? datetimeValue)
-        {
-            if (boolValue != null)
-                intValue = Util.convertToInt((bool)boolValue);
-
-            //Settings objOld = new Settings(id);
-            //string log = "";
-            //if (intValue != null)
-            //    log = Util.appendChange(log, objOld.Notes, intValue.ToString(), "Notes: '{0}' to '{1}'");
-            //else
-            //    log = Util.appendChange(log, objOld.Notes, intValue.ToString(), "Notes: '{0}' to '{1}'");            
-
-            //if (string.IsNullOrEmpty(log))
-            //{
-            //    Util.displayMessageBoxError("No changes to record");
-            //}
-            //else
-            //{
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand("Settings_update", DBConnection.ActiveSqlConnection))
-                    {
-                        cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                        cmd.Parameters.Add("@" + COL_DB_Value_Int, SqlDbType.Int).Value = Util.wrapNullable(intValue);
-                        cmd.Parameters.Add("@" + COL_DB_Value_String, SqlDbType.NVarChar).Value = Util.wrapNullable(stringValue);
-                        cmd.Parameters.Add("@" + COL_DB_Value_DateTime, SqlDbType.DateTime).Value = Util.wrapNullable(datetimeValue);
-
-                        cmd.ExecuteNonQuery();
-
-                        //ActivityLog.add(sqlConnection, userAccountID, id, String.Format("Updated: {0}", log));
-                    }
-                    //Util.displayMessageBoxSuccess("Changes updated");
-                }
-                catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-            //}
-        }        
 
         #endregion DATABASE METHODS
         /*******************************************************************************************************/

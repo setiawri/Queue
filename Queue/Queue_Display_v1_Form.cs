@@ -7,6 +7,7 @@ using System.Windows.Forms;
 using System.Media;
 
 using LIBUtil;
+using System.Threading;
 
 namespace Queue
 {
@@ -36,6 +37,7 @@ namespace Queue
         #region PRIVATE VARIABLES
 
         private Guid _lastCalledId;
+        private bool _isShown = false;
 
         #endregion PRIVATE VARIABLES
         /*******************************************************************************************************/
@@ -289,9 +291,10 @@ namespace Queue
 
         private void Form_Shown(object sender, EventArgs e)
         {
-            timerRefreshInterval.Start();
+            _isShown = true;
             rollingText1.Start(Settings.RollingText, Settings.RollingTextSpeed, Settings.ROLLINGTEXTTIMERINTERVAL);
             clock1.Start(30000, ContentAlignment.MiddleRight, "{0:dddd, dd/MM/yy HH:mm}");
+            timerRefreshInterval.Start();
         }
 
         private void BgwCaller_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
