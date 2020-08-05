@@ -105,11 +105,6 @@ namespace Queue
             }
         }
 
-        private void resetData()
-        {
-
-        }
-
         public void addContextMenu()
         {
             gridPrintLayout.ContextMenuStrip = new ContextMenuStrip();
@@ -162,6 +157,7 @@ namespace Queue
             if (!DBConnection.hasDBConnection)
             {
                 Util.enableControls(false, tpSounds, tpGeneral, tpData, tpPrinter);
+                pnlLicense.Visible = false;
                 tcSettings.SelectedTab = tpDatabase;
                 itxt_ServerName.focus();
             }
@@ -172,14 +168,13 @@ namespace Queue
                 Util.enableControls(false, tpSounds, tpGeneral, tpData, tpPrinter);
                 tcSettings.SelectedTab = tpDatabase;
 
-                itxt_License.Visible = true;
+                pnlLicense.Visible = true;
                 btnSubmitLicense.Visible = true;
                 itxt_License.focus();
             }
             else
             {
-                itxt_License.Visible = false;
-                btnSubmitLicense.Visible = false;
+                pnlLicense.Visible = false;
                 setupControls();
                 populateData();
             }
@@ -206,7 +201,7 @@ namespace Queue
 
         private void Form_Shown(object sender, EventArgs e)
         {
-            if (itxt_License.Visible)
+            if (pnlLicense.Visible)
                 itxt_License.focus();
         }
 
@@ -236,8 +231,8 @@ namespace Queue
         private void btnSaveDatabaseInfo_Click(object sender, EventArgs e)
         {            
             DBConnection.update(itxt_ServerName, itxt_DatabaseName);
-            if(testDBConnectionSuccessful())
-                testConnectionAndValidateLicense();
+            testDBConnectionSuccessful();
+            testConnectionAndValidateLicense();
         }
 
         private void btnTestPrinter_Click(object sender, EventArgs e)

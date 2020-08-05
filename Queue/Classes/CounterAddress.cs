@@ -1,7 +1,5 @@
 ﻿using System;
-
 using System.Data;
-using System.Data.SqlClient;
 using LIBUtil;
 using System.ComponentModel;
 
@@ -72,24 +70,24 @@ namespace Queue
         /*******************************************************************************************************/
         #region DATABASE METHODS
 
-        public static void add(string name, string IPAddress, DefaultForms defaultForm)
+        public static Guid? add(string name, string IPAddress, DefaultForms defaultForm)
         {
-            Guid id = Guid.NewGuid();
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_add", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                    cmd.Parameters.Add("@" + COL_DB_Name, SqlDbType.NVarChar).Value = name;
-                    cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = IPAddress;
-                    cmd.Parameters.Add("@" + COL_DB_DefaultForms_enumid, SqlDbType.TinyInt).Value = defaultForm;
+            Guid Id = Guid.NewGuid();
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "CounterAddresses_add",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                new SqlQueryParameter(COL_DB_Name, SqlDbType.NVarChar, name),
+                new SqlQueryParameter(COL_DB_IPAddress, SqlDbType.NVarChar, IPAddress),
+                new SqlQueryParameter(COL_DB_DefaultForms_enumid, SqlDbType.TinyInt, defaultForm)
+            );
 
-                    cmd.ExecuteNonQuery();
-
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Added");
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
+            if (!result.IsSuccessful)
+                return null;
+            else
+                return Id;
         }
 
         public static DataTable get() { return get(null, null, null); }
@@ -97,103 +95,68 @@ namespace Queue
         public static DataRow get(string ipAddress) { return Util.getFirstRow(get(null, null, ipAddress)); }
         public static DataTable get(Guid? id, string name, string ipAddress)
         {
-            DataTable datatable = new DataTable();
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get", DBConnection.ActiveSqlConnection))
-                using (SqlDataAdapter adapter = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = Util.wrapNullable(id);
-                    cmd.Parameters.Add("@" + COL_DB_Name, SqlDbType.NVarChar).Value = Util.wrapNullable(name);
-                    cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = Util.wrapNullable(ipAddress);
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.FillByAdapter,
+                "CounterAddresses_get",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Util.wrapNullable(id)),
+                new SqlQueryParameter(COL_DB_Name, SqlDbType.NVarChar, Util.wrapNullable(name)),
+                new SqlQueryParameter(COL_DB_IPAddress, SqlDbType.NVarChar, Util.wrapNullable(ipAddress))
+            );
 
-                    adapter.SelectCommand = cmd;
-                    adapter.Fill(datatable);
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            Util.parseEnum<DefaultForms>(datatable, COL_DefaultForms_description, COL_DB_DefaultForms_enumid);
-
-            return datatable;
+            return Util.parseEnum<DefaultForms>(result.Datatable, COL_DefaultForms_description, COL_DB_DefaultForms_enumid);
         }
 
         public static string getNameByIPAddress(string ipAddress)
         {
-            DataTable datatable = new DataTable();
-            string name = "";
-            try
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                true, false, false, false, false,
+                "CounterAddresses_get_Name_by_IPAddress",
+                new SqlQueryParameter(COL_DB_IPAddress, SqlDbType.NVarChar, Util.wrapNullable(ipAddress))
+                );
+
+            if (result.IsSuccessful)
+                return result.ValueString;
+            else
+                return null;
+        }
+
+        public static void update(Guid Id, string name, string ipAddress, DefaultForms defaultForm)
+        {
+            CounterAddress objOld = new CounterAddress(Id);
+            string log = "";
+            log = Util.appendChange(log, objOld.Name, name, "Name: '{0}' to '{1}'");
+            log = Util.appendChange(log, objOld.IPAddress, ipAddress, "IP Address: '{0}' to '{1}'");
+            log = Util.appendChange(log, objOld.DefaultForms_description, Util.GetEnumDescription(defaultForm), "Default Form: '{0}' to '{1}'");
+
+            if (!string.IsNullOrEmpty(log))
             {
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_get_Name_by_IPAddress", DBConnection.ActiveSqlConnection))
-                using (SqlDataAdapter adapter = new SqlDataAdapter())
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = Util.wrapNullable(ipAddress);
-                    SqlParameter return_value = cmd.Parameters.Add("@" + COL_DB_Name, SqlDbType.NVarChar, -1);
-                    return_value.Direction = ParameterDirection.Output;
-
-                    cmd.ExecuteNonQuery();
-
-                    name = return_value.Value.ToString();
-                }
+                SqlQueryResult result = DBConnection.query(
+                    false,
+                    DBConnection.ActiveSqlConnection,
+                    QueryTypes.ExecuteNonQuery,
+                    "CounterAddresses_update",
+                    new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                    new SqlQueryParameter(COL_DB_Name, SqlDbType.NVarChar, Util.wrapNullable(name)),
+                    new SqlQueryParameter(COL_DB_IPAddress, SqlDbType.NVarChar, Util.wrapNullable(ipAddress)),
+                    new SqlQueryParameter(COL_DB_DefaultForms_enumid, SqlDbType.TinyInt, defaultForm)
+                );
             }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return name;
         }
 
-        public static void update(Guid id, string name, string ipAddress, DefaultForms defaultForm)
+        public static void delete(Guid Id)
         {
-            try
-            {
-                CounterAddress objOld = new CounterAddress(id);
-                string log = "";
-                log = Util.appendChange(log, objOld.Name, name, "Name: '{0}' to '{1}'");
-                log = Util.appendChange(log, objOld.IPAddress, ipAddress, "IP Address: '{0}' to '{1}'");
-                log = Util.appendChange(log, objOld.DefaultForms_description, Util.GetEnumDescription(defaultForm), "Default Form: '{0}' to '{1}'");
-
-                if (string.IsNullOrEmpty(log))
-                {
-                    Util.displayMessageBoxError("No changes to record");
-                }
-                else
-                {
-					using (SqlCommand cmd = new SqlCommand("CounterAddresses_update", DBConnection.ActiveSqlConnection))
-					{
-						cmd.CommandType = CommandType.StoredProcedure;
-                        cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                        cmd.Parameters.Add("@" + COL_DB_Name, SqlDbType.NVarChar).Value = Util.wrapNullable(name);
-                        cmd.Parameters.Add("@" + COL_DB_IPAddress, SqlDbType.NVarChar).Value = Util.wrapNullable(ipAddress);
-                        cmd.Parameters.Add("@" + COL_DB_DefaultForms_enumid, SqlDbType.TinyInt).Value = defaultForm;
-
-						cmd.ExecuteNonQuery();
-					
-						//ActivityLog.add(sqlConnection, userAccountID, id, String.Format("Updated: {0}", log));
-                    
-						//notify supervisor role
-						//if (new UserAccount(userAccountID).UserRole != UserAccountRoles.Supervisor)
-						//  add row to Notifications table
-					}
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-        }
-
-        public static string delete(Guid id)
-        {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("CounterAddresses_delete", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-
-                    cmd.ExecuteNonQuery();
-                    
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Deleted");
-                }
-            } catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return string.Empty;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "CounterAddresses_delete",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id)
+            );
         }
 
         #endregion DATABASE METHODS

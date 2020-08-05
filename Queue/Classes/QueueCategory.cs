@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data;
-using System.Data.SqlClient;
 using LIBUtil;
 
 namespace Queue
@@ -71,9 +65,6 @@ namespace Queue
                 new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, code),
                 new SqlQueryParameter(COL_DB_Description, SqlDbType.NVarChar, description)
             );
-
-            //if (result.IsSuccessful)
-            //    ActivityLog.submit(Id, "Added");
         }
 
         public static DataRow get(Guid id) { return Util.getFirstRow(get(true, id, null, null, null)); }
@@ -116,10 +107,6 @@ namespace Queue
                     new SqlQueryParameter(COL_DB_Code, SqlDbType.NVarChar, Util.wrapNullable(Code)),
                     new SqlQueryParameter(COL_DB_Description, SqlDbType.NVarChar, Util.wrapNullable(Description))
                 );
-
-                //if (result.IsSuccessful)
-                //    ActivityLog.submit(Id, String.Format("Updated: {0}", log));
-
             }
         }
 
@@ -133,9 +120,6 @@ namespace Queue
                 new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
                 new SqlQueryParameter(COL_DB_Active, SqlDbType.Bit, Value)
             );
-
-            //if (result.IsSuccessful)
-            //    ActivityLog.submit(Id, String.Format("Completed changed to: {0}", Value));
         }
 
         public static void delete(Guid Id)
@@ -147,9 +131,6 @@ namespace Queue
                 "QueueCategories_delete",
                 new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id)
             );
-
-            //if (result.IsSuccessful)
-            //    ActivityLog.submit(Id, String.Format("Completed changed to: {0}", Value));
         }
 
         #endregion DATABASE METHODS

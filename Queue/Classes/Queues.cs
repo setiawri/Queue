@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using System.Data;
-using System.Data.SqlClient;
 using LIBUtil;
 
 namespace Queue
@@ -72,67 +66,42 @@ namespace Queue
 
         public static string add(Guid queueCategoryId, DateTime? QueueNoCutoffTimestamp)
         {
-            Guid id = Guid.NewGuid();
-            string printString = null;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("Queues_add", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                    cmd.Parameters.Add("@" + COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier).Value = queueCategoryId;
-                    cmd.Parameters.Add("@" + FILTER_QueueNoCutoffTimestamp, SqlDbType.DateTime).Value = Util.wrapNullable(QueueNoCutoffTimestamp);
-                    SqlParameter return_value = cmd.Parameters.Add("@" + COL_CallNo, SqlDbType.NVarChar, -1);
-                    return_value.Direction = ParameterDirection.Output;
+            Guid Id = Guid.NewGuid();
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                true, false, false, false, false,
+                "Queues_add",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                new SqlQueryParameter(COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier, queueCategoryId),
+                new SqlQueryParameter(FILTER_QueueNoCutoffTimestamp, SqlDbType.DateTime, Util.wrapNullable(QueueNoCutoffTimestamp))
+                );
 
-                    cmd.ExecuteNonQuery();
-
-                    printString = return_value.Value.ToString();
-
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Added");
-                }
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return printString;
+            if (result.IsSuccessful)
+                return result.ValueString;
+            else
+                return null;
         }
 
-        public static DataRow get(Guid id) { return Util.getFirstRow(get_withtrycatch(false, id, null, null)); }
-
-        public static DataTable get_withtrycatch(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount)
-        {
-            DataTable datatable = new DataTable();
-
-            try
-            {
-                datatable = get(calledOnly, id, queueCategoryId, topCount, null, null, null);
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return datatable;
-        }
-
+        public static DataRow get(Guid id) { return Util.getFirstRow(get(false, id, null, null)); }
+        public static DataTable get(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount) { return get(calledOnly, id, queueCategoryId, topCount, null, null, null); }
         public static DataTable get(bool calledOnly, Guid? id, Guid? queueCategoryId, int? topCount, DateTime? startDate, DateTime? endDate, DateTime? QueueNoCutoffTimestamp)
         {
-            DataTable datatable = new DataTable();
-
-            using (SqlCommand cmd = new SqlCommand("Queues_get", DBConnection.ActiveSqlConnection))
-            using (SqlDataAdapter adapter = new SqlDataAdapter())
-            {
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = Util.wrapNullable(id);
-                cmd.Parameters.Add("@" + COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier).Value = queueCategoryId;
-                cmd.Parameters.Add("@" + FILTER_CalledOnly, SqlDbType.Bit).Value = calledOnly;
-                cmd.Parameters.Add("@" + FILTER_TopCount, SqlDbType.Int).Value = topCount;
-                cmd.Parameters.Add("@" + FILTER_StartDate, SqlDbType.DateTime).Value = Util.wrapNullable(startDate);
-                cmd.Parameters.Add("@" + FILTER_EndDate, SqlDbType.DateTime).Value = Util.wrapNullable(endDate);
-                cmd.Parameters.Add("@" + FILTER_QueueNoCutoffTimestamp, SqlDbType.DateTime).Value = Util.wrapNullable(QueueNoCutoffTimestamp);
-
-                adapter.SelectCommand = cmd;
-                adapter.Fill(datatable);
-            }
-
-            return datatable;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.FillByAdapter,
+                "Queues_get",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Util.wrapNullable(id)),
+                new SqlQueryParameter(COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier, queueCategoryId),
+                new SqlQueryParameter(FILTER_CalledOnly, SqlDbType.Bit, calledOnly),
+                new SqlQueryParameter(FILTER_TopCount, SqlDbType.Int, topCount),
+                new SqlQueryParameter(FILTER_StartDate, SqlDbType.DateTime, Util.wrapNullable(startDate)),
+                new SqlQueryParameter(FILTER_EndDate, SqlDbType.DateTime, Util.wrapNullable(endDate)),
+                new SqlQueryParameter(FILTER_QueueNoCutoffTimestamp, SqlDbType.DateTime, Util.wrapNullable(QueueNoCutoffTimestamp))
+            );
+            return result.Datatable;
         }
 
         public static DataTable getLastCalledForEachCounter()
@@ -147,60 +116,42 @@ namespace Queue
 
         public static string callNext(Guid QueueCategories_Id, Guid CounterAddresses_Id)
         {
-            string calledNumber = null;
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("Queues_callNext", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier).Value = QueueCategories_Id;
-                    cmd.Parameters.Add("@" + COL_DB_CounterAddresses_Id, SqlDbType.UniqueIdentifier).Value = CounterAddresses_Id;
-                    SqlParameter Queues_No = cmd.Parameters.Add("@Queues_No", SqlDbType.VarChar, 100);
-                    Queues_No.Direction = ParameterDirection.Output;
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                true, false, false, false, false,
+                "Queues_callNext",
+                new SqlQueryParameter(COL_DB_QueueCategories_Id, SqlDbType.UniqueIdentifier, QueueCategories_Id),
+                new SqlQueryParameter(COL_DB_CounterAddresses_Id, SqlDbType.UniqueIdentifier, CounterAddresses_Id)
+                );
 
-                    cmd.ExecuteNonQuery();
-
-                    calledNumber = Queues_No.Value.ToString();
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Update Active Status to " + active);
-                }
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
-
-            return calledNumber;
+            if (result.IsSuccessful)
+                return result.ValueString;
+            else
+                return null;
         }
 
-        public static void call(Guid id, Guid CounterAddresses_Id)
+        public static void call(Guid Id, Guid CounterAddresses_Id)
         {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("Queues_call", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add("@" + COL_DB_Id, SqlDbType.UniqueIdentifier).Value = id;
-                    cmd.Parameters.Add("@" + COL_DB_CounterAddresses_Id, SqlDbType.UniqueIdentifier).Value = CounterAddresses_Id;
-
-                    cmd.ExecuteNonQuery();
-
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Update Active Status to " + active);
-                }
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "Queues_call",
+                new SqlQueryParameter(COL_DB_Id, SqlDbType.UniqueIdentifier, Id),
+                new SqlQueryParameter(COL_DB_CounterAddresses_Id, SqlDbType.UniqueIdentifier, CounterAddresses_Id)
+            );
         }
 
         public static void deleteAll()
         {
-            try
-            {
-                using (SqlCommand cmd = new SqlCommand("Queues_delete_all", DBConnection.ActiveSqlConnection))
-                {
-                    cmd.CommandType = CommandType.StoredProcedure;
-
-                    cmd.ExecuteNonQuery();
-
-                    //ActivityLog.add(sqlConnection, userAccountID, id, "Deleted");
-                }
-            }
-            catch (Exception ex) { Util.displayMessageBoxError(ex.Message); }
+            SqlQueryResult result = DBConnection.query(
+                false,
+                DBConnection.ActiveSqlConnection,
+                QueryTypes.ExecuteNonQuery,
+                "Queues_delete_all"
+            );
         }
 
         public static void update_VoidTimestamp(DateTime? QueueNoCutoffTimestamp)
@@ -220,12 +171,12 @@ namespace Queue
 
         public static void populateDropDownList(LIBUtil.Desktop.UserControls.Dropdownlist dropdownlist, bool calledOnly, int? lastQueueCount)
         {
-            dropdownlist.populate(get_withtrycatch(calledOnly, null, null, lastQueueCount), COL_CallNo, COL_DB_Id, null);
+            dropdownlist.populate(get(calledOnly, null, null, lastQueueCount), COL_CallNo, COL_DB_Id, null);
         }
 
         public static void clearQueueIfStartOfDay()
         {
-            DataTable datatable = Queues.get_withtrycatch(true, null, null, 1);
+            DataTable datatable = Queues.get(true, null, null, 1);
             if (datatable.Rows.Count > 0)
             {
                 DateTime lastdate = Util.wrapNullable<DateTime>(datatable.Rows[0], Queues.COL_DB_Timestamp);

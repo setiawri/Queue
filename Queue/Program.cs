@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using LIBUtil;
 
@@ -19,7 +16,7 @@ namespace Queue
             Application.SetCompatibleTextRenderingDefault(false);
             
             DBConnection.initialize(Settings.SQLCONNECTION_MULTIPLEUSE, Settings.CONNECTIONSTRING_DEFAULTPARAMS, Settings.SQL_USERNAME, Settings.SQL_PASSWORD);
-            runApplication();
+            //runApplication();
             Util.ensureSingleInstance(runApplication);
         }
         
