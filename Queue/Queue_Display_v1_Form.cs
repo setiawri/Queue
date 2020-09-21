@@ -62,12 +62,10 @@ namespace Queue
             timerRefreshInterval.Interval = Settings.RefreshInterval;
 
             timerAds.Interval = Settings.AdInterval;
-            if (!isAdFolderExists())
-                chkShowAds.Enabled = false;
-            else
+            if (isAdFolderExists())
             {
                 chkShowAds.Checked = Settings.ShowAdAsDefault;
-                _adsFolder = System.IO.Directory.GetFiles(Settings.AdFolder);
+                _adsFolder = Directory.GetFiles(Settings.AdFolder);
                 if (chkShowAds.Checked)
                     showAd();
             }
@@ -218,10 +216,16 @@ namespace Queue
         protected override void chkShowAds_CheckedChanged()
         {
             bool showAds = chkShowAds.Checked;
-            if (showAds && _adsFolder != null && _adsFolder.Length == 0)
+            if (!isAdFolderExists())
+            {
+                Util.displayMessageBoxError("Folder ads yang di set di Settings tidak valid.");
+                setChkShowAds(false);
+                timerAds.Stop();
+            }
+            else if (showAds && _adsFolder != null && _adsFolder.Length == 0)
             {
                 Util.displayMessageBoxError("Tidak ada file untuk ditampilkan");
-                chkShowAds.Checked = false;
+                setChkShowAds(false);
                 timerAds.Stop();
             }
             else

@@ -212,7 +212,7 @@ namespace Queue
 
         private void btnUpdateCategories_Click(object sender, EventArgs e)
         {
-            Util.displayForm(this, new MasterData_v1_QueueCategories_Form());
+            Util.displayForm(this, new MasterData_v1_QueueCategories_Form(), true);
         }
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -225,7 +225,7 @@ namespace Queue
 
         private void btnCounterAddresses_Click(object sender, EventArgs e)
         {
-            Util.displayForm(this, new MasterData_v1_CounterAddresses_Form());
+            Util.displayForm(this, new MasterData_v1_CounterAddresses_Form(), true);
         }
 
         private void btnSaveDatabaseInfo_Click(object sender, EventArgs e)
@@ -388,7 +388,7 @@ namespace Queue
 
         private void BtnHistory_Click(object sender, EventArgs e)
         {
-            Util.displayForm(this, new Reports.History_Form());       
+            Util.displayForm(this, new Reports.History_Form(), true);       
         }
 
         private void BtnSaveLicense_Click(object sender, EventArgs e)
@@ -447,6 +447,11 @@ namespace Queue
                 Queues.update_VoidTimestamp(newCutoffTimestamp);
                 lblQueueNoCutoffTimestamp.Text = string.Format("Current Cut Off Time: {0:dd/MM/yy HH:mm}", newCutoffTimestamp);
             }
+        }
+
+        private void btnResetQueueNumber_Click(object sender, EventArgs e)
+        {
+            Queues.resetQueueNumber();
         }
 
         #endregion EVENT HANDLERS

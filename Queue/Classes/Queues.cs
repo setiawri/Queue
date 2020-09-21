@@ -165,6 +165,16 @@ namespace Queue
             );
         }
 
+        public static void resetQueueNumber()
+        {
+            if (Util.displayMessageBoxYesNo("Konfirmasi nomor antrian akan di RESET?"))
+            {
+                DateTime cutofftime = DateTime.Now;
+                Settings.QueueNoCutoffTimestamp = cutofftime;
+                update_VoidTimestamp(cutofftime);
+            }
+        }
+
         #endregion DATABASE METHODS
         /*******************************************************************************************************/
         #region CLASS METHODS

@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Queue_Display_Master_v1_Form));
             this.lblHeaderText = new System.Windows.Forms.Label();
             this.pnlHeader = new System.Windows.Forms.Panel();
+            this.pnlLogo = new System.Windows.Forms.Panel();
+            this.pbLogo = new System.Windows.Forms.PictureBox();
+            this.lblAppVersion = new System.Windows.Forms.Label();
             this.pnlSettings = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbDisplayMode2 = new System.Windows.Forms.RadioButton();
@@ -37,17 +41,14 @@
             this.chkShowAds = new System.Windows.Forms.CheckBox();
             this.btnQuit = new System.Windows.Forms.Button();
             this.scContainer = new System.Windows.Forms.SplitContainer();
-            this.lblAppVersion = new System.Windows.Forms.Label();
-            this.pbLogo = new System.Windows.Forms.PictureBox();
-            this.pnlLogo = new System.Windows.Forms.Panel();
             this.pnlHeader.SuspendLayout();
+            this.pnlLogo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
             this.pnlSettings.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).BeginInit();
             this.scContainer.Panel1.SuspendLayout();
             this.scContainer.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).BeginInit();
-            this.pnlLogo.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblHeaderText
@@ -72,6 +73,40 @@
             this.pnlHeader.Name = "pnlHeader";
             this.pnlHeader.Size = new System.Drawing.Size(850, 80);
             this.pnlHeader.TabIndex = 4;
+            // 
+            // pnlLogo
+            // 
+            this.pnlLogo.Controls.Add(this.pbLogo);
+            this.pnlLogo.Controls.Add(this.lblAppVersion);
+            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlLogo.Location = new System.Drawing.Point(783, 0);
+            this.pnlLogo.Name = "pnlLogo";
+            this.pnlLogo.Size = new System.Drawing.Size(67, 80);
+            this.pnlLogo.TabIndex = 34;
+            // 
+            // pbLogo
+            // 
+            this.pbLogo.BackColor = System.Drawing.Color.Transparent;
+            this.pbLogo.BackgroundImage = global::Queue.Properties.Resources.Q_48;
+            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pbLogo.Location = new System.Drawing.Point(0, 0);
+            this.pbLogo.Name = "pbLogo";
+            this.pbLogo.Size = new System.Drawing.Size(67, 67);
+            this.pbLogo.TabIndex = 33;
+            this.pbLogo.TabStop = false;
+            // 
+            // lblAppVersion
+            // 
+            this.lblAppVersion.BackColor = System.Drawing.Color.Transparent;
+            this.lblAppVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.lblAppVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
+            this.lblAppVersion.Location = new System.Drawing.Point(0, 67);
+            this.lblAppVersion.Name = "lblAppVersion";
+            this.lblAppVersion.Size = new System.Drawing.Size(67, 13);
+            this.lblAppVersion.TabIndex = 0;
+            this.lblAppVersion.Text = "VERSION";
+            this.lblAppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // pnlSettings
             // 
@@ -131,7 +166,6 @@
             this.chkShowAds.Text = "show ads";
             this.chkShowAds.UseVisualStyleBackColor = true;
             this.chkShowAds.CheckedChanged += new System.EventHandler(this.chkShowAds_CheckedChanged);
-            this.chkShowAds.Click += new System.EventHandler(this.chkShowAds_CheckedChanged);
             // 
             // btnQuit
             // 
@@ -161,40 +195,6 @@
             this.scContainer.SplitterWidth = 1;
             this.scContainer.TabIndex = 5;
             // 
-            // lblAppVersion
-            // 
-            this.lblAppVersion.BackColor = System.Drawing.Color.Transparent;
-            this.lblAppVersion.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.lblAppVersion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(64)))));
-            this.lblAppVersion.Location = new System.Drawing.Point(0, 67);
-            this.lblAppVersion.Name = "lblAppVersion";
-            this.lblAppVersion.Size = new System.Drawing.Size(67, 13);
-            this.lblAppVersion.TabIndex = 0;
-            this.lblAppVersion.Text = "VERSION";
-            this.lblAppVersion.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // pbLogo
-            // 
-            this.pbLogo.BackColor = System.Drawing.Color.Transparent;
-            this.pbLogo.BackgroundImage = global::Queue.Properties.Resources.Q_48;
-            this.pbLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.pbLogo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pbLogo.Location = new System.Drawing.Point(0, 0);
-            this.pbLogo.Name = "pbLogo";
-            this.pbLogo.Size = new System.Drawing.Size(67, 67);
-            this.pbLogo.TabIndex = 33;
-            this.pbLogo.TabStop = false;
-            // 
-            // pnlLogo
-            // 
-            this.pnlLogo.Controls.Add(this.pbLogo);
-            this.pnlLogo.Controls.Add(this.lblAppVersion);
-            this.pnlLogo.Dock = System.Windows.Forms.DockStyle.Right;
-            this.pnlLogo.Location = new System.Drawing.Point(783, 0);
-            this.pnlLogo.Name = "pnlLogo";
-            this.pnlLogo.Size = new System.Drawing.Size(67, 80);
-            this.pnlLogo.TabIndex = 34;
-            // 
             // Queue_Display_Master_v1_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -202,12 +202,15 @@
             this.ClientSize = new System.Drawing.Size(850, 450);
             this.Controls.Add(this.scContainer);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Queue_Display_Master_v1_Form";
             this.Text = "QueueDisplay_Master_Form";
             this.Load += new System.EventHandler(this.Form_Load);
             this.Shown += new System.EventHandler(this.Queue_Display_Master_Form_Shown);
             this.pnlHeader.ResumeLayout(false);
             this.pnlHeader.PerformLayout();
+            this.pnlLogo.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
             this.pnlSettings.ResumeLayout(false);
             this.pnlSettings.PerformLayout();
             this.groupBox1.ResumeLayout(false);
@@ -215,8 +218,6 @@
             this.scContainer.Panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.scContainer)).EndInit();
             this.scContainer.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pbLogo)).EndInit();
-            this.pnlLogo.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

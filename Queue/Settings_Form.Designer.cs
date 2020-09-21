@@ -96,12 +96,13 @@
             this.txtSoundFolder = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.tpDatabase = new System.Windows.Forms.TabPage();
+            this.pnlLicense = new System.Windows.Forms.Panel();
+            this.itxt_License = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
+            this.btnSubmitLicense = new System.Windows.Forms.Button();
             this.pnlDatabaseConnection = new System.Windows.Forms.Panel();
             this.itxt_ServerName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
             this.itxt_DatabaseName = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.btnSubmitLicense = new System.Windows.Forms.Button();
-            this.itxt_License = new LIBUtil.Desktop.UserControls.InputControl_Textbox();
-            this.pnlLicense = new System.Windows.Forms.Panel();
+            this.btnResetQueueNumber = new System.Windows.Forms.Button();
             this.gbRefreshInterval.SuspendLayout();
             this.gbPrinterSettings.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridPrintLayout)).BeginInit();
@@ -121,8 +122,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvSoundFiles)).BeginInit();
             this.panel1.SuspendLayout();
             this.tpDatabase.SuspendLayout();
-            this.pnlDatabaseConnection.SuspendLayout();
             this.pnlLicense.SuspendLayout();
+            this.pnlDatabaseConnection.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnUpdateCategories
@@ -654,6 +655,7 @@
             // 
             // gbQueueCutOffTime
             // 
+            this.gbQueueCutOffTime.Controls.Add(this.btnResetQueueNumber);
             this.gbQueueCutOffTime.Controls.Add(this.lblQueueNoCutoffTimestamp);
             this.gbQueueCutOffTime.Controls.Add(this.label2);
             this.gbQueueCutOffTime.Controls.Add(this.in_AutomaticQueueNoResetHour);
@@ -944,6 +946,44 @@
             this.tpDatabase.Text = "Database";
             this.tpDatabase.UseVisualStyleBackColor = true;
             // 
+            // pnlLicense
+            // 
+            this.pnlLicense.Controls.Add(this.itxt_License);
+            this.pnlLicense.Controls.Add(this.btnSubmitLicense);
+            this.pnlLicense.Location = new System.Drawing.Point(60, 11);
+            this.pnlLicense.Name = "pnlLicense";
+            this.pnlLicense.Size = new System.Drawing.Size(234, 52);
+            this.pnlLicense.TabIndex = 2;
+            this.pnlLicense.Visible = false;
+            // 
+            // itxt_License
+            // 
+            this.itxt_License.IsBrowseMode = false;
+            this.itxt_License.LabelText = "License";
+            this.itxt_License.Location = new System.Drawing.Point(8, 8);
+            this.itxt_License.MaxLength = 32767;
+            this.itxt_License.MultiLine = false;
+            this.itxt_License.Name = "itxt_License";
+            this.itxt_License.PasswordChar = '\0';
+            this.itxt_License.RowCount = 1;
+            this.itxt_License.ShowDeleteButton = false;
+            this.itxt_License.ShowFilter = false;
+            this.itxt_License.ShowTextboxOnly = false;
+            this.itxt_License.Size = new System.Drawing.Size(132, 37);
+            this.itxt_License.TabIndex = 0;
+            this.itxt_License.ValueText = "";
+            // 
+            // btnSubmitLicense
+            // 
+            this.btnSubmitLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSubmitLicense.Location = new System.Drawing.Point(146, 8);
+            this.btnSubmitLicense.Name = "btnSubmitLicense";
+            this.btnSubmitLicense.Size = new System.Drawing.Size(81, 38);
+            this.btnSubmitLicense.TabIndex = 1;
+            this.btnSubmitLicense.Text = "SUBMIT";
+            this.btnSubmitLicense.UseVisualStyleBackColor = true;
+            this.btnSubmitLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
+            // 
             // pnlDatabaseConnection
             // 
             this.pnlDatabaseConnection.Controls.Add(this.itxt_ServerName);
@@ -988,43 +1028,15 @@
             this.itxt_DatabaseName.TabIndex = 1;
             this.itxt_DatabaseName.ValueText = "";
             // 
-            // btnSubmitLicense
+            // btnResetQueueNumber
             // 
-            this.btnSubmitLicense.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSubmitLicense.Location = new System.Drawing.Point(146, 8);
-            this.btnSubmitLicense.Name = "btnSubmitLicense";
-            this.btnSubmitLicense.Size = new System.Drawing.Size(81, 38);
-            this.btnSubmitLicense.TabIndex = 1;
-            this.btnSubmitLicense.Text = "SUBMIT";
-            this.btnSubmitLicense.UseVisualStyleBackColor = true;
-            this.btnSubmitLicense.Click += new System.EventHandler(this.BtnSaveLicense_Click);
-            // 
-            // itxt_License
-            // 
-            this.itxt_License.IsBrowseMode = false;
-            this.itxt_License.LabelText = "License";
-            this.itxt_License.Location = new System.Drawing.Point(8, 8);
-            this.itxt_License.MaxLength = 32767;
-            this.itxt_License.MultiLine = false;
-            this.itxt_License.Name = "itxt_License";
-            this.itxt_License.PasswordChar = '\0';
-            this.itxt_License.RowCount = 1;
-            this.itxt_License.ShowDeleteButton = false;
-            this.itxt_License.ShowFilter = false;
-            this.itxt_License.ShowTextboxOnly = false;
-            this.itxt_License.Size = new System.Drawing.Size(132, 37);
-            this.itxt_License.TabIndex = 0;
-            this.itxt_License.ValueText = "";
-            // 
-            // pnlLicense
-            // 
-            this.pnlLicense.Controls.Add(this.itxt_License);
-            this.pnlLicense.Controls.Add(this.btnSubmitLicense);
-            this.pnlLicense.Location = new System.Drawing.Point(60, 11);
-            this.pnlLicense.Name = "pnlLicense";
-            this.pnlLicense.Size = new System.Drawing.Size(234, 52);
-            this.pnlLicense.TabIndex = 2;
-            this.pnlLicense.Visible = false;
+            this.btnResetQueueNumber.Location = new System.Drawing.Point(234, 43);
+            this.btnResetQueueNumber.Name = "btnResetQueueNumber";
+            this.btnResetQueueNumber.Size = new System.Drawing.Size(75, 23);
+            this.btnResetQueueNumber.TabIndex = 26;
+            this.btnResetQueueNumber.Text = "RESET";
+            this.btnResetQueueNumber.UseVisualStyleBackColor = true;
+            this.btnResetQueueNumber.Click += new System.EventHandler(this.btnResetQueueNumber_Click);
             // 
             // Settings_Form
             // 
@@ -1065,8 +1077,8 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.tpDatabase.ResumeLayout(false);
-            this.pnlDatabaseConnection.ResumeLayout(false);
             this.pnlLicense.ResumeLayout(false);
+            this.pnlDatabaseConnection.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1142,5 +1154,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label lblQueueNoCutoffTimestamp;
         private System.Windows.Forms.Panel pnlLicense;
+        private System.Windows.Forms.Button btnResetQueueNumber;
     }
 }

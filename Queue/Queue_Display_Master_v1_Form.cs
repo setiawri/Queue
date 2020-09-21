@@ -96,6 +96,13 @@ namespace Queue
             Helper.setNewForm(this, Helper.selectedDisplayForm());
         }
 
+        public void setChkShowAds(bool value)
+        {
+            this.chkShowAds.CheckedChanged -= new System.EventHandler(this.chkShowAds_CheckedChanged);
+            chkShowAds.Checked = value;
+            this.chkShowAds.CheckedChanged += new System.EventHandler(this.chkShowAds_CheckedChanged);
+        }
+
         #endregion METHODS
         /*******************************************************************************************************/
         #region EVENT HANDLERS

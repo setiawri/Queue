@@ -274,11 +274,7 @@ namespace Queue
 
         private void BtnResetQueueNo_Click(object sender, EventArgs e)
         {
-            if (Util.displayMessageBoxYesNo("Konfirmasi nomor antrian akan di RESET ke 1"))
-            {
-                Settings.QueueNoCutoffTimestamp = DateTime.Now;
-                Queues.update_VoidTimestamp(DateTime.Now);
-            }
+            Queues.resetQueueNumber();
         }
 
         #endregion EVENT HANDLERS
