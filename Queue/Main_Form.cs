@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Queue
@@ -24,7 +17,10 @@ namespace Queue
                 Form form = Helper.formToOpen;
                 Helper.formToOpen = null;
                 LIBUtil.Util.displayForm(this, form, true);
-                //LIBUtil.Util.displayForm(this, form);
+                if(form.GetType() == typeof(MasterData_v1_CounterAddresses_Form))
+                {
+                    LIBUtil.Util.displayForm(null, new Settings_Form(), true);
+                }
             }
 
             this.Close();

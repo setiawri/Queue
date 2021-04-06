@@ -27,6 +27,7 @@ namespace Queue
         //Call Queue
         private static List<string> _CALL_QueueNumber = new List<string>();
         private static List<string> _CALL_CounterName = new List<string>();
+        private static bool _isSoundPlaying = false;
 
         #endregion SETTINGS
         /*******************************************************************************************************/
@@ -139,7 +140,7 @@ namespace Queue
                     _CALL_QueueNumber.Add(row[Queues.COL_CallNo].ToString());
                     _CALL_CounterName.Add(row[Queues.COL_DB_CounterAddresses_Name].ToString());
 
-                    if (!bgwCaller.IsBusy)
+                    if (!_isSoundPlaying)
                         bgwCaller.RunWorkerAsync();
                 }
             }
@@ -303,7 +304,8 @@ namespace Queue
 
         private void BgwCaller_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
         {
-            while(_CALL_CounterName.Count > 0)
+            _isSoundPlaying = true;
+            while (_CALL_CounterName.Count > 0)
             {
                 try
                 {
@@ -313,6 +315,7 @@ namespace Queue
                 }
                 catch { }
             }
+            _isSoundPlaying = false;
         }
 
         #endregion EVENT HANDLERS

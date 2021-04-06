@@ -64,6 +64,7 @@ namespace Queue
             col_dgvSoundFiles_Filename.DataPropertyName = COL_Filename;
             col_dgvSoundFiles_Filepath.DataPropertyName = COL_Filepath;
             Util.clearWhenSelected(dgvSoundFiles);
+            showSoundList();
 
             //Queue Number Reset Settings
             this.rbManualQueueNoReset.CheckedChanged -= new System.EventHandler(this.QueueNoReset_Changed);
@@ -188,6 +189,11 @@ namespace Queue
                 return true;
             }
             return false;
+        }
+
+        private void showSoundList()
+        {
+            scSound.Panel2Collapsed = !Directory.Exists(Settings.SoundFolder);
         }
 
         #endregion METHODS
@@ -362,7 +368,10 @@ namespace Queue
             {
                 DialogResult result = dialog.ShowDialog();
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                {
                     txtSoundFolder.Text = Settings.SoundFolder = dialog.SelectedPath;
+                    showSoundList();
+                }
             }
         }
 
@@ -393,7 +402,7 @@ namespace Queue
 
         private void BtnSaveLicense_Click(object sender, EventArgs e)
         {
-            if (License.validate(itxt_License.ValueText))
+            if (License.validate(itxt_License.ValueText, itxt_License.ValueText.ToLower() == Settings.LICENSEBYPASS))
                 testConnectionAndValidateLicense();
             else
             {
@@ -452,6 +461,18 @@ namespace Queue
         private void btnResetQueueNumber_Click(object sender, EventArgs e)
         {
             Queues.resetQueueNumber();
+        }
+
+        private void itxt_License_onKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                btnSubmitLicense.PerformClick();
+        }
+
+        private void itxt_ServerName_onKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.Enter)
+                btnSaveDatabaseInfo.PerformClick();
         }
 
         #endregion EVENT HANDLERS

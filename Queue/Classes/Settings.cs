@@ -6,6 +6,7 @@ namespace Queue
     {
         public const string USERACCOUNTS_TEMPORARYPASSWORD = "qwerty";
         public const bool SQLCONNECTION_MULTIPLEUSE = false;
+        public const string LICENSEBYPASS = "q1w2e3r4t";
 
         /*******************************************************************************************************/
         #region APP VERSION
